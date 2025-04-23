@@ -167,7 +167,22 @@
                     <driver>org.postgresql.Driver</driver>
                 </configuration>
             </plugin>
-
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <!-- включаем хранение имён параметров в байткоде -->
+                    <parameters>true</parameters>
+                    <!-- или явно через аргументы:
+                    <compilerArgs>
+                      <arg>-parameters</arg>
+                    </compilerArgs>
+                    -->
+                    <source>17</source>
+                    <target>17</target>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 

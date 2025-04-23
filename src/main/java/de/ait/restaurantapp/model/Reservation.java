@@ -2,6 +2,7 @@ package de.ait.restaurantapp.model;
 
 import de.ait.restaurantapp.enums.ReservationStatus;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -34,6 +35,7 @@ public class Reservation {
     private String customerName;
 
     @Column(nullable = false)
+    @Email
     private String customerEmail;
 
     @Column(nullable = false)
