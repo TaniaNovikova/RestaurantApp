@@ -96,7 +96,7 @@ public class ReservationServiceImpl implements ReservationService {
         // --- Ограничение по времени работы ресторана---
         LocalTime openingTime = LocalTime.parse(openingTimeString);
         LocalTime closingTime = LocalTime.parse(closingTimeString);
-        LocalTime startTime   = startDateTime.toLocalTime();
+        LocalTime startTime = startDateTime.toLocalTime();
         //LocalTime endTime     = endDateTime.toLocalTime();
         if (startTime.isBefore(openingTime) || endTime.isAfter(closingTime)) {
             throw new IllegalArgumentException(
@@ -160,6 +160,10 @@ public class ReservationServiceImpl implements ReservationService {
                 emailClientDto.setTo(saved.getCustomerEmail());
                 emailClientDto.setName(saved.getCustomerName());
                 emailClientDto.setReservationCode(reservationCode);
+                emailClientDto.setStartTime(saved.getStartDateTime());
+                emailClientDto.setEndTime(saved.getEndDateTime());
+                emailClientDto.setGuestCount(saved.getGuestCount());
+                emailClientDto.setSubject("Подтверждение бронирования столика");
                 emailService.sendHTMLEmail(emailClientDto);
 
                 return saved;
@@ -186,7 +190,7 @@ public class ReservationServiceImpl implements ReservationService {
     public List<Reservation> getReservationsForTableToday(Integer tableId) {
         log.debug("Fetching today's reservations for table {}", tableId);
         LocalDate today = LocalDate.now();
-        LocalDateTime startOfDay     = today.atStartOfDay();
+        LocalDateTime startOfDay = today.atStartOfDay();
         LocalDateTime startOfNextDay = today.plusDays(1).atStartOfDay();
 
         List<Reservation> reservations = reservationRepo
@@ -223,6 +227,25 @@ public class ReservationServiceImpl implements ReservationService {
                         log.warn("Cancel failed - reservation {} is already canceled", reservationCode);
                         return false;
                     }
+
+                    if (reservation.getReservationCode().equals(reservationCode)) {
+                        EmailDto emailClientDto = new EmailDto();
+                        emailClientDto.setTo(reservation.getCustomerEmail());
+                        emailClientDto.setName(reservation.getCustomerName());
+                        emailClientDto.setStartTime(reservation.getStartDateTime());
+                        emailClientDto.setEndTime(reservation.getEndDateTime());
+                        emailClientDto.setGuestCount(reservation.getGuestCount());
+                        emailClientDto.setSubject("Подтверждение отмены бронирования столика");
+                        emailClientDto.setCancel(true);
+
+                        try {
+                            emailService.sendHTMLEmail(emailClientDto);
+                        } catch (MessagingException e) {
+                            log.error("Failed to send HTMLEmail {}", e);
+                            throw new RuntimeException(e);
+                        }
+                    }
+
                     reservation.setReservationStatus(ReservationStatus.CANCELED);
                     reservationRepo.save(reservation);
                     log.info("Reservation {} canceled successfully", reservationCode);

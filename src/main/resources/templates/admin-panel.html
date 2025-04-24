@@ -105,27 +105,33 @@
 
             box-sizing: border-box;
         }
+
         *::before,
         *::after {
             display: inline-block;
         }
+
         a {
             text-decoration: none;
             display: inline-block;
             color: inherit;
         }
+
         li {
             list-style: none;
         }
+
         img {
             max-width: 100%;
             vertical-align: middle;
         }
+
         html,
         body {
             line-height: 1;
             height: 100%;
         }
+
         h1,
         h2,
         h3,
@@ -141,28 +147,28 @@
             overflow: clip;
         }
 
-        .container{
+        .container {
             max-width: 1515px;
             margin: 0 auto;
             padding-right: 15px;
 
         }
 
-        .content-wrapper{
+        .content-wrapper {
             position: relative;
             min-height: 100vh;
         }
 
         .header {
             position: absolute;
-            top:0;
+            top: 0;
             left: 0px;
             min-height: 100%;
             background-color: #68462D;
             padding: 15px 0;
         }
 
-        .header__inner{
+        .header__inner {
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -175,10 +181,10 @@
         }
 
 
-        .header__logo-container::before{
+        .header__logo-container::before {
             position: absolute;
-            top:0;
-            left:-10px;
+            top: 0;
+            left: -10px;
             z-index: 1;
             content: "";
             width: 110px;
@@ -192,58 +198,61 @@
             z-index: 2;
             width: 100%;
         }
+
         .header__menu {
-            padding:40px 0;
+            padding: 40px 0;
         }
+
         .header__menu-list {
             display: flex;
             flex-direction: column;
-            gap:20px;
+            gap: 20px;
         }
+
         .header__menu-item {
             position: relative;
             z-index: 10;
-            padding:20px 40px 20px 20px;
-            border:2px solid #D5CCBA;
+            padding: 20px 40px 20px 20px;
+            border: 2px solid #D5CCBA;
             box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
             letter-spacing: 3px;
             text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-            color:#443A36;
+            color: #443A36;
             text-align: center;
             font-size: 20px;
-            font-family: "Lobster",serif;
+            font-family: "Lobster", serif;
             font-weight: 700;
             background: #E6D7C4;
             cursor: pointer;
         }
 
-        .header__menu-item:before{
+        .header__menu-item:before {
             content: "";
             position: absolute;
-            top:30%;
-            right:5px;
+            top: 30%;
+            right: 5px;
             width: 15px;
             height: 15px;
-            border-left:15px solid #443A36;
-            border-top:15px solid transparent;
-            border-bottom:15px solid transparent;
+            border-left: 15px solid #443A36;
+            border-top: 15px solid transparent;
+            border-bottom: 15px solid transparent;
         }
 
-        .header__menu-item:hover:before{
-            border-right:15px solid #443A36;
+        .header__menu-item:hover:before {
+            border-right: 15px solid #443A36;
             border-left: 0;
         }
 
-        .header__menu-item:hover >div{
+        .header__menu-item:hover > div {
             opacity: 1;
             visibility: visible;
             cursor: auto;
         }
 
-        .header__menu-item > div{
+        .header__menu-item > div {
             position: absolute;
-            left:100%;
-            top:-255px;
+            left: 100%;
+            top: -255px;
             opacity: 0;
             visibility: hidden;
             /* opacity: 1;
@@ -252,27 +261,28 @@
 
 
         /* reservation-form */
-        .section-form{
+        .section-form {
             color: rgba(65, 54, 37, 0.79);
             min-height: 100vh;
             min-width: 800px;
-            display:flex;
+            display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             background: linear-gradient(0deg, rgba(175, 145, 145, 0.16) 0%, rgba(175, 145, 145, 0.16) 100%), #E8D7B7;
         }
+
         .table-reservation {
             position: relative;
             background: linear-gradient(0deg, rgba(175, 145, 145, 0.16) 0%, rgba(175, 145, 145, 0.16) 100%), #E8D7B7;
-            display:flex;
+            display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             color: rgba(65, 54, 37, 0.79);
-            font-family: "Alegreya Sans SC",sans-serif;
+            font-family: "Alegreya Sans SC", sans-serif;
             background-color: #f0e8dc;
-            border:2px solid #D5CCBA;
+            border: 2px solid #D5CCBA;
             border-radius: 10px;
         }
 
@@ -287,30 +297,31 @@
             position: relative;
         }
 
-        .table-reservation__form::before{
+        .table-reservation__form::before {
             position: absolute;
-            bottom:60px;
-            left:3px;
-            content:"";
+            bottom: 60px;
+            left: 3px;
+            content: "";
             width: 100px;
             height: 100px;
-            background:url(https://i.postimg.cc/3xR36vWh/deco-1.avif) 0 0 / cover no-repeat;
+            background: url(https://i.postimg.cc/3xR36vWh/deco-1.avif) 0 0 / cover no-repeat;
             transform: rotate(90deg);
         }
 
-        .table-reservation__form::after{
+        .table-reservation__form::after {
             position: absolute;
-            top:-5px;
-            right:6px;
-            content:"";
+            top: -5px;
+            right: 6px;
+            content: "";
             width: 100px;
             height: 100px;
-            background:url(https://i.postimg.cc/3xR36vWh/deco-1.avif) 0 0 / cover no-repeat;
+            background: url(https://i.postimg.cc/3xR36vWh/deco-1.avif) 0 0 / cover no-repeat;
             transform: rotate(270deg);
         }
+
         .table-reservation__title {
-            margin:-30px 20px 20px;
-            padding:10px;
+            margin: -30px 20px 20px;
+            padding: 10px;
             background: #E6D7C4;
             box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
             font-weight: 700;
@@ -319,210 +330,251 @@
             text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
             border-radius: 10px;
         }
+
         .form {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding:10px;
-            margin-bottom:20px;
+            padding: 10px;
+            margin-bottom: 20px;
         }
 
-        .form__data-container{
+        .form__data-container {
             background-color: #FDFAEF;
-            padding:40px;
+            padding: 40px;
             box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
             border-radius: 10px;
             margin-bottom: 20px;
         }
 
-        .form__data-container>div:not(:last-child){
-            margin-bottom:30px;
+        .form__data-container > div:not(:last-child) {
+            margin-bottom: 30px;
         }
+
         .form__group {
             position: relative;
-            font-family: "Salsa",serif;
+            font-family: "Salsa", serif;
         }
+
         .form__label {
             position: absolute;
-            top:-12px;
-            left:10px;
+            top: -12px;
+            left: 10px;
             display: block;
             font-size: 20px;
             background-color: #FDFAEF;
-            padding:0 10px;
+            padding: 0 10px;
 
         }
+
         .form__input {
             min-width: 400px;
             background-color: #FDFAEF;
-            border:1px solid #CBCBCB;
+            border: 1px solid #CBCBCB;
             border-radius: 10px;
-            padding:15px;
+            padding: 15px;
             font-size: 20px;
-            color:inherit;
+            color: inherit;
             font-family: inherit;
         }
 
-        .form__input:focus{
+        .form__input:focus {
             outline: none;
             box-shadow: 3px 3px 8px #E3C8AE;
         }
+
         .form__submit-btn {
-            color:inherit;
+            color: inherit;
             font-weight: 700;
             font-family: inherit;
-            padding:15px;
+            padding: 15px;
             background-color: #E3C8AE;
             border-radius: 15px;
             text-transform: uppercase;
             letter-spacing: 3px;
             box-shadow: 0 5px 0 0 rgba(65, 54, 37, 0.79);;
-            transition:all 0.3s;
+            transition: all 0.3s;
             position: relative;
-            top:0;
+            top: 0;
             max-width: 200px;
             cursor: pointer;
         }
-        .form__submit-btn:hover{
+
+        .form__submit-btn:hover {
             background-color: #d6b390;
         }
 
-        .form__submit-btn:active{
-            top:3px;
+        .form__submit-btn:active {
+            top: 3px;
             box-shadow: 0 2px 0px 0px rgba(65, 54, 37, 0.79);;
         }
-        .message{
+
+        .message {
             min-height: 200px;
         }
 
 
         /* canselation-form */
-        .section-form__cansellation{
-            margin-top:-82px;
+        .section-form__cansellation {
+            margin-top: -82px;
         }
 
-        .table-cansellation{
+        .table-cansellation {
             position: relative;
             background: linear-gradient(0deg, rgba(175, 145, 145, 0.16) 0%, rgba(175, 145, 145, 0.16) 100%), #E8D7B7;
-            display:flex;
+            display: flex;
 
             color: rgba(65, 54, 37, 0.79);
-            font-family: "Alegreya Sans SC",sans-serif;
+            font-family: "Alegreya Sans SC", sans-serif;
             background-color: #f0e8dc;
-            border:2px solid #D5CCBA;
+            border: 2px solid #D5CCBA;
             border-radius: 10px;
         }
 
 
         /* load-menu */
-        .section-form__wrapper{
+        .section-form__wrapper {
             max-width: 500px;
             background-color: #f0e8dc;
             border-radius: 10px;
         }
 
-        .item__load-menu{
+        .item__load-menu {
 
             font-size: 30px;
             display: flex;
-            gap:25px;
+            gap: 25px;
         }
 
-        h2{
+        h2 {
             padding-bottom: 10px;
             padding-top: 10px;
         }
 
-        .menu-btn{
-            margin-top:15px;
+        .menu-btn {
+            margin-top: 15px;
         }
 
 
         /* main-section */
-        .main{
+        .main {
             position: absolute;
-            top:50px;
-            left:350px;
+            top: 50px;
+            left: 350px;
         }
-        .main-container{
+
+        .main-container {
             display: flex;
             align-items: flex-start;
-            gap:100px;
-            flex-wrap:nowrap;
+            gap: 100px;
+            flex-wrap: nowrap;
 
         }
 
-        .find-reservation{
+        .find-reservation {
             max-width: 500px;
             color: wheat;
-            padding:20px;
+            padding: 20px;
             background-color: #68462D;
             border-radius: 10px;
         }
 
-        .title{
+        .title {
             max-width: 400px;
-            font-family: "Salsa",serif;
+            font-family: "Salsa", serif;
             font-weight: 700;
             font-size: 30px;
-            padding-left:10px;
+            padding-left: 10px;
             margin-bottom: 15px;
         }
 
-        [type = "date"]{
-            margin-top:10px;
+        [type = "date"] {
+            margin-top: 10px;
             font-size: 25px;
             cursor: pointer;
         }
 
-        .find-reservation__form{
+        .find-reservation__form {
             display: flex;
-            gap:15px;
+            gap: 15px;
             align-items: center;
 
         }
 
-        .btn{
-            margin-top:20px;
-            color:#443A36;
+        .btn {
+            margin-top: 20px;
+            color: #443A36;
         }
 
-        .btn-number{
-            margin-top:25px;
-            color:#443A36;
+        .btn-number {
+            margin-top: 25px;
+            color: #443A36;
         }
 
-        [type = "number"]{
-            margin-top:10px;
+        [type = "number"] {
+            margin-top: 10px;
             font-size: 25px;
             cursor: pointer;
         }
 
-        .lable{
-            font-family: "Salsa",serif;
+        .lable {
+            font-family: "Salsa", serif;
             font-weight: 700;
             font-size: 25px;
             color: #b4b2b0;
         }
 
-        .data-container{
+        .data-container {
             margin-top: 30px;
-            padding:10px;
+            padding: 10px;
+            max-height: 500px;
+            overflow-y: auto;
         }
 
-        .data-container h2{
+        .data-container h2 {
             color: #68462D;
             font-weight: 700;
         }
 
-        .data-container li{
+        .data-container li {
             padding: 10px 0;
             color: #443a36
         }
 
-        .data-container li:not(:last-child){
+        .data-container li:not(:last-child) {
             border-bottom: 1px solid #443a36;
+        }
+
+        .go-back-link-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        .go-back-link {
+            font-size: 30px;
+            position: relative;
+            margin-top: 50px;
+            cursor: pointer;
+        }
+
+        .go-back-link::before {
+            content: "";
+            position: absolute;
+            bottom: -20px;
+            left: -15px;
+            width: 440px;
+            height: 20px;
+            background: url("https://i.postimg.cc/1zwJ3c3Y/vintage-underline.png") no-repeat 0 0 / 100% 100%;
+            opacity: 0;
+            transform: translateY(5px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            pointer-events: none;
+        }
+
+        .go-back-link:hover::before {
+            opacity: 0.6;
+            transform: translateY(0);
         }
 
     </style>
@@ -557,7 +609,8 @@
                                             </div>
                                             <button class="form__submit-btn menu-btn"
                                                     type="submit">Загрузить
-                                                меню</button>
+                                                меню
+                                            </button>
                                         </form>
                                     </div>
                                     <!-- Сообщение при загрузке меню удачно или нет -->
@@ -573,51 +626,52 @@
                                     <div class="section-form">
                                         <div class="table-reservation">
                                             <form class="table-reservation__form form"
-                                            th:action="@{/restaurant/admin/reserve}"
-                                            th:object="${reservationForm}"
-                                            method="post">
-                                            <div class="form__data-container">
-                                                <div class="form__group">
-                                                    <label for="name" class="form__label">Имя,
-                                                        Фамилия
-                                                    </label>
-                                                    <input class="form__input" id="name" type="text"
-                                                           th:field="*{customerName}" required>
+                                                  th:action="@{/restaurant/admin/reserve}"
+                                                  th:object="${reservationForm}"
+                                                  method="post">
+                                                <div class="form__data-container">
+                                                    <div class="form__group">
+                                                        <label for="name" class="form__label">Имя,
+                                                            Фамилия
+                                                        </label>
+                                                        <input class="form__input" id="name" type="text"
+                                                               th:field="*{customerName}" required>
+                                                    </div>
+                                                    <div class="form__group">
+                                                        <label for="email"
+                                                               class="form__label">Email</label>
+                                                        <input class="form__input" id="email" type="email"
+                                                               th:field="*{customerEmail}" required>
+                                                    </div>
+                                                    <div class="form__group">
+                                                        <label for="guestNumber" class="form__label">
+                                                            Количество гостей
+                                                        </label>
+                                                        <input class="form__input" id="guestNumber"
+                                                               type="number"
+                                                               th:field="*{guestNumber}"
+                                                               min="1" required>
+                                                    </div>
+                                                    <div class="form__group">
+                                                        <label for="startDateTime" class="form__label">
+                                                            Дата и Время начала
+                                                        </label>
+                                                        <input class="form__input" id="startDateTime"
+                                                               type="datetime-local"
+                                                               th:field="*{startDateTime}" required>
+                                                    </div>
+                                                    <div class="form__group">
+                                                        <label for="endDateTime" class="form__label">
+                                                            Время окончания
+                                                        </label>
+                                                        <input class="form__input" id="endDateTime"
+                                                               type="time"
+                                                               th:field="*{endTime}" required>
+                                                    </div>
                                                 </div>
-                                                <div class="form__group">
-                                                    <label for="email"
-                                                           class="form__label">Email</label>
-                                                    <input class="form__input" id="email" type="email"
-                                                           th:field="*{customerEmail}" required>
-                                                </div>
-                                                <div class="form__group">
-                                                    <label for="guestNumber" class="form__label">
-                                                        Количество гостей
-                                                    </label>
-                                                    <input class="form__input" id="guestNumber"
-                                                           type="number"
-                                                           th:field="*{guestNumber}"
-                                                           min="1" required>
-                                                </div>
-                                                <div class="form__group">
-                                                    <label for="startDateTime" class="form__label">
-                                                        Дата и Время начала
-                                                    </label>
-                                                    <input class="form__input" id="startDateTime"
-                                                           type="datetime-local"
-                                                           th:field="*{startDateTime}" required>
-                                                </div>
-                                                <div class="form__group">
-                                                    <label for="endDateTime" class="form__label">
-                                                        Время окончания
-                                                    </label>
-                                                    <input class="form__input" id="endDateTime"
-                                                           type="time"
-                                                           th:field="*{endTime}" required>
-                                                </div>
-                                            </div>
-                                            <button class="form__submit-btn"
-                                                    type="submit">Забронировать</button>
+                                                <button class="form__submit-btn"
+                                                        type="submit">Забронировать
+                                                </button>
                                             </form>
                                         </div>
                                         <!-- Сообщение при отправке удачно или нет -->
@@ -646,7 +700,8 @@
                                                 </div>
                                             </div>
                                             <button class="form__submit-btn"
-                                                    type="submit">Отменить</button>
+                                                    type="submit">Отменить
+                                            </button>
                                         </form>
                                     </div>
                                     <!-- Сообщение при удалении удачно или нет -->
@@ -671,7 +726,8 @@
                                 <input type="date" name="date" required>
                             </label>
                             <button class="form__submit-btn btn"
-                                    type="submit">Показать</button>
+                                    type="submit">Показать
+                            </button>
                         </form>
                         <!-- Список резерваций по дате -->
                         <div class="form__data-container data-container">
@@ -684,7 +740,8 @@
                                    ' | Имя: ' + ${res.customerName} +
                                    ' | Гостей: ' + ${res.guestCount} +
                                    ' | Время: ' + ${res.startDateTime} + ' - ' + ${res.endDateTime} +
-                                   ' | Стол №: ' + ${res.restaurantTable.id}"></span>
+                                   ' | Стол №: ' + ${res.restaurantTable.id} +
+                                   ' | Статус: ' + ${res.reservationStatus}"></span>
                                     </li>
                                 </ul>
                             </section>
@@ -700,7 +757,8 @@
                                 <input type="number" name="tableNumber" min="1" required>
                             </label>
                             <button class="form__submit-btn btn-number"
-                                    type="submit">Показать</button>
+                                    type="submit">Показать
+                            </button>
                         </form>
                         <!-- Список резерваций по столику -->
                         <div class="form__data-container data-container">
@@ -713,11 +771,17 @@
                                    ' | Имя: ' + ${res.customerName} +
                                    ' | Гостей: ' + ${res.guestCount} +
                                    ' | Время: ' + ${res.startDateTime} + ' - ' + ${res.endDateTime} +
-                                   ' | Стол №: ' + ${res.restaurantTable.id}"></span>
+                                   ' | Стол №: ' + ${res.restaurantTable.id} +
+                                   ' | Статус: ' + ${res.reservationStatus}"></span>
                                     </li>
                                 </ul>
                             </section>
                         </div>
+                    </div>
+                </div>
+                <div class="go-back-link-container">
+                    <div class="go-back-link">
+                        <a th:href="@{/restaurant}">Вернуться на Главную Страницу</a>
                     </div>
                 </div>
             </main>

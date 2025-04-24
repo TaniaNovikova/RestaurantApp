@@ -28,8 +28,6 @@ public class SecurityConfig {
         return http.build();
     }
 
-
-
     @Bean
     @Order(2)
     public SecurityFilterChain publicSecurity(HttpSecurity http) throws Exception {
@@ -39,7 +37,8 @@ public class SecurityConfig {
                                 "/restaurant", "/restaurant/",
                                 "/restaurant/reservations/**",
                                 "/restaurant/reserve/**",
-                                "/restaurant/cancel/**"
+                                "/restaurant/cancel/**",
+                                "/restaurant/menu", "/restaurant/menu/**"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
@@ -47,7 +46,6 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable());
         return http.build();
     }
-
 
     @Bean
     public UserDetailsService userDetailsService() {

@@ -1,25 +1,3 @@
-<!--<!DOCTYPE html>-->
-<!--<html xmlns:th="http://www.thymeleaf.org">-->
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <title>Подтверждение брони столика</title>-->
-<!--</head>-->
-<!--<body>-->
-<!--<h2>Здравствуйте, [[${name}]]</h2>-->
-<!--<p>Вы успешно забронировали столик в нашем ресторане.</p>-->
-
-<!--<p><strong>Код вашей резервации: </strong>[[${reservationCode}]]</p>-->
-<!--<p>Если вы не сможете прийти, вы можете отменить бронь на нашем сайте.</p>-->
-<!--<p>Для отмены заказа введите код бронирования на сайте ресторана:</p>-->
-
-<!--<a th:href="@{'http://localhost:8080/restaurant/cancel'}">-->
-<!--    Отменить резервацию-->
-<!--</a>-->
-
-<!--<p>Спасибо, что выбрали наш ресторан!</p>-->
-<!--</body>-->
-<!--</html>-->
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html
@@ -27,13 +5,12 @@
         xmlns="http://www.w3.org/1999/xhtml"
         xmlns:v="urn:schemas-microsoft-com:vml"
         xmlns:o="urn:schemas-microsoft-com:office:office"
-        xmlns:th="http://www.thymeleaf.org"
->
+        xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Подтверждение брони столика</title>
+    <title>Подтверждение отмены бронирования</title>
     <style type="text/css">
         @import url(https://fonts.googleapis.com/css?family=Rubik:regular,500,700&display=swap);
 
@@ -99,8 +76,7 @@
 </head>
 
 <body
-        style="margin: 0; padding: 0; min-width: 100%; background-color: #dde0e1"
->
+        style="margin: 0; padding: 0; min-width: 100%; background-color: #dde0e1">
 <!--[if (gte mso 9) | (IE)]>
 <style type="text/css">
     body {
@@ -124,15 +100,13 @@
         background-color: #dde0e1;
         padding-top: 40px;
         padding-bottom: 40px;
-      "
->
+      ">
     <div
             style="
           max-width: 600px;
           background-color: #fafdfe;
           box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-        "
-    >
+        ">
         <!-- Preheader -->
         <div
                 style="
@@ -144,9 +118,8 @@
             opacity: 0;
             overflow: hidden;
             mso-hide: all;
-          "
-        >
-            Подтверждение бронирования столика
+          ">
+            Подтверждение отмены бронирования
         </div>
 
         <!--[if (gte mso 9) | (IE)]>
@@ -167,8 +140,7 @@
             max-width: 600px;
             width: 100%;
             font-family: Rubik, Arial, sans-serif, Helvetica;
-          "
-        >
+          ">
             <!-- logo section -->
             <tr>
                 <td>
@@ -178,8 +150,7 @@
                             cellpadding="0"
                             cellspacing="0"
                             role="presentation"
-                            style="color: #71321b"
-                    >
+                            style="color: #71321b">
                         <tr>
                             <td align="center" style="padding: 20px 0 0 0">
                                 <a href="#" target="_blank" rel="noopener">
@@ -187,8 +158,7 @@
                                             src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/restaurant-logo-design-template-80b1da7e7f6651ca3c774a5fec4089bb_screen.jpg?ts=1625576767"
                                             alt="restaurant logo"
                                             border="0"
-                                            width="150px"
-                                    />
+                                            width="150px"/>
                                 </a>
                             </td>
                         </tr>
@@ -196,10 +166,9 @@
                             <td
                                     align="center"
                                     style="padding: 20px 100px 20px 100px"
-                                    class="mobile-col-padding"
-                            >
+                                    class="mobile-col-padding">
                                 <h1 style="margin: 0; font-weight: 400; font-size: 24px">
-                                    Подтверждение бронирования столика
+                                    Подтверждение отмены бронирования
                                 </h1>
                             </td>
                         </tr>
@@ -217,8 +186,7 @@
                             cellpadding="0"
                             cellspacing="0"
                             role="presentation"
-                            style="padding: 20px 20px 20px 20px"
-                    >
+                            style="padding: 20px 20px 20px 20px">
                         <tr>
                             <td style="padding: 15px 0 10px 0" class="mobile-col-padding">
                                 <h2 style="margin: 0; font-weight: 500; font-size: 22px">
@@ -234,9 +202,24 @@
                         font-weight: 400;
                         font-size: 16px;
                         line-height: 157%;
-                      "
-                                >
-                                    Спасибо, что выбрали ресторан &laquo;Restaurant&raquo; для вашего визита.
+                      ">
+                                    Вы&nbsp;успешно отменили бронирование в&nbsp;ресторане
+                                    &laquo;Restaurant&raquo;.
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 16px 0 16px 0" class="mobile-col-padding">
+                                <p
+                                        style="
+                        margin: 0;
+                        font-weight: 400;
+                        font-size: 16px;
+                        line-height: 157%;
+                      ">
+                                    Нам жаль, что вы&nbsp;не&nbsp;сможете прийти в&nbsp;этот
+                                    раз&nbsp;&mdash; но&nbsp;мы&nbsp;всегда будем рады видеть
+                                    вас снова!
                                 </p>
                             </td>
                         </tr>
@@ -248,9 +231,8 @@
                         font-weight: 400;
                         font-size: 16px;
                         line-height: 157%;
-                      "
-                                >
-                                    Мы&nbsp;рады подтвердить бронирование столика:
+                      ">
+                                    Детали отменённого бронирования:
                                 </p>
                             </td>
                         </tr>
@@ -263,8 +245,7 @@
                         font-weight: 400;
                         font-size: 16px;
                         line-height: 157%;
-                      "
-                                >
+                      ">
                                     <li
                                             style="
                           padding: 0 0 16px 0;
@@ -272,12 +253,11 @@
                           font-weight: 400;
                           font-size: 16px;
                           line-height: 157%;
-                        "
-                                    >
+                        ">
                                         <strong>Начало</strong> [[${startTime}]]
                                     </li>
                                     <li style="padding: 0 0 16px 0">
-                                        <strong>Окончание:</strong> [[${endTime}]]
+                                        <strong>Окончание</strong> [[${endTime}]]
                                     </li>
                                     <li style="padding: 0 0 16px 0">
                                         <strong>Количество гостей:</strong> [[${guestCount}]]
@@ -293,91 +273,10 @@
                         font-weight: 400;
                         font-size: 16px;
                         line-height: 157%;
-                      "
-                                >
-                                    <strong>Код вашей резервации: </strong>[[${reservationCode}]]
-                                </p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 16px 0 16px 0" class="mobile-col-padding">
-                                <p
-                                        style="
-                        margin: 0;
-                        font-weight: 400;
-                        font-size: 16px;
-                        line-height: 157%;
-                      "
-                                >
-                                    Если вы&nbsp;не&nbsp;сможете прийти, вы&nbsp;можете отменить бронь на&nbsp;нашем
-                                    сайте.
-                                </p>
-                                <p
-                                        style="
-                        margin: 0;
-                        font-weight: 400;
-                        font-size: 16px;
-                        line-height: 157%;
-                      "
-                                >
-                                    Для отмены заказа введите код бронирования на&nbsp;сайте ресторана:
-                                </p>
-                            </td>
-                        </tr>
-                        <!-- button -->
-                        <tr>
-                            <td
-                                    align="center"
-                                    style="padding: 4px 0 4px 0"
-                                    class="mobile-col-padding"
-                            >
-                                <table
-                                        border="0"
-                                        cellpadding="0"
-                                        cellspacing="0"
-                                        role="presentation"
-                                >
-                                    <tr>
-                                        <td
-                                                align="center"
-                                                style="background: #71321b; border-radius: 50px"
-                                        >
-                                            <a
-                                                    th:href="@{'http://localhost:8080/restaurant/cancel'}"
-                                                    target="_blank"
-                                                    rel="noopener"
-                                                    style="
-                              background: #71321b;
-                              border-radius: 50px;
-                              border: 1px solid #71321b;
-                              font-weight: 500;
-                              font-size: 16px;
-                              line-height: 157%;
-                              color: #fcedc2;
-                              text-decoration: none;
-                              display: inline-block;
-                              text-align: center;
-                              padding: 12px 20px 12px 20px;
-                            "
-                                            >ОТМЕНИТЬ РЕЗЕРВАЦИЮ</a
-                                            >
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                        <!-- end button -->
-                        <tr>
-                            <td style="padding: 16px 0 16px 0" class="mobile-col-padding">
-                                <p
-                                        style="
-                        margin: 0;
-                        font-weight: 400;
-                        font-size: 16px;
-                        line-height: 157%;
-                      "
-                                >
-                                    Будем рады видеть вас в&nbsp;нашем ресторане!
+                      ">
+                                    Если отмена произошла по&nbsp;ошибке&nbsp;&mdash;
+                                    вы&nbsp;можете забронировать столик снова на&nbsp;нашем
+                                    сайте в&nbsp;любое время.
                                 </p>
                             </td>
                         </tr>
@@ -389,8 +288,7 @@
                         font-weight: 400;
                         font-size: 16px;
                         line-height: 157%;
-                      "
-                                >
+                      ">
                                     С&nbsp;уважением,
                                 </p>
                             </td>
@@ -403,8 +301,7 @@
                         font-weight: 400;
                         font-size: 16px;
                         line-height: 157%;
-                      "
-                                >
+                      ">
                                     Команда &laquo;Restaurant&raquo;
                                 </p>
                             </td>
@@ -426,14 +323,12 @@
                   padding: 10px 10px 10px 10px;
                   background: #fbf9e7;
                   color: #888888;
-                "
-                    >
+                ">
                         <tr>
                             <td
                                     align="center"
                                     style="padding: 16px 0 2px 0"
-                                    class="mobile-col-padding"
-                            >
+                                    class="mobile-col-padding">
                                 <p style="margin: 0; font-weight: 400; font-size: 12px">
                                     С&nbsp;уважением,
                                 </p>
@@ -443,8 +338,7 @@
                             <td
                                     align="center"
                                     style="padding: 0 0 16px 0"
-                                    class="mobile-col-padding"
-                            >
+                                    class="mobile-col-padding">
                                 <p style="margin: 0; font-weight: 400; font-size: 12px">
                                     Команда &laquo;Restaurant&raquo;
                                 </p>
@@ -454,29 +348,24 @@
                             <td
                                     align="center"
                                     style="padding: 0 0 12px 0"
-                                    class="mobile-col-padding"
-                            >
+                                    class="mobile-col-padding">
                                 <p
                                         style="
                         margin: 0;
 
                         font-weight: 400;
                         font-size: 12px;
-                      "
-                                >
+                      ">
                                     Нужна помощь? Свяжитесь с&nbsp;нами по&nbsp;адресу<span
-                                        style="text-decoration: none; color: #71321b"
-                                ><a
+                                        style="text-decoration: none; color: #71321b"><a
                                         href="#"
                                         style="
                             text-decoration: none;
                             color: #71321b;
                             font-size: 12px;
-                          "
-                                >
+                          ">
                           support@restaurant.com
-                        </a></span
-                                >
+                        </a></span>
                                 </p>
                             </td>
                         </tr>
@@ -484,8 +373,7 @@
                             <td
                                     align="center"
                                     style="padding: 0 0 16px 0"
-                                    class="mobile-col-padding"
-                            >
+                                    class="mobile-col-padding">
                                 <p style="margin: 0; font-weight: 400; font-size: 12px">
                                     Это автоматическое письмо. Пожалуйста, не&nbsp;отвечайте.
                                 </p>

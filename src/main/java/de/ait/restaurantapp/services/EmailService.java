@@ -26,8 +26,17 @@ public class EmailService {
         Context context = new Context();
         context.setVariable("name", dto.getName());
         context.setVariable("reservationCode", dto.getReservationCode());
+        context.setVariable("startTime", dto.getStartTime());
+        context.setVariable("endTime", dto.getEndTime());
+        context.setVariable("guestCount", dto.getGuestCount());
 
-        String html = templateEngine.process("email-template", context);
+        String html = "";
+
+        if (dto.isCancel() == true) {
+            html = templateEngine.process("email-cancel", context);
+        } else {
+            html = templateEngine.process("email-template", context);
+        }
 
         MimeMessage mimeMessage = mailSender.createMimeMessage();
 
