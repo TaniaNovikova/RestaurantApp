@@ -995,10 +995,126 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </table>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_работа_с_файлами_меню">Работа с файлами меню</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>В приложении реализована возможность работы с PDF-файлами меню ресторана:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Администратор может загружать файлы меню через веб-интерфейс.</p>
+</li>
+<li>
+<p>Клиент может скачивать актуальное меню с публичной страницы.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Файлы сохраняются в папке <code>menus/</code> внутри проекта. Загрузка и скачивание реализованы через контроллер, который взаимодействует с сущностью <code>FileEntity</code> и репозиторием <code>FileRepo</code>.
+Тесты на функциональность загрузки и скачивания файлов реализованы в классе <code>FileControllerIT</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_шаблоны_интерфейса_thymeleaf">Шаблоны интерфейса (Thymeleaf)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Веб-интерфейс построен с использованием шаблонов Thymeleaf, которые расположены в директории <code>src/main/resources/templates</code>.
+Каждому маршруту соответствует свой HTML-шаблон, включая:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>homepage.html</code> — главная страница ресторана;</p>
+</li>
+<li>
+<p><code>reservation-form.html</code> — форма бронирования;</p>
+</li>
+<li>
+<p><code>cancel-form.html</code> — форма отмены бронирования;</p>
+</li>
+<li>
+<p><code>menu.html</code> — страница с меню;</p>
+</li>
+<li>
+<p><code>upload-form.html</code>, <code>file-list.html</code> — формы управления файлами меню (для администратора).</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Шаблоны связаны с контроллерами через возвращаемые <code>viewName</code> и автоматически подставляют данные модели.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_тестирование">Тестирование</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Проект покрыт юнит- и интеграционными тестами с использованием JUnit 5, Spring Boot Test и MockMvc.</p>
+</div>
+<div class="sect2">
+<h3 id="_интеграционные_тесты_it">Интеграционные тесты (IT)</h3>
+<div class="paragraph">
+<p>Интеграционные тесты размещены в <code>src/test/java</code>, аннотированы <code>@SpringBootTest</code> и <code>@AutoConfigureMockMvc</code>.
+Проверяется реальное поведение контроллеров, взаимодействие с репозиториями, корректность бизнес-логики и отображения страниц.</p>
+</div>
+<div class="paragraph">
+<p>Примеры:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>FileControllerIT</code> — проверка загрузки, скачивания и удаления файлов меню.</p>
+</li>
+<li>
+<p><code>RestaurantPageControllerIT</code> — тестирование бронирования столиков, отмены бронирования, реакции на ошибки и отображения страниц.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_unit_тесты">Unit-тесты</h3>
+<div class="paragraph">
+<p>Пример <code>RestaurantAppApplicationTests</code> — базовый тест для проверки запуска контекста приложения.</p>
+</div>
+<div class="paragraph">
+<p>Профиль тестирования активируется с помощью аннотации:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span style="color:#007">@ActiveProfiles</span>(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">test</span><span style="color:#710">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_статическая_структура_проекта_дополнение">Статическая структура проекта (дополнение)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Дополнительные папки и файлы в структуре проекта:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>menus/</code> — папка с PDF-файлами меню, доступная для загрузки и скачивания.</p>
+</li>
+<li>
+<p><code>src/main/resources/templates/</code> — HTML-шаблоны интерфейса.</p>
+</li>
+<li>
+<p><code>src/test/java/</code> — тесты (unit и integration).</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-04-25 12:20:04 +0200
+Last updated 2025-04-25 13:55:44 +0200
 </div>
 </div>
 <script>
