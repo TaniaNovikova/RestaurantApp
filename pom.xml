@@ -36,6 +36,7 @@
         <liquibase.version>4.31.1</liquibase.version>
         <liquibase-maven-plugin.version>4.31.1</liquibase-maven-plugin.version>
         <postgres.version>42.7.5</postgres.version>
+        <asciidoctor.version>2.2.1</asciidoctor.version>
     </properties>
     <dependencies>
         <dependency>
@@ -151,6 +152,13 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.asciidoctor</groupId>
+                <artifactId>asciidoctor-maven-plugin</artifactId>
+                <version>${asciidoctor.version}</version>
+                <!-- конфигурация outputDir, sources -->
+            </plugin>
+
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
