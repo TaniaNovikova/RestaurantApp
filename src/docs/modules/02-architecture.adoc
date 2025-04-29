@@ -1,7 +1,5 @@
 [[architecture]]
-= Архитектура проекта RestaurantApp
-
-Проект реализован с использованием Java 17, Spring Boot, Maven и базой данных PostgreSQL. Приложение предназначено для бронирования столиков в ресторане и имеет веб-интерфейс на Thymeleaf. В качестве системы миграции используется Liquibase. Безопасность реализована через Spring Security (in-memory). Документация пишется в формате AsciiDoc.
+= Архитектура приложения
 
 == Общая архитектура
 
@@ -15,36 +13,619 @@
 
 == Используемые технологии и зависимости
 
-* Java 17
-* Spring Boot
-** Spring Web
-** Spring Data JPA
-** Spring Security
-** Spring Mail
-* Thymeleaf
-* PostgreSQL
-* Liquibase
-* Maven
-* Lombok
-* SLF4J + Logback
-* Asciidoctor (для генерации документации)
+В проекте используются следующие ключевые технологии и библиотеки:
 
-== Структура пакетов
+* **Язык и сборка**
+* Java 17
+* Maven (Apache Maven 3+)
+
+* **Spring Boot**
+* spring-boot-starter-parent 3.4.4
+
+* **Основные стартеры Spring Boot**
+** org.springframework.boot:spring-boot-starter
+** org.springframework.boot:spring-boot-starter-web
+** org.springframework.boot:spring-boot-starter-data-jpa
+** org.springframework.boot:spring-boot-starter-jdbc
+** org.springframework.boot:spring-boot-starter-thymeleaf
+** org.springframework.boot:spring-boot-starter-mail
+** org.springframework.boot:spring-boot-starter-security
+** org.springframework.security:spring-security-config
+
+* **Тестирование и мокинг**
+** org.springframework.boot:spring-boot-starter-test (scope: test)
+** org.springframework.security:spring-security-test (scope: test)
+** org.mockito:mockito-inline (4.11.0, scope: test)
+
+* **Дополнительные библиотеки**
+** com.github.javafaker:javafaker (1.0.2)
+** org.springdoc:springdoc-openapi-starter-webmvc-ui (2.3.0)
+** org.projectlombok:lombok (1.18.36, scope: provided)
+** org.slf4j:slf4j-api (2.0.17)
+** ch.qos.logback:logback-classic (1.5.17)
+** com.h2database:h2 (runtime)
+** org.postgresql:postgresql (42.7.5, runtime)
+** org.liquibase:liquibase-core (4.31.1)
+
+* **Maven-плагины**
+** org.asciidoctor:asciidoctor-maven-plugin (2.2.1)
+** org.springframework.boot:spring-boot-maven-plugin
+** org.liquibase:liquibase-maven-plugin (4.31.1)
+** org.apache.maven.plugins:maven-compiler-plugin (3.8.1)
+– source/target Java 17, сохранение имён параметров в байткоде :contentReference[oaicite:0]{index=0}&#8203;:contentReference[oaicite:1]{index=1}
+
+
+== Структура Java-пакетов
 
 [source]
 ----
 de.ait.restaurantapp
-├── config           // Конфигурации Spring и безопасности
-├── controllers      // Контроллеры
+├── config           // файл SecurityConfig - конфигурация безопасности
+├── controller      // Контроллеры
 ├── dto              // Классы DTO
 ├── enums            // Перечисления (Enums)
 ├── exception        // Кастомные исключения и обработка ошибок
-├── models           // JPA-сущности
+├── model           // JPA-сущности
 ├── repositories     // Интерфейсы репозиториев
 ├── services         // Сервисы и интерфейсы
 ├── utils            // Утилитные классы
 ├── RestaurantApp    // Главный класс приложения
 ----
+== Файловая (директорная) структура
+
+.Структура каталогов
+[source]
+----
+
+C:.
+|   .DS_Store
+|   .gitattributes
+|   .gitignore
+|   02-architecture.adoc
+|   HELP.md
+|   mvnw
+|   mvnw.cmd
+|   pom.xml
+|
++---.idea
+|   |   .gitignore
+|   |   compiler.xml
+|   |   dataSources.local.xml
+|   |   dataSources.xml
+|   |   encodings.xml
+|   |   jarRepositories.xml
+|   |   misc.xml
+|   |   vcs.xml
+|   |   workspace.xml
+|   |
+|   \---dataSources
++---.mvn
+|   \---wrapper
+|           maven-wrapper.properties
+|
++---logs
+|   |   app.log
+|   |
+|   \---archived
+|           app-2025-04-18.log.zip
+|           app-2025-04-19.log.zip
+|           app-2025-04-20.log.zip
+|           app-2025-04-21.log.zip
+|           app-2025-04-22.log.zip
+|           app-2025-04-23.log.zip
+|           app-2025-04-24.log.zip
+|           app-2025-04-25.log.zip
+|
++---src
+|   |   .DS_Store
+|   |
+|   +---docs
+|   |   |   README.adoc
+|   |   |
+|   |   +---images
+|   |   |       architecture.png
+|   |   |       schema.png
+|   |   |
+|   |   \---modules
+|   |           01-introduction.adoc
+|   |           02-arch.adoc
+|   |           02-arch.html
+|   |           02-architecture.adoc
+|   |           02-architecture.html
+|   |           03-installation.adoc
+|   |           04-configuration.adoc
+|   |           05-database.adoc
+|   |           06-security.adoc
+|   |           07-usage.adoc
+|   |           08-appendix.adoc
+|   |
+|   +---main
+|   |   |   .DS_Store
+|   |   |
+|   |   +---java
+|   |   |   |   .DS_Store
+|   |   |   |
+|   |   |   \---de
+|   |   |       |   .DS_Store
+|   |   |       |
+|   |   |       \---ait
+|   |   |           |   .DS_Store
+|   |   |           |
+|   |   |           \---restaurantapp
+|   |   |               |   .DS_Store
+|   |   |               |   RestaurantApp.java
+|   |   |               |
+|   |   |               +---config
+|   |   |               |       SecurityConfig.java
+|   |   |               |
+|   |   |               +---controller
+|   |   |               |       AdminPageController.java
+|   |   |               |       FileController.java
+|   |   |               |       RestaurantPageController.java
+|   |   |               |
+|   |   |               +---dto
+|   |   |               |       EmailDto.java
+|   |   |               |       ReservationFormDto.java
+|   |   |               |
+|   |   |               +---enums
+|   |   |               |       ReservationStatus.java
+|   |   |               |
+|   |   |               +---exception
+|   |   |               |       GlobalExceptionHandler.java
+|   |   |               |       NoAvailableTableException.java
+|   |   |               |
+|   |   |               +---model
+|   |   |               |       FileEntity.java
+|   |   |               |       Reservation.java
+|   |   |               |       RestaurantTable.java
+|   |   |               |
+|   |   |               +---repositories
+|   |   |               |       FileRepo.java
+|   |   |               |       ReservationRepo.java
+|   |   |               |       RestaurantTableRepo.java
+|   |   |               |
+|   |   |               +---services
+|   |   |               |       EmailService.java
+|   |   |               |       FileService.java
+|   |   |               |       ReservationService.java
+|   |   |               |       ReservationServiceImpl.java
+|   |   |               |       RestaurantTableService.java
+|   |   |               |       RestaurantTableServiceImpl.java
+|   |   |               |
+|   |   |               \---utils
+|   |   |                       ReservationIDGenerator.java
+|   |   |
+|   |   \---resources
+|   |       |   application.properties
+|   |       |   logback.xml
+|   |       |
+|   |       +---db
+|   |       |   \---changelog
+|   |       |           db.changelog-1.0.xml
+|   |       |           db.changelog-1.1.xml
+|   |       |           db.changelog-master.xml
+|   |       |
+|   |       +---menus
+|   |       |       current_menu.pdf
+|   |       |
+|   |       +---static
+|   |       |   \---menu
+|   |       |           menu.pdf
+|   |       |
+|   |       \---templates
+|   |               admin-panel.html
+|   |               cancel-form.html
+|   |               download-menu-form.html
+|   |               email-cancel.html
+|   |               email-template.html
+|   |               file-list.html
+|   |               homepage.html
+|   |               reservation-form.html
+|   |               upload-form.html
+|   |
+|   \---test
+|       +---java
+|       |   \---de
+|       |       \---ait
+|       |           \---restaurantapp
+|       |               |   RestaurantAppApplicationTests.java
+|       |               |
+|       |               +---controller
+|       |               |       FileControllerIT.java
+|       |               |       RestaurantPageControllerIT.java
+|       |               |
+|       |               \---services
+|       |                       FileServiceTests.java
+|       |                       ReservationServiceImplTest.java
+|       |                       RestaurantTableServiceImplTests.java
+|       |
+|       \---resources
+|               application-test.properties
+|
+\---target
+    |   RestaurantApp-0.0.1-SNAPSHOT.jar
+    |   RestaurantApp-0.0.1-SNAPSHOT.jar.original
+    |
+    +---classes
+    |   |   application.properties
+    |   |   logback.xml
+    |   |
+    |   +---db
+    |   |   \---changelog
+    |   |           db.changelog-1.0.xml
+    |   |           db.changelog-1.1.xml
+    |   |           db.changelog-master.xml
+    |   |
+    |   +---de
+    |   |   \---ait
+    |   |       \---restaurantapp
+    |   |           |   RestaurantApp.class
+    |   |           |
+    |   |           +---config
+    |   |           |       SecurityConfig.class
+    |   |           |
+    |   |           +---controller
+    |   |           |       AdminPageController.class
+    |   |           |       FileController.class
+    |   |           |       RestaurantPageController.class
+    |   |           |
+    |   |           +---dto
+    |   |           |       EmailDto.class
+    |   |           |       ReservationFormDto.class
+    |   |           |
+    |   |           +---enums
+    |   |           |       ReservationStatus.class
+    |   |           |
+    |   |           +---exception
+    |   |           |       GlobalExceptionHandler.class
+    |   |           |       NoAvailableTableException.class
+    |   |           |
+    |   |           +---model
+    |   |           |       FileEntity.class
+    |   |           |       Reservation$ReservationBuilder.class
+    |   |           |       Reservation.class
+    |   |           |       RestaurantTable$RestaurantTableBuilder.class
+    |   |           |       RestaurantTable.class
+    |   |           |
+    |   |           +---repositories
+    |   |           |       FileRepo.class
+    |   |           |       ReservationRepo.class
+    |   |           |       RestaurantTableRepo.class
+    |   |           |
+    |   |           +---services
+    |   |           |       EmailService.class
+    |   |           |       FileService.class
+    |   |           |       ReservationService.class
+    |   |           |       ReservationServiceImpl.class
+    |   |           |       RestaurantTableService.class
+    |   |           |       RestaurantTableServiceImpl.class
+    |   |           |
+    |   |           \---utils
+    |   |                   ReservationIDGenerator.class
+    |   |
+    |   +---menus
+    |   |       current_menu.pdf
+    |   |
+    |   +---static
+    |   |   \---menu
+    |   |           menu.pdf
+    |   |
+    |   \---templates
+    |           admin-panel.html
+    |           cancel-form.html
+    |           download-menu-form.html
+    |           email-cancel.html
+    |           email-template.html
+    |           file-list.html
+    |           homepage.html
+    |           reservation-form.html
+    |           upload-form.html
+    |
+    +---generated-docs
+    |       README.html
+    |
+    +---generated-sources
+    |   \---annotations
+    +---generated-test-sources
+    |   \---test-annotations
+    +---maven-archiver
+    |       pom.properties
+    |
+    +---maven-status
+    |   \---maven-compiler-plugin
+    |       +---compile
+    |       |   \---default-compile
+    |       |           createdFiles.lst
+    |       |           inputFiles.lst
+    |       |
+    |       \---testCompile
+    |           \---default-testCompile
+    |                   createdFiles.lst
+    |                   inputFiles.lst
+    |
+    +---surefire-reports
+    |       de.ait.restaurantapp.RestaurantAppApplicationTests.txt
+    |       de.ait.restaurantapp.services.FileServiceTests.txt
+    |       de.ait.restaurantapp.services.ReservationServiceImplTest.txt
+    |       de.ait.restaurantapp.services.RestaurantTableServiceImplTests.txt
+    |       TEST-de.ait.restaurantapp.RestaurantAppApplicationTests.xml
+    |       TEST-de.ait.restaurantapp.services.FileServiceTests.xml
+    |       TEST-de.ait.restaurantapp.services.ReservationServiceImplTest.xml
+    |       TEST-de.ait.restaurantapp.services.RestaurantTableServiceImplTests.xml
+    |
+    \---test-classes
+        |   application-test.properties
+        |
+        \---de
+            \---ait
+                \---restaurantapp
+                    |   RestaurantAppApplicationTests.class
+                    |
+                    +---controller
+                    |       FileControllerIT.class
+                    |       RestaurantPageControllerIT.class
+                    |
+                    \---services
+                            FileServiceTests.class
+                            ReservationServiceImplTest.class
+                            RestaurantTableServiceImplTests.class
+
+----
+
+
+== model (Entities)
+[cols="1,1,4,2,3",options="header"]
+|===
+|Сущность       |Таблица            |Поля и аннотации                                                                 |Связи                                                                        |Описание
+
+|FileEntity
+|files
+a|
+* id: Long {@code @Id, @GeneratedValue(strategy = GenerationType.IDENTITY)}
+* name: String {@code @Column(nullable = false)}
+* fileType: String {@code @Column(nullable = false)}
+* data: byte[] {@code @Lob, @Column(nullable = false)}
+|– (явных связей нет)
+|Хранит загруженные файлы (имя, тип, содержимое)
+
+|Reservation
+|reservations
+a|
+* id: Long {@code @Id, @GeneratedValue(strategy = GenerationType.IDENTITY)}
+* reservationCode: String {@code @Column(nullable = false)}
+* startDateTime: LocalDateTime {@code @Column(nullable = false)}
+* endDateTime: LocalDateTime {@code @Column(nullable = false)}
+* customerName: String {@code @Column(nullable = false)}
+* customerEmail: String {@code @Column(nullable = false), @Email}
+* guestCount: int {@code @Column(nullable = false)}
+* reservationStatus: ReservationStatus {@code @Enumerated(EnumType.STRING)}
+* isAdmin: boolean {@code @Column}
+|* {@code @ManyToOne(fetch = FetchType.EAGER)} → RestaurantTable (FK: restaurant_table_id)
+|Бронирование столика с данными о времени, клиенте, количестве гостей и статусе
+
+|RestaurantTable
+|restaurant_tables
+a|
+* id: Integer {@code @Id, @GeneratedValue(strategy = GenerationType.IDENTITY)}
+* capacity: int {@code @NotNull(message = "Table type is required")}
+|– (обратная сторона связи с Reservation)
+|Описывает столики ресторана и их вместимость
+|===
+
+
+
+== repositories(de.ait.restaurantapp.repositories)
+[cols="1,4,1,1",options="header"]
+|===
+|Интерфейс                                                    |Методы и аннотации                                                                                                    |Связи                                |Описание
+
+|FileRepo
+
+a|
+* extends {@code JpaRepository<FileEntity, Long)}
+* (дополнительных методов нет)
+|→ FileEntity (Long)
+|CRUD-операции для работы с файлами
+
+|ReservationRepo
+
+a|
+* {@code @Repository}
+* extends {@code JpaRepository<Reservation, Long)}
+* {@code List<Reservation> findByRestaurantTable_IdAndReservationStatusAndStartDateTimeLessThanAndEndDateTimeGreaterThan(
+Integer tableId,
+ReservationStatus status,
+LocalDateTime end,
+LocalDateTime start
+)}
+* {@code List<Reservation> findByRestaurantTable_IdAndStartDateTimeGreaterThanEqualAndStartDateTimeLessThanAndReservationStatus(
+Integer tableId,
+LocalDateTime start,
+LocalDateTime end,
+ReservationStatus reservationStatus
+)}
+* {@code List<Reservation> findByCustomerEmailIgnoreCaseAndReservationStatusAndStartDateTimeBetween(
+String customerEmail,
+ReservationStatus status,
+LocalDateTime start,
+LocalDateTime end
+)}
+* {@code Optional<Reservation> findByReservationCode(String reservationCode)}
+|→ Reservation (Long)
+|CRUD и поиск бронирований по разным критериям
+
+|RestaurantTableRepo
+a|
+* extends {@code JpaRepository<RestaurantTable, Long)}
+* (дополнительных методов нет)
+|→ RestaurantTable (Integer)
+|CRUD-операции для работы со столиками
+|===
+
+
+== services (de.ait.restaurantapp.services)
+
+[cols="1,6,1,1",options="header"]
+|===
+|Сервис                        |Методы и аннотации                                                                                              |Зависимости                                                                                             |Описание
+
+|EmailService
+
+a|
+* {@code @Service}
+* {@code @Slf4j}
+* {@code public void sendHTMLEmail(EmailDto dto) throws MessagingException}
+|* JavaMailSender mailSender
+* TemplateEngine templateEngine
+|Отправляет HTML-письма (подтверждение/отмена брони)
+|FileService
+
+a|
+* {@code @Service}
+* {@code @Slf4j}
+* {@code public void saveMenuInProjectDir(MultipartFile file) throws IOException}
+* {@code public Optional<FileEntity> getMenu()}
+* {@code public FileEntity saveFile(MultipartFile file)}
+* {@code public List<FileEntity> getAllFiles()}
+* {@code public boolean deleteById(Long id)}
+* {@code public Optional<FileEntity> getFile(Long id)}
+|* FileRepo fileRepo
+* {@code @Value("${file.upload}")} uploadDirectory
+|Управляет загрузкой/чтением/удалением файлов меню и любых загруженных файлов
+
+|ReservationService
+
+a|
+* {@code Reservation createReservation(ReservationFormDto form) throws MessagingException}
+* {@code List<Reservation> getAllReservations()}
+* {@code boolean cancelReservation(String reservationCode)}
+* {@code List<Reservation> getReservationsForTableToday(Integer tableId)}
+* {@code List<Reservation> getAllReservationByDay(LocalDate day)}
+|– (интерфейс, реализуется в ReservationServiceImpl)
+|Определяет контракт для работы с бронированиями
+
+|ReservationServiceImpl
+a|
+* {@code @Service}
+* {@code @RequiredArgsConstructor}
+* {@code @Slf4j}
+* {@code @Transactional} (на методе createReservation)
+* {@code @Value("${restaurant.opening-time}")} openingTimeString
+* {@code @Value("${restaurant.closing-time}")} closingTimeString
+|* implements ReservationService
+* ReservationRepo reservationRepo
+* RestaurantTableRepo tableRepository
+* EmailService emailService
+|Реализация бизнес-логики бронирования: проверка времени, доступности, отправка писем
+
+|RestaurantTableService
+a|
+* {@code List<RestaurantTable> getAllTables()}
+* {@code Optional<RestaurantTable> getTableById(Long id)}
+|– (интерфейс, реализуется в RestaurantTableServiceImpl)
+|Контракт получения данных по столикам
+
+|RestaurantTableServiceImpl
+a|
+* {@code @Service}
+* {@code @Slf4j}
+* {@code @PostConstruct} initTables()
+* {@code @Value("${restaurant.table-count:0}")} tableCount
+|* implements RestaurantTableService
+* RestaurantTableRepo restaurantTableRepo
+|Инициализация и получение списка столиков, поиск по ID
+|===
+
+
+== controller (de.ait.restaurantapp.controller)
+
+[cols="1,6,1,1",options="header"]
+|===
+|Класс           |Методы и аннотации                                                                                               |Зависимости                                                   |Описание
+
+|AdminPageController
+a|
+* {@code @Controller}
+* {@code @RequestMapping("/restaurant/admin")}
+* {@code @PreAuthorize("hasRole('ADMIN')")}
+* {@code @Slf4j}
+* {@code @ModelAttribute("reservationForm")} getReservationFormDto()
+* {@code @GetMapping()} showAdminPanel()
+* {@code @PostMapping("/reserve")} createdReservationFromAdmin()
+* {@code @PostMapping("/cancel")} cancelReservationFromAdmin()
+* {@code @GetMapping("/reservations/today")} getReservationsToday()
+* {@code @GetMapping("/reservations/confirmed/by-date")} getReservationsConfirmedByDate()
+* {@code @PostMapping("/upload-menu")} uploadMenu()
+a|
+* ReservationService reservationService
+* FileService fileService
+|Панель администратора: создание/отмена брони, просмотр бронирований, загрузка меню
+
+|FileController
+a|
+* {@code @Controller}
+* {@code @RequestMapping("/file")}
+* {@code @GetMapping("upload")} showUploadForm()
+* {@code @GetMapping("/list")} listFiles()
+* {@code @PostMapping("/upload")} handleFileUpload()
+* {@code @GetMapping("/{id}")} downloadFile()
+* {@code @PostMapping("/delete-file/{id}")} deleteById()
+a|
+* FileService fileService
+|Управление загрузкой, списком, скачиванием и удалением файлов
+
+|RestaurantPageController
+a|
+* {@code @Controller}
+* {@code @RequestMapping("/restaurant")}
+* {@code @GetMapping} showHomePage()
+* {@code @GetMapping("/reserve")} showReservationPage()
+* {@code @PostMapping("/reserve")} createReservation()
+* {@code @GetMapping("/cancel")} showCancelPage()
+* {@code @PostMapping("/cancel")} cancelReservation()
+* {@code @GetMapping("/menu")} downloadMenu()
+a|
+* ReservationService reservationService
+* FileService fileService
+|Публичные страницы ресторана: главная, бронь, отмена, скачивание меню
+|===
+
+== utils (de.ait.restaurantapp.utils)
+
+В папке `utils` собираем вспомогательные классы общего назначения. На текущий момент она содержит:
+
+* **ReservationIDGenerator.java**
+Класс для генерации уникальных идентификаторов бронирования.
+
+  Основные моменты реализации:
+  - Генерируется случайный UUID без дефисов:
+    `UUID.randomUUID().toString().replace("-", "")`
+  - Добавляется текущий таймстамп в миллисекундах:
+    `String.valueOf(System.currentTimeMillis())`
+  - Итоговый формат ID:
+    `RES-<timestamp>-<первые 8 символов UUID>`
+
+[source,java]
+----
+package de.ait.restaurantapp.utils;
+
+import java.util.UUID;
+
+public class ReservationIDGenerator {
+    public static String generateReservationId() {
+        String uuid = UUID.randomUUID().toString().replace("-", "");
+        String timestamp = String.valueOf(System.currentTimeMillis()); // таймстамп
+        return "RES-" + timestamp + "-" + uuid.substring(0, 8);
+    }
+}
+----
+
+Эта утилита гарантированно выдаёт уникальные строковые идентификаторы вида
+`RES-1617901234567-a1b2c3d4`. Если в будущем потребуется добавить новые вспомогательные классы, их тоже можно будет описать в этом же разделе.```
+
+== config(de.ait.restaurantapp.config)
+
+Здесь содержится файл SecurityConfig
 
 == Конфигурация безопасности
 
@@ -182,3 +763,57 @@ a|
 * уменьшают объём шаблонного кода в DTO и моделях.
 
 |===
+
+== Работа с файлами меню
+
+В приложении реализована возможность работы с PDF-файлами меню ресторана:
+
+* Администратор может загружать файлы меню через веб-интерфейс.
+* Клиент может скачивать актуальное меню с публичной страницы.
+
+Файлы сохраняются в папке `menus/` внутри проекта. Загрузка и скачивание реализованы через контроллер, который взаимодействует с сущностью `FileEntity` и репозиторием `FileRepo`.  
+Тесты на функциональность загрузки и скачивания файлов реализованы в классе `FileControllerIT`.
+
+== Шаблоны интерфейса (Thymeleaf)
+
+Веб-интерфейс построен с использованием шаблонов Thymeleaf, которые расположены в директории `src/main/resources/templates`.  
+Каждому маршруту соответствует свой HTML-шаблон, включая:
+
+* `homepage.html` — главная страница ресторана;
+* `reservation-form.html` — форма бронирования;
+* `cancel-form.html` — форма отмены бронирования;
+* `menu.html` — страница с меню;
+* `upload-form.html`, `file-list.html` — формы управления файлами меню (для администратора).
+
+Шаблоны связаны с контроллерами через возвращаемые +viewName+ и автоматически подставляют данные модели.
+
+== Тестирование
+
+Проект покрыт юнит- и интеграционными тестами с использованием JUnit 5, Spring Boot Test и MockMvc.
+
+=== Интеграционные тесты (IT)
+
+Интеграционные тесты размещены в `src/test/java`, аннотированы `@SpringBootTest` и `@AutoConfigureMockMvc`.  
+Проверяется реальное поведение контроллеров, взаимодействие с репозиториями, корректность бизнес-логики и отображения страниц.
+
+Примеры:
+
+* `FileControllerIT` — проверка загрузки, скачивания и удаления файлов меню.
+* `RestaurantPageControllerIT` — тестирование бронирования столиков, отмены бронирования, реакции на ошибки и отображения страниц.
+
+=== Unit-тесты
+
+Пример `RestaurantAppApplicationTests` — базовый тест для проверки запуска контекста приложения.
+
+Профиль тестирования активируется с помощью аннотации:
+
+@ActiveProfiles("test")
+
+
+== Статическая структура проекта (дополнение)
+
+Дополнительные папки и файлы в структуре проекта:
+
+* `menus/` — папка с PDF-файлами меню, доступная для загрузки и скачивания.
+* `src/main/resources/templates/` — HTML-шаблоны интерфейса.
+* `src/test/java/` — тесты (unit и integration).

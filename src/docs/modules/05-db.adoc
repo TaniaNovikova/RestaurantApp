@@ -1,45 +1,44 @@
 [[database]]
-
 == Структура базы данных
 
-ER-диаграмма таблиц `restaurant_tables` и `reservations`, а также связь один-ко-многим между ними.
-
-// image::../images/schema1.png[Схема базы данных, 600]
-image::../images/schema1.png[Схема базы данных, 1200]
+image::../images/schema_cropped.png[Схема базы данных,600]
 
 === Описание таблиц
 
-==== restaurant_tables (таблица столиков)
+==== restaurant_tables (INT, PK, AUTO_INCREMENT)
+* `id` (INT, PK, AUTO_INCREMENT, NOT NULL) — уникальный идентификатор столика.
+* `capacity` (INT, NOT NULL) — вместимость столика.
 
-* `id` — первичный ключ, уникальный идентификатор столика.
-* `capacity` — вместимость столика (количество гостей).
-
-==== reservations (таблица резерваций)
-
-* `id` — первичный ключ, уникальный идентификатор резервации.
-* `reservation_code` — уникальный код резервации.
-* `start_date_time` — дата и время начала резервации.
-* `end_date_time` — дата и время окончания резервации.
-* `customer_name` — имя клиента.
-* `customer_email` — email клиента.
-* `guest_count` — количество гостей.
-* `restaurant_table_id` — внешний ключ на `restaurant_tables.id`, указывающий на забронированный столик.
-* `reservation_status` — статус резервации (CONFIRMED, CANCELLED).
-* `is_admin` — флаг, показывающий, создана ли резервация с панели администратора.
+==== reservations (BIGINT, PK, AUTO_INCREMENT)
+* `id` (BIGINT, PK, AUTO_INCREMENT, NOT NULL) — уникальный идентификатор резервации.
+* `reservation_code` (VARCHAR(255), NOT NULL) — уникальный код бронирования.
+* `start_date_time` (TIMESTAMP, NOT NULL) — дата и время начала резервации.
+* `end_date_time` (TIMESTAMP, NOT NULL) — дата и время окончания резервации.
+* `customer_name` (VARCHAR(255), NOT NULL) — имя клиента.
+* `customer_email` (VARCHAR(255), NOT NULL) — email клиента.
+* `guest_count` (INT, NOT NULL) — количество гостей (раньше `guest_number`).
+* `restaurant_table_id` (INT, NOT NULL) — внешний ключ → `restaurant_tables.id`.
+* `reservation_status` (VARCHAR(255), NOT NULL) — статус резервации (CONFIRMED, CANCELLED).
+* `is_admin` (BOOLEAN) — флаг, создана ли резервация администратором (nullable).
 
 == Ограничения целостности (Constraints)
 
 [cols="2,4",options="header"]
 |===
-|Имя ограничения       |Описание
-
-|`fk_reservations_table`
-|Внешний ключ
-`reservations.restaurant_table_id` → `restaurant_tables.id`
-(on delete CASCADE, on update CASCADE)
+|Имя ограничения             |Описание
+|`pk_restaurant_tables`      |PRIMARY KEY (`restaurant_tables.id`)
+|`pk_reservations`           |PRIMARY KEY (`reservations.id`)
+|`uq_reservation_code`       |UNIQUE (`reservations.reservation_code`)
+|`fk_reservations_table`     |FOREIGN KEY (`reservations.restaurant_table_id`) → `restaurant_tables.id` (ON DELETE/UPDATE CASCADE)
 |===
 
-== Конфигурация подключения и миграций
+
+
+== История версий схемы
+
+* **v1.0** — создание таблиц и FK CASCADE (ChangeSet 1–2).
+* **v1.1** — добавлено `reservation_code` (NOT NULL), переименован `guest_number` → `guest_count`, добавлено `is_admin` (ChangeSet 3).
+
 
 === Настройки подключения к базе (application.properties)
 
@@ -78,8 +77,6 @@ logging.level.liquibase=DEBUG
   <!-- PostgreSQL -->
   <postgres.version>42.7.5</postgres.version>
 
-  <!-- Asciidoctor (для сборки документации) -->
-  <asciidoctor.version>2.2.1</asciidoctor.version>
 </properties>
 ----
 === Dependencies
@@ -119,16 +116,7 @@ logging.level.liquibase=DEBUG
 ----
 <build>
   <plugins>
-    <!-- 1) Сборка документации -->
-    <plugin>
-      <groupId>org.asciidoctor</groupId>
-      <artifactId>asciidoctor-maven-plugin</artifactId>
-      <version>${asciidoctor.version}</version>
-      <!-- здесь — ваши настройки outputDir, sources и т.д. -->
-    </plugin>
-
-    <!-- 2) Liquibase миграции -->
-    <plugin>
+<plugin>
       <groupId>org.liquibase</groupId>
       <artifactId>liquibase-maven-plugin</artifactId>
       <version>${liquibase-maven-plugin.version}</version>
@@ -136,7 +124,7 @@ logging.level.liquibase=DEBUG
         <changeLogFile>src/main/resources/db/changelog/db.changelog-master.xml</changeLogFile>
         <url>jdbc:postgresql://localhost:5432/restaurantdb</url>
         <username>postgres</username>
-        <password>1111</password>
+        <password>....</password>
         <driver>org.postgresql.Driver</driver>
       </configuration>
     </plugin>

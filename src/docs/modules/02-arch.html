@@ -554,7 +554,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Проект реализован с использованием Java 17, Spring Boot, Maven и базой данных PostgreSQL. Приложение предназначено для бронирования столиков в ресторане и имеет веб-интерфейс на Thymeleaf. В качестве системы миграции используется Liquibase. Безопасность реализована через Spring Security (in-memory). Документация пишется в формате AsciiDoc.</p>
+<p>Проект реализован с использованием Java 17, Spring Boot, Maven и Spring Security (in-memory). Документация пишется в формате AsciiDoc.</p>
 </div>
 </div>
 </div>
@@ -588,494 +588,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sect1">
 <h2 id="_используемые_технологии_и_зависимости">Используемые технологии и зависимости</h2>
 <div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>Java 17</p>
-</li>
-<li>
-<p>Spring Boot</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Spring Web</p>
-</li>
-<li>
-<p>Spring Data JPA</p>
-</li>
-<li>
-<p>Spring Security</p>
-</li>
-<li>
-<p>Spring Mail</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Thymeleaf</p>
-</li>
-<li>
-<p>PostgreSQL</p>
-</li>
-<li>
-<p>Liquibase</p>
-</li>
-<li>
-<p>Maven</p>
-</li>
-<li>
-<p>Lombok</p>
-</li>
-<li>
-<p>SLF4J + Logback</p>
-</li>
-<li>
-<p>Asciidoctor (для генерации документации)</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_структура_пакетов">Структура пакетов</h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code>de.ait.restaurantapp
-├── config           // Конфигурации Spring и безопасности
-├── controllers      // Контроллеры
-├── dto              // Классы DTO
-├── enums            // Перечисления (Enums)
-├── exception        // Кастомные исключения и обработка ошибок
-├── models           // JPA-сущности
-├── repositories     // Интерфейсы репозиториев
-├── services         // Сервисы и интерфейсы
-├── utils            // Утилитные классы
-├── RestaurantApp    // Главный класс приложения</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_конфигурация_безопасности">Конфигурация безопасности</h2>
-<div class="sectionbody">
 <div class="paragraph">
-<p>Spring Security подключён и настроен через собственный класс <code>SecurityConfig</code>:</p>
+<p>&#8230;&#8203;</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>В <code>application.properties</code> указано:
-<code>spring.autoconfigure.include=org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration</code>,
-что включает стандартную автоконфигурацию безопасности.</p>
-</li>
-<li>
-<p>Безопасность реализована через два отдельных фильтра (<code>SecurityFilterChain</code>):</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Для всех путей <code>/restaurant/admin/**</code> доступ разрешён только пользователю с ролью <code>ADMIN</code>.</p>
-</li>
-<li>
-<p>Для публичных страниц бронирования и меню (<code>/restaurant</code>, <code>/restaurant/menu/<strong></code>, <code>/restaurant/reservations/</strong></code> и др.) доступ открыт для всех пользователей.</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Аутентификация выполняется через базовую HTTP-аутентификацию (<code>httpBasic</code>).</p>
-</li>
-<li>
-<p>Создан пользователь "admin" с паролем "secret" в памяти (<code>InMemoryUserDetailsManager</code>).</p>
-</li>
-<li>
-<p>Защита от CSRF-атак (<code>CSRF Protection</code>) отключена на этапе разработки для упрощения работы с запросами.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_интеграция_с_бд_и_миграции">Интеграция с БД и миграции</h2>
-<div class="sectionbody">
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 25%;">
-<col style="width: 75%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Компонент</th>
-<th class="tableblock halign-left valign-top">Конфигурация и описание</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Подключение к PostgreSQL</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="ulist">
-<ul>
-<li>
-<p><strong>URL</strong>: <code>spring.datasource.url=jdbc:postgresql://localhost:5432/restaurantdb</code></p>
-</li>
-<li>
-<p><strong>Пользователь</strong>: <code>spring.datasource.username=postgres</code></p>
-</li>
-<li>
-<p><strong>Пароль</strong>: <code>spring.datasource.password=1111</code></p>
-</li>
-<li>
-<p><strong>Драйвер</strong>: <code>spring.datasource.driver-class-name=org.postgresql.Driver</code></p>
-</li>
-<li>
-<p><strong>Диалект Hibernate</strong>: <code>spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect</code></p>
-</li>
-<li>
-<p><strong>Автоматическое DDL</strong>: <code>spring.jpa.hibernate.ddl-auto=none</code></p>
-</li>
-</ul>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Управление миграциями (Liquibase)</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="ulist">
-<ul>
-<li>
-<p><strong>Включено</strong>: <code>spring.liquibase.enabled=true</code></p>
-</li>
-<li>
-<p><strong>Master changelog</strong>: <code>spring.liquibase.change-log=/db/changelog/db.changelog-master.xml</code></p>
-</li>
-<li>
-<p><strong>Логирование</strong>: <code>logging.level.liquibase=DEBUG</code></p>
-</li>
-<li>
-<p><strong>Структура changelog</strong>:</p>
-<div class="ulist">
-<ul>
-<li>
-<p><code>db.changelog-master.xml</code> включает:</p>
-<div class="ulist">
-<ul>
-<li>
-<p><code>/db/changelog/db.changelog-1.0.xml</code> — создание таблиц <code>restaurant_tables</code> и <code>reservations</code> с внешним ключом (CASCADE)</p>
-</li>
-<li>
-<p><code>/db/changelog/db.changelog-1.1.xml</code> — изменение таблицы <code>reservations</code>:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>добавление столбца <code>reservation_code</code> NOT NULL</p>
-</li>
-<li>
-<p>переименование <code>guest_number</code> → <code>guest_count</code></p>
-</li>
-<li>
-<p>добавление столбца <code>is_admin</code> с описанием отката</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div></div></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_дополнительные_компоненты_и_паттерны">Дополнительные компоненты и паттерны</h2>
-<div class="sectionbody">
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 25%;">
-<col style="width: 75%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Компонент / Паттерн</th>
-<th class="tableblock halign-left valign-top">Описание</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">DTO (Data Transfer Object)</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Используются для передачи данных между слоями приложения:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>EmailDto</code> — содержит информацию для отправки email-уведомлений.</p>
-</li>
-<li>
-<p><code>ReservationFormDto</code> — данные из формы бронирования.</p>
-</li>
-</ul>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Глобальный обработчик ошибок</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Класс <code>GlobalExceptionHandler</code>:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>перехватывает исключения (например, <code>NoAvailableTableException</code>);</p>
-</li>
-<li>
-<p>возвращает пользователю понятные HTTP-ответы (например, 409 Conflict).</p>
-</li>
-</ul>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Генерация уникальных идентификаторов</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Класс <code>ReservationIDGenerator</code>:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>утилитный;</p>
-</li>
-<li>
-<p>создаёт уникальные коды бронирования на основе UUID и timestamp.</p>
-</li>
-</ul>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Конфигурация логирования (Logback)</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Файл <code>logback.xml</code> содержит:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>вывод логов в консоль и файл;</p>
-</li>
-<li>
-<p>шаблон форматирования;</p>
-</li>
-<li>
-<p>ротацию и архивирование логов;</p>
-</li>
-<li>
-<p>уровень логирования — <code>DEBUG</code>.</p>
-</li>
-</ul>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">application.properties</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Содержит параметры конфигурации:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>подключение к PostgreSQL;</p>
-</li>
-<li>
-<p>настройки Liquibase;</p>
-</li>
-<li>
-<p>SMTP-конфигурация для email;</p>
-</li>
-<li>
-<p>параметры загрузки файлов;</p>
-</li>
-<li>
-<p>часы работы ресторана;</p>
-</li>
-<li>
-<p>количество столиков;</p>
-</li>
-<li>
-<p>подключение Spring Security.</p>
-</li>
-</ul>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Enum ReservationStatus</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Перечисление <code>ReservationStatus</code>:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>определяет статус бронирования (<code>CONFIRMED</code>, <code>CANCELED</code>);</p>
-</li>
-<li>
-<p>помогает контролировать жизненный цикл брони.</p>
-</li>
-</ul>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Главный класс приложения</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Класс <code>RestaurantApp</code>:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>содержит точку входа в приложение;</p>
-</li>
-<li>
-<p>запускает Spring Boot с помощью <code>@SpringBootApplication</code>.</p>
-</li>
-</ul>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Maven-конфигурация</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Файл <code>pom.xml</code>:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>содержит зависимости (Spring Boot, Mail, Security, Liquibase, Lombok и др.);</p>
-</li>
-<li>
-<p>включает плагины сборки (Asciidoctor, Liquibase, Maven Compiler);</p>
-</li>
-<li>
-<p>задаёт версии Java и библиотек.</p>
-</li>
-</ul>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Логирование</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Используются:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>SLF4J и Logback;</p>
-</li>
-<li>
-<p>уровень <code>DEBUG</code> для Liquibase и ошибок сервера;</p>
-</li>
-<li>
-<p>вывод как в консоль, так и в файл.</p>
-</li>
-</ul>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Lombok / Builder</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Используются аннотации Lombok:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>@Data</code>, <code>@AllArgsConstructor</code>, <code>@NoArgsConstructor</code>;</p>
-</li>
-<li>
-<p>уменьшают объём шаблонного кода в DTO и моделях.</p>
-</li>
-</ul>
-</div></div></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_работа_с_файлами_меню">Работа с файлами меню</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>В приложении реализована возможность работы с PDF-файлами меню ресторана:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Администратор может загружать файлы меню через веб-интерфейс.</p>
-</li>
-<li>
-<p>Клиент может скачивать актуальное меню с публичной страницы.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Файлы сохраняются в папке <code>menus/</code> внутри проекта. Загрузка и скачивание реализованы через контроллер, который взаимодействует с сущностью <code>FileEntity</code> и репозиторием <code>FileRepo</code>.
-Тесты на функциональность загрузки и скачивания файлов реализованы в классе <code>FileControllerIT</code>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_шаблоны_интерфейса_thymeleaf">Шаблоны интерфейса (Thymeleaf)</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Веб-интерфейс построен с использованием шаблонов Thymeleaf, которые расположены в директории <code>src/main/resources/templates</code>.
-Каждому маршруту соответствует свой HTML-шаблон, включая:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>homepage.html</code> — главная страница ресторана;</p>
-</li>
-<li>
-<p><code>reservation-form.html</code> — форма бронирования;</p>
-</li>
-<li>
-<p><code>cancel-form.html</code> — форма отмены бронирования;</p>
-</li>
-<li>
-<p><code>menu.html</code> — страница с меню;</p>
-</li>
-<li>
-<p><code>upload-form.html</code>, <code>file-list.html</code> — формы управления файлами меню (для администратора).</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Шаблоны связаны с контроллерами через возвращаемые <code>viewName</code> и автоматически подставляют данные модели.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_тестирование">Тестирование</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Проект покрыт юнит- и интеграционными тестами с использованием JUnit 5, Spring Boot Test и MockMvc.</p>
-</div>
-<div class="sect2">
-<h3 id="_интеграционные_тесты_it">Интеграционные тесты (IT)</h3>
-<div class="paragraph">
-<p>Интеграционные тесты размещены в <code>src/test/java</code>, аннотированы <code>@SpringBootTest</code> и <code>@AutoConfigureMockMvc</code>.
-Проверяется реальное поведение контроллеров, взаимодействие с репозиториями, корректность бизнес-логики и отображения страниц.</p>
-</div>
-<div class="paragraph">
-<p>Примеры:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>FileControllerIT</code> — проверка загрузки, скачивания и удаления файлов меню.</p>
-</li>
-<li>
-<p><code>RestaurantPageControllerIT</code> — тестирование бронирования столиков, отмены бронирования, реакции на ошибки и отображения страниц.</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_unit_тесты">Unit-тесты</h3>
 <div class="paragraph">
 <p>Пример <code>RestaurantAppApplicationTests</code> — базовый тест для проверки запуска контекста приложения.</p>
 </div>
@@ -1087,6 +602,43 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <pre class="CodeRay highlight"><code data-lang="java"><span style="color:#007">@ActiveProfiles</span>(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">test</span><span style="color:#710">&quot;</span></span>)</code></pre>
 </div>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_файловая_директорная_структура">Файловая (директорная) структура</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>restaurantapp/
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   └── de/ait/restaurantapp/…     (Java-пакеты, как выше)
+│   │   └── resources/
+│   │       ├── application.properties     (конфигурация Spring)
+│   │       ├── db/
+│   │       │   └── changelog/…            (Liquibase-скрипты)
+│   │       ├── static/                    (CSS/JS/изображения)
+│   │       └── templates/                 (Thymeleaf-шаблоны)
+│   └── test/
+│       ├── java/
+│       │   └── de/ait/restaurantapp/…     (тестовые пакеты, обычно зеркалят main/java)
+│       └── resources/                     (тестовые ресурсы, если есть)
+├── pom.xml                                (Maven)
+└── README.md</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>src/main/resources</code> — сюда вы кладёте:
+* <code>application.properties</code> или <code>application.yml</code>
+* файлы Liquibase (обычно <code>db/changelog/*.xml</code>)
+* статические ресурсы и шаблоны Thymeleaf</p>
+</div>
+<div class="paragraph">
+<p><code>src/test/java</code> — здесь лежат тесты. По хорошему, они повторяют ту же иерархию пакетов, что и в <code>src/main/java</code>, но содержат тестовые классы (Unit, Integration и т. д.).</p>
+</div>
+<div class="paragraph">
+<p><code>src/test/resources</code> — сюда можно класть файлы-фикстуры, тестовые конфиги и пр.</p>
 </div>
 </div>
 </div>
@@ -1114,7 +666,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-04-25 13:55:44 +0200
+Last updated 2025-04-25 17:59:23 +0200
 </div>
 </div>
 <script>
