@@ -39,7 +39,7 @@ spring.autoconfigure.include=org.springframework.boot.autoconfigure.security.ser
 === Описание конфигурации
 * `adminSecurity` (Order 1): защищает все URL `/restaurant/admin/**` — только роль `ADMIN`, Basic-аутентификация.
 * `publicSecurity` (Order 2): общедоступны страницы ресторана, меню и операции с бронью; остальные запросы — только для аутентифицированных.
-* CSRF отключён для всех цепочек фильтров (упрощённая REST-конфигурация).
+* CSRF временно отключён для всех цепочек фильтров (упрощённая REST-конфигурация): проект еще в разработке.
 * В `UserDetailsService` зарегистрирован один пользователь:
 * Логин: `admin`
 * Пароль: `secret` (noop)
