@@ -37,6 +37,8 @@
         <liquibase-maven-plugin.version>4.31.1</liquibase-maven-plugin.version>
         <postgres.version>42.7.5</postgres.version>
         <asciidoctor.version>2.2.1</asciidoctor.version>
+        <jakarta.annotation-api.version>2.1.1</jakarta.annotation-api.version>
+        <datasource-proxy.version>1.7</datasource-proxy.version>
     </properties>
     <dependencies>
         <dependency>
@@ -148,6 +150,21 @@
             <artifactId>liquibase-core</artifactId>
             <version>${liquibase.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.annotation</groupId>
+            <artifactId>jakarta.annotation-api</artifactId>
+            <version>${jakarta.annotation-api.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.ttddyy</groupId>
+            <artifactId>datasource-proxy</artifactId>
+            <version>${datasource-proxy.version}</version>
+        </dependency>
+
     </dependencies>
 
     <build>

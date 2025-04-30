@@ -1,0 +1,250 @@
+@startuml
+autonumber
+skinparam sequenceArrowThickness 2
+
+@enduml
+ FileService: saveFile()
+Client <-- FileService: return
+
+Client -> FileService: saveFile()
+Client <-- FileService: return
+
+Client -> FileService: getFile()
+Client <-- FileService: return
+
+Client -> FileService: saveFile()
+Client <-- FileService: return
+
+Client -> FileService: saveFile()
+Client <-- FileService: return
+
+Client -> FileService: deleteById()
+Client <-- FileService: return
+
+Client -> FileService: saveFile()
+Client <-- FileService: return
+
+Client -> FileService: saveFile()
+Client <-- FileService: return
+
+Client -> FileService: getFile()
+Client <-- FileService: return
+
+Client -> FileService: saveFile()
+Client <-- FileService: return
+
+Client -> FileService: saveFile()
+Client <-- FileService: return
+
+Client -> FileService: deleteById()
+Client <-- FileService: return
+
+Client -> FileService: saveFile()
+Client <-- FileService: return
+
+Client -> FileService: saveFile()
+Client <-- FileService: return
+
+Client -> FileService: saveFile()
+Client <-- FileService: return
+
+Client -> FileService: saveFile()
+Client <-- FileService: return
+
+Client -> FileService: getAllFiles()
+Client <-- FileService: return
+
+Client -> ReservationServiceImpl: createReservation()
+Client -> EmailService: sendHTMLEmail()
+Client <-- EmailService: return
+
+Client <-- ReservationServiceImpl: return
+
+Client -> ReservationServiceImpl: getAllReservations()
+Client <-- ReservationServiceImpl: return
+
+Client -> ReservationServiceImpl: createReservation()
+Client -> EmailService: sendHTMLEmail()
+Client <-- EmailService: return
+
+Client <-- ReservationServiceImpl: return
+
+Client -> ReservationServiceImpl: createReservation()
+Client -> EmailService: sendHTMLEmail()
+Client <-- EmailService: return
+
+Client <-- ReservationServiceImpl: return
+
+Client -> ReservationServiceImpl: createReservation()
+Client -> EmailService: sendHTMLEmail()
+Client <-- EmailService: return
+
+Client <-- ReservationServiceImpl: return
+
+Client -> ReservationServiceImpl: getAllReservations()
+Client <-- ReservationServiceImpl: return
+
+Client -> ReservationServiceImpl: getAllReservations()
+Client <-- ReservationServiceImpl: return
+
+Client -> ReservationServiceImpl: createReservation()
+Client -> ReservationServiceImpl: createReservation()
+Client -> EmailService: sendHTMLEmail()
+Client <-- EmailService: return
+
+Client <-- ReservationServiceImpl: return
+
+Client -> ReservationServiceImpl: createReservation()
+Client -> EmailService: sendHTMLEmail()
+Client <-- EmailService: return
+
+Client <-- ReservationServiceImpl: return
+
+Client -> ReservationServiceImpl: createReservation()
+Client -> EmailService: sendHTMLEmail()
+Client <-- EmailService: return
+
+Client <-- ReservationServiceImpl: return
+
+Client -> ReservationServiceImpl: getAllReservationByDay()
+Client <-- ReservationServiceImpl: return
+
+Client -> ReservationServiceImpl: createReservation()
+Client -> EmailService: sendHTMLEmail()
+Client <-- EmailService: return
+
+Client <-- ReservationServiceImpl: return
+
+Client -> ReservationServiceImpl: createReservation()
+Client -> EmailService: sendHTMLEmail()
+Client <-- EmailService: return
+
+Client <-- ReservationServiceImpl: return
+
+Client -> ReservationServiceImpl: createReservation()
+Client -> EmailService: sendHTMLEmail()
+Client <-- EmailService: return
+
+Client <-- ReservationServiceImpl: return
+
+Client -> ReservationServiceImpl: createReservation()
+Client -> EmailService: sendHTMLEmail()
+Client <-- EmailService: return
+
+Client <-- ReservationServiceImpl: return
+
+Client -> ReservationServiceImpl: cancelReservation()
+Client -> EmailService: sendHTMLEmail()
+Client <-- EmailService: return
+
+Client <-- ReservationServiceImpl: return
+
+Client -> ReservationServiceImpl: createReservation()
+Client -> ReservationServiceImpl: createReservation()
+Client -> ReservationServiceImpl: createReservation()
+Client -> ReservationServiceImpl: createReservation()
+Client -> ReservationServiceImpl: createReservation()
+Client -> EmailService: sendHTMLEmail()
+Client <-- EmailService: return
+
+Client <-- ReservationServiceImpl: return
+
+Client -> ReservationServiceImpl: createReservation()
+Client -> EmailService: sendHTMLEmail()
+Client <-- EmailService: return
+
+Client <-- ReservationServiceImpl: return
+
+Client -> ReservationServiceImpl: createReservation()
+Client -> EmailService: sendHTMLEmail()
+Client <-- EmailService: return
+
+Client <-- ReservationServiceImpl: return
+
+Client -> ReservationServiceImpl: createReservation()
+Client -> EmailService: sendHTMLEmail()
+Client <-- EmailService: return
+
+Client <-- ReservationServiceImpl: return
+
+Client -> ReservationServiceImpl: createReservation()
+Client -> ReservationServiceImpl: createReservation()
+Client -> EmailService: sendHTMLEmail()
+Client <-- EmailService: return
+
+Client <-- ReservationServiceImpl: return
+
+Client -> ReservationServiceImpl: createReservation()
+Client -> EmailService: sendHTMLEmail()
+Client <-- EmailService: return
+
+Client <-- ReservationServiceImpl: return
+
+Client -> ReservationServiceImpl: createReservation()
+Client -> ReservationServiceImpl: createReservation()
+Client -> EmailService: sendHTMLEmail()
+Client <-- EmailService: return
+
+Client <-- ReservationServiceImpl: return
+
+Client -> ReservationServiceImpl: createReservation()
+Client -> EmailService: sendHTMLEmail()
+Client <-- EmailService: return
+
+Client <-- ReservationServiceImpl: return
+
+Client -> ReservationServiceImpl: cancelReservation()
+Client <-- ReservationServiceImpl: return
+
+Client -> ReservationServiceImpl: createReservation()
+Client -> EmailService: sendHTMLEmail()
+Client <-- EmailService: return
+
+Client <-- ReservationServiceImpl: return
+
+Client -> ReservationServiceImpl: createReservation()
+Client -> EmailService: sendHTMLEmail()
+Client <-- EmailService: return
+
+Client <-- ReservationServiceImpl: return
+
+Client -> ReservationServiceImpl: createReservation()
+Client -> EmailService: sendHTMLEmail()
+Client <-- EmailService: return
+
+Client <-- ReservationServiceImpl: return
+
+Client -> ReservationServiceImpl: createReservation()
+Client -> EmailService: sendHTMLEmail()
+Client <-- EmailService: return
+
+Client <-- ReservationServiceImpl: return
+
+Client -> ReservationServiceImpl: createReservation()
+Client -> EmailService: sendHTMLEmail()
+Client <-- EmailService: return
+
+Client <-- ReservationServiceImpl: return
+
+Client -> RestaurantTableServiceImpl: initTables()
+Client <-- RestaurantTableServiceImpl: return
+
+Client -> RestaurantTableServiceImpl: getTableById()
+Client <-- RestaurantTableServiceImpl: return
+
+Client -> RestaurantTableServiceImpl: initTables()
+Client <-- RestaurantTableServiceImpl: return
+
+Client -> RestaurantTableServiceImpl: getAllTables()
+Client <-- RestaurantTableServiceImpl: return
+
+Client -> RestaurantTableServiceImpl: initTables()
+Client <-- RestaurantTableServiceImpl: return
+
+Client -> RestaurantTableServiceImpl: initTables()
+Client <-- RestaurantTableServiceImpl: return
+
+Client -> RestaurantTableServiceImpl: initTables()
+Client <-- RestaurantTableServiceImpl: return
+
+@enduml
