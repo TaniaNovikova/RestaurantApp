@@ -1,0 +1,84 @@
+== Управление файлами (FileController) {#file}
+
+Контроллер `FileController` отвечает за загрузку, просмотр, скачивание и удаление файлов.
+
+[cols="1,1,2,2",options="header"]
+|===
+|HTTP-метод |Путь |Параметры |Описание
+
+|GET
+|`/file/upload`
+|—
+|Показывает форму загрузки файла (`upload-form.html`).
+
+|GET
+|`/file/list`
+|—
+|Отображает список всех загруженных файлов (`file-list.html`). В модель добавляется атрибут `files`, содержащий `List<FileEntity>`.
+
+|POST
+|`/file/upload`
+|multipart `file` (обязательный)
+|Обрабатывает загрузку файла. При отсутствии файла в запросе возвращает `upload-form.html` с сообщением `Файл для загрузки не выбран`. При успешном сохранении — возвращает `upload-form.html` с `message: Файл успешно загружен` и `fileId` загруженного файла. При ошибке — `upload-form.html` с `message: Ошибка при загрузке файла`.
+
+|GET
+|`/file/{id}`
+|`id` (PathVariable, Long)
+|Скачивает файл с указанным `id`. Возвращает `200 OK` + заголовок `Content-Disposition: attachment; filename="..."` + байты файла. Если файл не найден — `404 Not Found`.
+
+|POST
+|`/file/delete-file/{id}`
+|`id` (PathVariable, Long)
+|Удаляет файл по `id`. После операции перенаправляет (`redirect:/file/list`) и добавляет `message` через `RedirectAttributes`: `файл успешно удален` или `файл не найден`.
+|===
+
+=== Примеры использования
+
+==== Загрузка файла
+
+[source,bash]
+----
+# Загрузка файла через curl
+curl -X POST http://localhost:8080/file/upload \
+  -F "file=@/путь/к/файлу.pdf"
+----
+
+==== Просмотр списка файлов
+
+[source,bash]
+----
+curl http://localhost:8080/file/list
+----
+
+==== Скачивание файла
+
+[source,bash]
+----
+# Скачать файл с ID=1
+curl -O http://localhost:8080/file/1
+----
+
+==== Удаление файла
+
+[source,bash]
+----
+# Удалить файл с ID=1
+curl -X POST http://localhost:8080/file/delete-file/1
+----
+
+=== Шаблоны Thymeleaf
+
+В директории `src/main/resources/templates` присутствуют следующие файлы:
+
+- `upload-form.html` — форма с полем `<input type="file" name="file" />` и выводом атрибутов `message` и `fileId`.
+- `file-list.html` — список файлов из модели `files`, каждый элемент содержит ссылку на скачивание (`/file/{id}`) и форму или кнопку для удаления (`/file/delete-file/{id}`).
+
+Модель, доступная в шаблонах:
+* `files` — `List<FileEntity>` с полями `id`, `name`, `size` и т. д.
+* `message` — сообщение об ошибке или результате операции.
+
+=== Особенности
+
+* Работа с `MultipartFile` в методе `handleFileUpload` учитывает проверку на пустой файл.
+* Метод `downloadFile` возвращает `ResponseEntity<byte[]>` с корректным заголовком `Content-Disposition` для скачивания.
+

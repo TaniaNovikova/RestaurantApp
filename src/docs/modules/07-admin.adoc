@@ -68,3 +68,31 @@ curl -X POST -u admin:password \
 
 [NOTE]
 Авторизация: все методы защищены аннотацией `@PreAuthorize("hasRole('ADMIN')")`, поэтому доступны только пользователям с ролью `ADMIN`.
+
+=== Шаблоны Thymeleaf
+
+Ниже список html-файлов из `src/main/resources/templates`, которые рендерят панель админа, отправляемые письма и формы:
+
+— **admin-panel.html**
+Админ-панель (AdminPageController).
+
+— **reservation-form.html**
+Форма создания резервации (`GET/POST /restaurant/reserve`).
+
+- **cancel-form**
+Форма отмены резервации.
+
+- **download-menu-form.html**
+Форма загрузки меню с панели администратора
+
+- **email-cancel.html**
+Шаблон письма при отмене резервации
+
+- **email-template.html**
+Шаблон письма при создании резервации
+
+- **file-list.html**
+
+
+
+

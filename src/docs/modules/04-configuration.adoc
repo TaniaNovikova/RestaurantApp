@@ -1,3 +1,212 @@
 [[configuration]]
 == Конфигурация
 
+:doctype: book
+:toc: left
+:toclevels: 3
+:icons: font
+
+= Restaurant App Documentation
+Author Name <tania.novikov@web.de>
+:revnumber: 1.0
+:revdate: 2025-05-02
+
+== 1. Введение
+
+Проект *Restaurant* — учебное приложение для демонстрации технологий Java 17, Spring Boot, Maven, PostgreSQL, Liquibase, inMemory Security, Thymeleaf и email сервиса.
+
+В этом документе описаны:
+
+* Архитектура приложения
+* Настройка окружения
+* Сборка и запуск
+* Конфигурация базы данных и миграции
+* Настройка безопасности
+* Web-интерфейс администратора и пользователя
+* Загрузка/выгрузка PDF-меню
+* Механизм резервирования столиков и отправка email
+* Тестирование и отладка
+
+== 2. Требования
+
+* Java 17
+* Maven 3.8+
+* PostgreSQL 12+
+* IntelliJ IDEA Ultimate
+
+== 3. Структура проекта
+
+[cols="1,1,2",options="header"]
+|===
+| Папка                | Тип                    | Описание
+| src/main/java        | Код Java               | Контроллеры, сервисы, репозитории, модели
+| src/main/resources   | Ресурсы                | application.properties, Thymeleaf-шаблоны, статика
+| src/main/db/changelog| Liquibase              | Файлы миграций
+| src/test/java        | Тесты                  | Unit и интеграционные тесты
+|===
+
+== 4. Конфигурация и запуск
+
+=== 4.1 application.properties
+
+[.literal]
+----
+spring.application.name=RestaurantApp
+
+spring.datasource.url=jdbc:postgresql://localhost:5432/restaurantdb
+spring.datasource.username=postgres
+spring.datasource.password=1111
+spring.datasource.driver-class-name=org.postgresql.Driver
+spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
+
+spring.jpa.hibernate.ddl-auto=none
+
+spring.liquibase.enabled=true
+spring.liquibase.change-log=/db/changelog/db.changelog-master.xml
+logging.level.liquibase=DEBUG
+
+spring.autoconfigure.include=org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
+
+spring.mail.host=smtp.gmail.com
+spring.mail.port=587
+spring.mail.username=test.back.endbadaev@gmail.com
+spring.mail.password=mzooruxqarkzocrp
+spring.mail.properties.mail.smtp.auth=true
+spring.mail.properties.smtp.starttls.enabled=true
+spring.mail.properties.mail.smtp.starttls.enable=true
+spring.mail.properties.mail.debug=true
+
+restaurant.table-count=10
+
+spring.servlet.multipart.max-file-size=10MB
+spring.servlet.multipart.max-request-size=10MB
+file.upload=src/main/java/de/ait/restaurantapp/resources/menus
+
+server.error.include-stacktrace=always
+server.error.include-message=always
+
+restaurant.opening-time=08:00
+restaurant.closing-time=20:00
+----
+
+=== 4.2 Запуск из IntelliJ IDEA
+
+1. Открыть `pom.xml` и импортировать Maven-проекты.
+2. Создать Run Configuration Spring Boot.
+3. Запустить.
+
+== 5. Работа с базой данных
+
+=== 5.1 Настройка Liquibase
+
+Основной файл миграций: `src/main/db/changelog/db.changelog-master.xml`, который включает
+=== 5.1 Структура миграций
+
+Главный файл миграций: `src/main/db/changelog/db.changelog-master.xml`:
+[.literal]
+----
+<databaseChangeLog …>
+  <include file="/db/changelog/db.changelog-1.0.xml"/>
+  <include file="/db/changelog/db.changelog-1.1.xml"/>
+</databaseChangeLog>
+----
+В нём подключаются версии миграций:
+* `db.changelog-1.0.xml` — инициализация схемы (таблица `restaurant_tables`, таблица `reservations`, FK и т. п.).
+* `db.changelog-1.1.xml` — доработка схемы
+
+
+1. **changeSet id=1** — создаёт таблицу `restaurant_tables` с полями
+
+* `id` (PK, автоинкремент)
+* `capacity` (количество мест)
+
+- содержит условие `preConditions`, чтобы не создавать таблицу повторно, и откат (`rollback`) в виде удаления таблицы.
+
+2. **changeSet id=2** — создаёт таблицу `reservations` с полями
+
+* `id` (PK, автоинкремент)
+* `start_date_time`, `end_date_time` (временные метки)
+* `customer_name`, `customer_email`
+* `guest_number`
+* `restaurant_table_id`
+* `reservation_status`
+
+- добавляет внешний ключ на `restaurant_tables` и описывает соответствующий `rollback`.
+
+=== 5.3 Доработка схемы (changeSet id=3)
+
+В рамках changeSet id="3" выполнены следующие доработки таблицы `reservations`:
+
+* Добавлено обязательное поле `reservation_code` типа `VARCHAR(255)` (NOT NULL) для хранения кода бронирования.
+* Переименован столбец `guest_number` в `guest_count` (`INT`) для более понятного названия поля количества гостей.
+* Добавлен флаг `is_admin` типа `BOOLEAN` для обозначения, создавалось ли бронирование администратором.
+* Определён механизм отката (`rollback`): возврат имени столбца `guest_number` и удаление колонок `reservation_code` и `is_admin`.
+
+== 6. Безопасность
+
+В приложении настроены два уровня безопасности через `SecurityConfig`:
+
+* **Административная часть** (`/restaurant/admin/**`): доступ только для ролей `ADMIN` с Basic‑аутентификацией; CSRF отключён.
+* **Публичная часть**: открыты общие эндпоинты (просмотр меню, бронирование, отмена); остальные ресурсы требуют Basic‑аутентификацию; CSRF отключён.
+
+Учётные данные хранятся в памяти (InMemory) с дефолтным пользователем `admin` (пароль `secret`, роль `ADMIN`). Подробная конфигурация — в `security.adoc`.
+
+== 7. Web-интерфейс
+
+=== 7.1 Админ-панель
+
+Адрес административного интерфейса: http://localhost:8080/restaurant/admin[]
+
+* Создание бронирования: +/restaurant/admin/reserve+
+* Отмена бронирования по коду брони: +/restaurant/admin/cancel+
+* Загрузка PDF‑меню: +/restaurant/admin/upload-menu+
+* Просмотр списка подтверждённых бронирований по дате: +/restaurant/admin/reservations/confirmed/by-date?date={YYYY-MM-DD}+
+
+[NOTE]
+====
+{YYYY-MM-DD} — дата в формате ГГГГ-MM-ДД, вводимая пользователем через форму.
+====
+* Ссылка «Вернуться на главную страницу» внизу панели администратора для быстрого выхода в публичную часть.
+
+
+* Просмотр бронирований для конкретного стола на текущий день: +/restaurant/admin/reservations/today?tableNumber={tableNumber}+
+
+[NOTE]
+====
+{tableNumber} — номер стола, вводимый пользователем через форму.
+====
+
+
+=== 7.2 Пользовательская часть
+
+Адрес пользовательского интерфейса: http://localhost:8080/restaurant[]
+
+* Страница резервации и форма брони (/restaurant/reserve`)
+* Отмена резервации по коду (`/restaurant/cancel`)
+* Скачивание меню current-menu.pdf(`/restaurant`)
+
+== 8. Резервирование столиков
+
+1. Пользователь выбирает дату, время, количество гостей.
+2. Контроллер создаёт объект Reservation и сохраняет в БД.
+3. Генерируется уникальный код.
+4. Отправляется email с шаблоном Thymeleaf.
+
+== 9. Email-сервис
+
+* Конфигурация SMTP в `application.properties`.
+* Шаблон письма: `src/main/resources/templates/mail/reservation-confirmation.html`
+
+== 10. Тестирование
+
+* Unit-тесты сервисов и репозиториев
+* Интеграционные тесты контроллеров с MockMvc
+
+== 11. Развёртывание
+
+* Упаковка: `mvn clean package`
+* Dockerfile (опционально)
+
+== 12. Заключение
+
+Дополнительные ссылки и ресурсы.

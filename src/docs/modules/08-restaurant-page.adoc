@@ -1,0 +1,100 @@
+== Страница ресторана (пользовательский интерфейс) {#restaurant-page}
+
+Контроллер `RestaurantPageController` отвечает за публичные страницы приложения:
+– главная страница,
+– форма бронирования,
+– форма отмены бронирования,
+– скачивание меню в формате PDF.
+
+[cols="1,1,2,2",options="header"]
+|===
+|HTTP-метод |Путь |Параметры |Описание
+
+|GET
+|`/restaurant`
+|—
+|Отображает главную страницу (`homepage.html`).
+
+|GET
+|`/restaurant/reserve`
+|—
+|Отображает форму бронирования (`reservation-form.html`), в модель кладётся атрибут `reservationForm` типа `ReservationFormDto`.
+
+|POST
+|`/restaurant/reserve`
+|`reservationForm` (модель `ReservationFormDto`)
+|Обрабатывает отправку формы бронирования.
+При успехе в модель добавляется `message` с текстом и кодом резервации.
+При ошибке (валидация, нет свободного столика, ошибка email) возвращает ту же форму с `message` и теми же полями.
+
+|GET
+|`/restaurant/cancel`
+|—
+|Отображает форму отмены бронирования (`cancel-form.html`), в модель кладётся атрибут `reservationCode` пустой строки.
+
+|POST
+|`/restaurant/cancel`
+|`reservationCode` (строка)
+|Обрабатывает отмену резервации по коду.
+Если код найден – добавляет в модель `message: Reservation cancelled successfully!`, иначе – `message: Reservation Code is not found`.
+Возвращает `cancel-form.html`.
+
+|GET
+|`/restaurant/menu`
+|—
+|Скачивает текущий PDF-файл меню.
+Возвращает `200 OK` + `Content-Disposition: attachment; filename="..."` + байты файла, или `404 Not Found`, если меню не загружено.
+
+|===
+
+=== Примеры использования
+
+==== Скачивание меню
+
+[source,bash]
+----
+curl -v http://localhost:8080/restaurant/menu \
+  -o menu.pdf
+----
+
+==== Предпросмотр главной страницы
+
+[source,bash]
+----
+curl http://localhost:8080/restaurant
+----
+
+==== Создание бронирования
+
+[source,bash]
+----
+curl -X POST http://localhost:8080/restaurant/reserve \
+  -H "Content-Type: application/x-www-form-urlencoded" \
+  -d "startDateTime=2025-05-10T19:00" \
+  -d "endDateTime=2025-05-10T21:00" \
+  -d "guestCount=4" \
+  -d "customerName=Иван" \
+  -d "customerEmail=ivan@example.com"
+----
+
+==== Отмена бронирования
+
+[source,bash]
+----
+curl -X POST http://localhost:8080/restaurant/cancel \
+  -H "Content-Type: application/x-www-form-urlencoded" \
+  -d "reservationCode=ABC123"
+----
+
+=== Шаблоны Thymeleaf
+
+.В шаблонах используются следующие атрибуты модели:
+* `reservationForm` – объект `ReservationFormDto` с полями `startDateTime`, `endDateTime`, `guestCount`, `customerName`, `customerEmail`.
+* `message` – строка с результатом операции (успех или ошибка).
+* `reservationCode` – код для отмены в форме отмены.
+
+
+=== Особенности обработки
+
+* Исключения `NoAvailableTableException`, `MessagingException` и `IllegalArgumentException` перехватываются в методе `createReservation` и отображаются пользователю через `message`.
+* Метод `downloadMenu()` возвращает `ResponseEntity<byte[]>` и ставит заголовок `Content-Disposition` для корректного скачивания файла в браузере или через `curl`.

@@ -2,249 +2,130 @@
 autonumber
 skinparam sequenceArrowThickness 2
 
-@enduml
- FileService: saveFile()
+Client -> RestaurantPageController: showHomePage()
+Client <-- RestaurantPageController: return
+
+Client -> AdminPageController: getReservationFormDto()
+Client <-- AdminPageController: return
+
+Client -> AdminPageController: showAdminPanel()
+Client <-- AdminPageController: return
+
+Client -> AdminPageController: getReservationFormDto()
+Client <-- AdminPageController: return
+
+Client -> AdminPageController: uploadMenu()
+Client -> FileService: saveMenuInProjectDir()
 Client <-- FileService: return
 
-Client -> FileService: saveFile()
-Client <-- FileService: return
+Client <-- AdminPageController: return
 
-Client -> FileService: getFile()
-Client <-- FileService: return
+Client -> AdminPageController: getReservationFormDto()
+Client <-- AdminPageController: return
 
-Client -> FileService: saveFile()
-Client <-- FileService: return
-
-Client -> FileService: saveFile()
-Client <-- FileService: return
-
-Client -> FileService: deleteById()
-Client <-- FileService: return
-
-Client -> FileService: saveFile()
-Client <-- FileService: return
-
-Client -> FileService: saveFile()
-Client <-- FileService: return
-
-Client -> FileService: getFile()
-Client <-- FileService: return
-
-Client -> FileService: saveFile()
-Client <-- FileService: return
-
-Client -> FileService: saveFile()
-Client <-- FileService: return
-
-Client -> FileService: deleteById()
-Client <-- FileService: return
-
-Client -> FileService: saveFile()
-Client <-- FileService: return
-
-Client -> FileService: saveFile()
-Client <-- FileService: return
-
-Client -> FileService: saveFile()
-Client <-- FileService: return
-
-Client -> FileService: saveFile()
-Client <-- FileService: return
-
-Client -> FileService: getAllFiles()
-Client <-- FileService: return
-
+Client -> AdminPageController: createdReservationFromAdmin()
 Client -> ReservationServiceImpl: createReservation()
 Client -> EmailService: sendHTMLEmail()
 Client <-- EmailService: return
 
 Client <-- ReservationServiceImpl: return
 
-Client -> ReservationServiceImpl: getAllReservations()
-Client <-- ReservationServiceImpl: return
+Client <-- AdminPageController: return
 
-Client -> ReservationServiceImpl: createReservation()
+Client -> AdminPageController: getReservationFormDto()
+Client <-- AdminPageController: return
+
+Client -> AdminPageController: cancelReservationFromAdmin()
+Client -> ReservationServiceImpl: cancelReservation()
 Client -> EmailService: sendHTMLEmail()
 Client <-- EmailService: return
 
 Client <-- ReservationServiceImpl: return
 
-Client -> ReservationServiceImpl: createReservation()
-Client -> EmailService: sendHTMLEmail()
-Client <-- EmailService: return
+Client <-- AdminPageController: return
 
-Client <-- ReservationServiceImpl: return
+Client -> AdminPageController: getReservationFormDto()
+Client <-- AdminPageController: return
 
-Client -> ReservationServiceImpl: createReservation()
-Client -> EmailService: sendHTMLEmail()
-Client <-- EmailService: return
-
-Client <-- ReservationServiceImpl: return
-
-Client -> ReservationServiceImpl: getAllReservations()
-Client <-- ReservationServiceImpl: return
-
-Client -> ReservationServiceImpl: getAllReservations()
-Client <-- ReservationServiceImpl: return
-
-Client -> ReservationServiceImpl: createReservation()
-Client -> ReservationServiceImpl: createReservation()
-Client -> EmailService: sendHTMLEmail()
-Client <-- EmailService: return
-
-Client <-- ReservationServiceImpl: return
-
-Client -> ReservationServiceImpl: createReservation()
-Client -> EmailService: sendHTMLEmail()
-Client <-- EmailService: return
-
-Client <-- ReservationServiceImpl: return
-
-Client -> ReservationServiceImpl: createReservation()
-Client -> EmailService: sendHTMLEmail()
-Client <-- EmailService: return
-
-Client <-- ReservationServiceImpl: return
-
+Client -> AdminPageController: getReservationsConfirmedByDate()
 Client -> ReservationServiceImpl: getAllReservationByDay()
 Client <-- ReservationServiceImpl: return
 
+Client <-- AdminPageController: return
+
+Client -> AdminPageController: getReservationFormDto()
+Client <-- AdminPageController: return
+
+Client -> AdminPageController: getReservationsToday()
+Client -> ReservationServiceImpl: getReservationsForTableToday()
+Client <-- ReservationServiceImpl: return
+
+Client <-- AdminPageController: return
+
+Client -> AdminPageController: getReservationFormDto()
+Client <-- AdminPageController: return
+
+Client -> AdminPageController: showAdminPanel()
+Client <-- AdminPageController: return
+
+Client -> RestaurantPageController: showHomePage()
+Client <-- RestaurantPageController: return
+
+Client -> AdminPageController: getReservationFormDto()
+Client <-- AdminPageController: return
+
+Client -> AdminPageController: showAdminPanel()
+Client <-- AdminPageController: return
+
+Client -> AdminPageController: getReservationFormDto()
+Client <-- AdminPageController: return
+
+Client -> AdminPageController: uploadMenu()
+Client -> FileService: saveMenuInProjectDir()
+Client <-- FileService: return
+
+Client <-- AdminPageController: return
+
+Client -> RestaurantPageController: showHomePage()
+Client <-- RestaurantPageController: return
+
+Client -> RestaurantPageController: showHomePage()
+Client <-- RestaurantPageController: return
+
+Client -> RestaurantPageController: showReservationPage()
+Client <-- RestaurantPageController: return
+
+Client -> RestaurantPageController: createReservation()
 Client -> ReservationServiceImpl: createReservation()
 Client -> EmailService: sendHTMLEmail()
 Client <-- EmailService: return
 
 Client <-- ReservationServiceImpl: return
 
-Client -> ReservationServiceImpl: createReservation()
-Client -> EmailService: sendHTMLEmail()
-Client <-- EmailService: return
+Client <-- RestaurantPageController: return
 
-Client <-- ReservationServiceImpl: return
+Client -> RestaurantPageController: showHomePage()
+Client <-- RestaurantPageController: return
 
-Client -> ReservationServiceImpl: createReservation()
-Client -> EmailService: sendHTMLEmail()
-Client <-- EmailService: return
+Client -> RestaurantPageController: showCancelPage()
+Client <-- RestaurantPageController: return
 
-Client <-- ReservationServiceImpl: return
-
-Client -> ReservationServiceImpl: createReservation()
-Client -> EmailService: sendHTMLEmail()
-Client <-- EmailService: return
-
-Client <-- ReservationServiceImpl: return
-
+Client -> RestaurantPageController: cancelReservation()
 Client -> ReservationServiceImpl: cancelReservation()
 Client -> EmailService: sendHTMLEmail()
 Client <-- EmailService: return
 
 Client <-- ReservationServiceImpl: return
 
-Client -> ReservationServiceImpl: createReservation()
-Client -> ReservationServiceImpl: createReservation()
-Client -> ReservationServiceImpl: createReservation()
-Client -> ReservationServiceImpl: createReservation()
-Client -> ReservationServiceImpl: createReservation()
-Client -> EmailService: sendHTMLEmail()
-Client <-- EmailService: return
+Client <-- RestaurantPageController: return
 
-Client <-- ReservationServiceImpl: return
+Client -> RestaurantPageController: showHomePage()
+Client <-- RestaurantPageController: return
 
-Client -> ReservationServiceImpl: createReservation()
-Client -> EmailService: sendHTMLEmail()
-Client <-- EmailService: return
+Client -> RestaurantPageController: downloadMenu()
+Client -> FileService: getMenu()
+Client <-- FileService: return
 
-Client <-- ReservationServiceImpl: return
-
-Client -> ReservationServiceImpl: createReservation()
-Client -> EmailService: sendHTMLEmail()
-Client <-- EmailService: return
-
-Client <-- ReservationServiceImpl: return
-
-Client -> ReservationServiceImpl: createReservation()
-Client -> EmailService: sendHTMLEmail()
-Client <-- EmailService: return
-
-Client <-- ReservationServiceImpl: return
-
-Client -> ReservationServiceImpl: createReservation()
-Client -> ReservationServiceImpl: createReservation()
-Client -> EmailService: sendHTMLEmail()
-Client <-- EmailService: return
-
-Client <-- ReservationServiceImpl: return
-
-Client -> ReservationServiceImpl: createReservation()
-Client -> EmailService: sendHTMLEmail()
-Client <-- EmailService: return
-
-Client <-- ReservationServiceImpl: return
-
-Client -> ReservationServiceImpl: createReservation()
-Client -> ReservationServiceImpl: createReservation()
-Client -> EmailService: sendHTMLEmail()
-Client <-- EmailService: return
-
-Client <-- ReservationServiceImpl: return
-
-Client -> ReservationServiceImpl: createReservation()
-Client -> EmailService: sendHTMLEmail()
-Client <-- EmailService: return
-
-Client <-- ReservationServiceImpl: return
-
-Client -> ReservationServiceImpl: cancelReservation()
-Client <-- ReservationServiceImpl: return
-
-Client -> ReservationServiceImpl: createReservation()
-Client -> EmailService: sendHTMLEmail()
-Client <-- EmailService: return
-
-Client <-- ReservationServiceImpl: return
-
-Client -> ReservationServiceImpl: createReservation()
-Client -> EmailService: sendHTMLEmail()
-Client <-- EmailService: return
-
-Client <-- ReservationServiceImpl: return
-
-Client -> ReservationServiceImpl: createReservation()
-Client -> EmailService: sendHTMLEmail()
-Client <-- EmailService: return
-
-Client <-- ReservationServiceImpl: return
-
-Client -> ReservationServiceImpl: createReservation()
-Client -> EmailService: sendHTMLEmail()
-Client <-- EmailService: return
-
-Client <-- ReservationServiceImpl: return
-
-Client -> ReservationServiceImpl: createReservation()
-Client -> EmailService: sendHTMLEmail()
-Client <-- EmailService: return
-
-Client <-- ReservationServiceImpl: return
-
-Client -> RestaurantTableServiceImpl: initTables()
-Client <-- RestaurantTableServiceImpl: return
-
-Client -> RestaurantTableServiceImpl: getTableById()
-Client <-- RestaurantTableServiceImpl: return
-
-Client -> RestaurantTableServiceImpl: initTables()
-Client <-- RestaurantTableServiceImpl: return
-
-Client -> RestaurantTableServiceImpl: getAllTables()
-Client <-- RestaurantTableServiceImpl: return
-
-Client -> RestaurantTableServiceImpl: initTables()
-Client <-- RestaurantTableServiceImpl: return
-
-Client -> RestaurantTableServiceImpl: initTables()
-Client <-- RestaurantTableServiceImpl: return
-
-Client -> RestaurantTableServiceImpl: initTables()
-Client <-- RestaurantTableServiceImpl: return
+Client <-- RestaurantPageController: return
 
 @enduml
