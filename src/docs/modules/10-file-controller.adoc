@@ -1,0 +1,57 @@
+:toc:
+:toclevels: 3
+
+== 10. Управление файлами (FileController)
+В этом разделе описан контроллер `FileController`, отвечающий за загрузку, список, скачивание и удаление файлов. Все эндпоинты начинаются с префикса `/file`.
+
+=== 10.1 Общие сведения
+
+Контроллер `FileController` аннотирован:
+
+[source,java]
+
+@Controller
+@RequestMapping("/file")
+public class FileController {
+private final FileService fileService
+
+
+
+Этот контроллер использует `FileService` для операций с сущностью `FileEntity`. Модельные атрибуты добавляются в каждом методе.
+
+=== 10.2 Методы контроллера
+
+Ниже сводная таблица по всем методам `FileController`:
+
+[cols="1,2,2,2", options="header"]
+|===
+| HTTP-метод | Путь                     | Модельные атрибуты        | Шаблоны Thymeleaf / Ответ
+
+| **GET**  | `/file/upload`            | —                         | `upload-form.html`
+
+| **GET**  | `/file/list`              | `files`                   | `file-list.html`
+
+| **POST** | `/file/upload`            | `message`, `fileId?`      | `upload-form.html`
+
+| **GET**  | `/file/{id}`              | —                         | `ResponseEntity<byte[]>` — скачивание файла
+
+| **POST** | `/file/delete-file/{id}`  | `message` (redirectAttr)  | Redirect → `/file/list`
+|===
+
+**Пояснения:**
+
+* `files` — список `FileEntity` для отображения в `file-list.html`.
+* `message` и `fileId` добавляются в модель после загрузки или удаления и отображаются в `upload-form.html` или после редиректа в `file-list.html`.
+
+=== 10.3 Шаблоны Thymeleaf
+
+Используемые шаблоны:
+
+* `upload-form.html` — форма загрузки файла.
+* `file-list.html` — отображение списка загруженных файлов.
+
+
+
+=== 10.4 Доступ и безопасность
+
+По умолчанию все `/file/**` эндпоинты требуют аутентификации. Для подробностей по настройкам безопасности см. xref:06-security.adoc[Безопасность].

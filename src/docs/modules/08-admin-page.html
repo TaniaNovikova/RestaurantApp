@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.23">
-<title>4. Конфигурация</title>
+<title>8. Административная панель</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -546,216 +546,181 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 }
 </style>
 </head>
-<body id="configuration" class="book">
+<body class="article">
 <div id="header">
-<h1>4. Конфигурация</h1>
-<div class="details">
-<span id="revdate">2025-05-15</span>
-</div>
-</div>
-<div id="content">
-<div id="preamble">
-<div class="sectionbody">
-<div class="paragraph">
-<p>В этом разделе описаны все настройки приложения RestaurantApp. Подробности по установке окружения см. <a href="03-installation.html">Установка</a>, по схеме базы данных — <a href="05-db.html">Схема и описание базы данных</a>, по безопасности — <a href="06-security.html">Безопасность</a>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_4_1_файлы_конфигурации">4.1 Файлы конфигурации</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p><code>src/main/resources/application.properties</code> — базовые настройки приложения</p>
+<div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_8_административная_панель">8. Административная панель</a>
+<ul class="sectlevel2">
+<li><a href="#_8_1_общие_сведения">8.1 Общие сведения</a></li>
+<li><a href="#_8_2_методы_контроллера">8.2 Методы контроллера</a></li>
+<li><a href="#_8_3_шаблоны_thymeleaf">8.3 Шаблоны Thymeleaf</a></li>
+<li><a href="#_8_4_порядок_запуска_и_безопасность">8.4 Порядок запуска и безопасность</a></li>
+</ul>
 </li>
 </ul>
 </div>
 </div>
-</div>
+<div id="content">
 <div class="sect1">
-<h2 id="_4_2_настройка_базы_данных">4.2 Настройка базы данных</h2>
+<h2 id="_8_административная_панель">8. Административная панель</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Конфигурация подключения к PostgreSQL и общие JPA-параметры:</p>
+<p>В разделе приводится документация по <strong>AdminPageController</strong>, который отвечает за функционал панели администратора: создание и отмену бронирований, просмотр списка резерваций и загрузку меню. Все запросы защищены ролью <code>ADMIN</code> и начинаются с префикса <code>/restaurant/admin</code>.</p>
+</div>
+<div class="sect2">
+<h3 id="_8_1_общие_сведения">8.1 Общие сведения</h3>
+<div class="paragraph">
+<p>Контроллер <code>AdminPageController</code> аннотирован:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="properties"># PostgreSQL
-spring.datasource.url=jdbc:postgresql://localhost:5432/restaurantdb
-spring.datasource.username=postgres
-spring.datasource.password=1111
-spring.datasource.driver-class-name=org.postgresql.Driver
-
-# Hibernate / JPA
-spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
-spring.jpa.hibernate.ddl-auto=none</code></pre>
+<pre class="CodeRay highlight"><code data-lang="java"><span style="color:#007">@Controller</span>
+<span style="color:#007">@RequestMapping</span>(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">/restaurant/admin</span><span style="color:#710">&quot;</span></span>)
+<span style="color:#007">@PreAuthorize</span>(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">hasRole('ADMIN')</span><span style="color:#710">&quot;</span></span>)
+<span style="color:#007">@Slf4j</span>
+<span style="color:#088;font-weight:bold">public</span> <span style="color:#339;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">AdminPageController</span> { <span style="color:#F00;background-color:#FAA">…</span> }
+--------------------------------------</code></pre>
 </div>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_4_3_миграции_liquibase">4.3 Миграции Liquibase</h2>
-<div class="sectionbody">
 <div class="paragraph">
-<p>Включение и настройка Liquibase:</p>
+<p>Он предоставляет методы для работы с бронированиями и файлами меню. В модель автоматически добавляется атрибут <code>reservationForm</code>:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="properties">spring.liquibase.enabled=true
-spring.liquibase.change-log=classpath:db/changelog/db.changelog-master.xml
-
-# Логирование (для отладки)
-logging.level.liquibase=DEBUG</code></pre>
+<pre class="CodeRay highlight"><code data-lang="java"><span style="color:#007">@ModelAttribute</span>(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">reservationForm</span><span style="color:#710">&quot;</span></span>)
+<span style="color:#088;font-weight:bold">public</span> ReservationFormDto getReservationFormDto() {
+<span style="color:#080;font-weight:bold">return</span> <span style="color:#080;font-weight:bold">new</span> ReservationFormDto();
+}
+-</code></pre>
 </div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_8_2_методы_контроллера">8.2 Методы контроллера</h3>
+<div class="paragraph">
+<p>Ниже сводная таблица по всем методам <code>AdminPageController</code>:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 14.2857%;">
+<col style="width: 28.5714%;">
+<col style="width: 28.5714%;">
+<col style="width: 28.5715%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">HTTP-метод</th>
+<th class="tableblock halign-left valign-top">Путь</th>
+<th class="tableblock halign-left valign-top">Модельные атрибуты</th>
+<th class="tableblock halign-left valign-top">Шаблоны Thymeleaf</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GET</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/restaurant/admin</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>reservationForm</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>admin-panel.html</code>, <code>reservation-form.html</code>, <code>cancel-form.html</code>, <code>upload-form.html</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>POST</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/restaurant/admin/reserve</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>message</code>, <code>reservationForm</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>admin-panel.html</code>, <code>reservation-form.html</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>POST</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/restaurant/admin/cancel</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>message</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>admin-panel.html</code>, <code>cancel-form.html</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GET</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/restaurant/admin/reservations/today</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>tableReservations</code>, <code>message?</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>admin-panel.html</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GET</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/restaurant/admin/reservations/confirmed/by-date</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>allReservations</code>, <code>message?</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>admin-panel.html</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>POST</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/restaurant/admin/upload-menu</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>message</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>admin-panel.html</code>, <code>upload-form.html</code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_8_3_шаблоны_thymeleaf">8.3 Шаблоны Thymeleaf</h3>
+<div class="paragraph">
+<p>Шаблон <code>admin-panel.html</code> является основным видом для всех операций и включает фрагменты:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>reservation-form.html</code> — форма создания резервации.</p>
+</li>
+<li>
+<p><code>cancel-form.html</code> — форма отмены резервации.</p>
+</li>
+<li>
+<p><code>upload-form.html</code> — форма загрузки PDF-меню.</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
-<p>Полное описание changelog-файлов и стратегий отката — в <a href="05-db.html">Схема и описание базы данных</a>.</p>
+<p>Дополнительные шаблоны, не задействованные в этом контроллере:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>cancel-form.html</code> (форма отмены)</p>
+</li>
+<li>
+<p><code>download-menu-form.html</code></p>
+</li>
+<li>
+<p><code>email-cancel.html</code></p>
+</li>
+<li>
+<p><code>email-template.html</code></p>
+</li>
+<li>
+<p><code>file-list.html</code></p>
+</li>
+<li>
+<p><code>homepage.html</code></p>
+</li>
+<li>
+<p><code>reservation-form.html</code> (форма брони)</p>
+</li>
+<li>
+<p><code>upload-form.html</code> (форма загрузки)</p>
+</li>
+</ul>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_4_4_безопасность">4.4 Безопасность</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>В <code>application.properties</code> явно включается автоконфигурация Spring Security:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="properties">spring.autoconfigure.include=org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Класс <code>SecurityConfig</code> задаёт два фильтра безопасности:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="java"><span style="color:#007">@Configuration</span>
-<span style="color:#007">@EnableWebSecurity</span>
-<span style="color:#088;font-weight:bold">public</span> <span style="color:#339;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">SecurityConfig</span> {
-    <span style="color:#007">@Bean</span> <span style="color:#007">@Order</span>(<span style="color:#00D">1</span>)
-    <span style="color:#088;font-weight:bold">public</span> SecurityFilterChain adminSecurity(HttpSecurity http) <span style="color:#088;font-weight:bold">throws</span> <span style="color:#C00;font-weight:bold">Exception</span> {
-        http
-            .securityMatcher(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">/restaurant/admin</span><span style="color:#710">&quot;</span></span>, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">/restaurant/admin/**</span><span style="color:#710">&quot;</span></span>)
-            .authorizeHttpRequests(auth -&gt; auth.anyRequest().hasRole(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">ADMIN</span><span style="color:#710">&quot;</span></span>))
-            .httpBasic(<span style="color:#0a8;font-weight:bold">Customizer</span>.withDefaults())
-            .csrf(csrf -&gt; csrf.disable());
-        <span style="color:#080;font-weight:bold">return</span> http.build();
-    }
-
-    <span style="color:#007">@Bean</span> <span style="color:#007">@Order</span>(<span style="color:#00D">2</span>)
-    <span style="color:#088;font-weight:bold">public</span> SecurityFilterChain publicSecurity(HttpSecurity http) <span style="color:#088;font-weight:bold">throws</span> <span style="color:#C00;font-weight:bold">Exception</span> {
-        http
-            .authorizeHttpRequests(auth -&gt; auth
-                .requestMatchers(
-                    <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">/restaurant</span><span style="color:#710">&quot;</span></span>, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">/restaurant/</span><span style="color:#710">&quot;</span></span>,
-                    <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">/restaurant/reservations/**</span><span style="color:#710">&quot;</span></span>,
-                    <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">/restaurant/reserve/**</span><span style="color:#710">&quot;</span></span>,
-                    <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">/restaurant/cancel/**</span><span style="color:#710">&quot;</span></span>,
-                    <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">/restaurant/menu</span><span style="color:#710">&quot;</span></span>, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">/restaurant/menu/**</span><span style="color:#710">&quot;</span></span>
-                ).permitAll()
-                .anyRequest().authenticated()
-            )
-            .httpBasic(<span style="color:#0a8;font-weight:bold">Customizer</span>.withDefaults())
-            .csrf(csrf -&gt; csrf.disable());
-        <span style="color:#080;font-weight:bold">return</span> http.build();
-    }
-
-    <span style="color:#007">@Bean</span>
-    <span style="color:#088;font-weight:bold">public</span> UserDetailsService userDetailsService() {
-        UserDetails admin = User.withUsername(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">admin</span><span style="color:#710">&quot;</span></span>)
-            .password(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">{noop}secret</span><span style="color:#710">&quot;</span></span>)
-            .roles(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">ADMIN</span><span style="color:#710">&quot;</span></span>).build();
-        <span style="color:#080;font-weight:bold">return</span> <span style="color:#080;font-weight:bold">new</span> InMemoryUserDetailsManager(admin);
-    }
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Более подробные возможности (JWT, OAuth2) см. в <a href="06-security.html">Безопасность</a>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_4_5_почтовая_рассылка">4.5 Почтовая рассылка</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>SMTP-настройки для отправки писем через Gmail:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="properties">spring.mail.host=smtp.gmail.com
-spring.mail.port=587
-spring.mail.username=${MAIL_USERNAME}
-spring.mail.password=${MAIL_PASSWORD}
-spring.mail.properties.mail.smtp.auth=true
-spring.mail.properties.mail.smtp.starttls.enable=true
-spring.mail.properties.mail.debug=true</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_4_6_загрузка_файлов">4.6 Загрузка файлов</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Конфигурация multipart и путь сохранения файлов меню:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="properties">spring.servlet.multipart.max-file-size=10MB
-spring.servlet.multipart.max-request-size=10MB
-file.upload.path=uploads/menus</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_4_7_обработка_ошибок_и_логирование">4.7 Обработка ошибок и логирование</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Включение стектрейсов и сообщений ошибок в HTTP-ответах:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="properties">server.error.include-stacktrace=always
-server.error.include-message=always</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_4_8_специфичные_параметры_приложения">4.8 Специфичные параметры приложения</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Дополнительные свойства:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="properties"># Количество столов
-restaurant.table-count=10
-
-# Время работы ресторана
-restaurant.opening-time=08:00
-restaurant.closing-time=20:00</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_4_9_запуск_приложения">4.9 Запуск приложения</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Запуск через Maven:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">mvn spring-boot:run</code></pre>
-</div>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>Подробности — xref:03-installation.adoc[Установка].</pre>
+<div class="sect2">
+<h3 id="_8_4_порядок_запуска_и_безопасность">8.4 Порядок запуска и безопасность</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Все эндпоинты доступны только пользователям с ролью <code>ADMIN</code>.</p>
+</li>
+<li>
+<p>Для запуска панели администратора необходимо авторизоваться через базовую аутентификацию.</p>
+</li>
+<li>
+<p>Подробнее о настройке безопасности см. <a href="06-security.html">Безопасность</a>.</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
@@ -763,7 +728,7 @@ restaurant.closing-time=20:00</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-05-15 08:19:24 +0200
+Last updated 2025-05-15 16:43:57 +0200
 </div>
 </div>
 <script>

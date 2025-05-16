@@ -1,0 +1,81 @@
+:toc:
+:toclevels: 3
+== 8. Административная панель
+
+В разделе приводится документация по **AdminPageController**, который отвечает за функционал панели администратора: создание и отмену бронирований, просмотр списка резерваций и загрузку меню. Все запросы защищены ролью `ADMIN` и начинаются с префикса `/restaurant/admin`.
+
+=== 8.1 Общие сведения
+
+Контроллер `AdminPageController` аннотирован:
+[source,java]
+
+@Controller
+@RequestMapping("/restaurant/admin")
+@PreAuthorize("hasRole('ADMIN')")
+@Slf4j
+public class AdminPageController { … }
+--------------------------------------
+
+Он предоставляет методы для работы с бронированиями и файлами меню. В модель автоматически добавляется атрибут `reservationForm`:
+
+[source,java]
+
+@ModelAttribute("reservationForm")
+public ReservationFormDto getReservationFormDto() {
+return new ReservationFormDto();
+}
+-
+
+=== 8.2 Методы контроллера
+
+Ниже сводная таблица по всем методам `AdminPageController`:
+
+[cols="1,2,2,2", options="header"]
+|===
+| HTTP-метод | Путь | Модельные атрибуты | Шаблоны Thymeleaf
+
+| **GET** | `/restaurant/admin` | `reservationForm` | `admin-panel.html`, `reservation-form.html`, `cancel-form.html`, `upload-form.html`
+
+| **POST** | `/restaurant/admin/reserve` | `message`, `reservationForm` | `admin-panel.html`, `reservation-form.html`
+
+| **POST** | `/restaurant/admin/cancel` | `message` | `admin-panel.html`, `cancel-form.html`
+| **GET** | `/restaurant/admin/reservations/today` | `tableReservations`, `message?` | `admin-panel.html`
+
+| **GET** | `/restaurant/admin/reservations/confirmed/by-date` | `allReservations`, `message?` | `admin-panel.html`
+
+| **POST** | `/restaurant/admin/upload-menu` | `message` | `admin-panel.html`, `upload-form.html`
+|===
+
+
+=== 8.3 Шаблоны Thymeleaf
+
+В проекте есть отдельные файлы-фрагменты:
+
+* `reservation-form.html` — форма создания резервации.
+* `cancel-form.html` — форма отмены резервации.
+* `upload-form.html` — форма загрузки PDF-меню.
+
+В `admin-panel.html` вся разметка этих форм скопирована непосредственно внутрь одного HTML-файла.
+
+
+
+
+
+
+
+== 8.4 Параметры формы бронирования
+
+Форма отправляется методом POST на `/reserve` и содержит поля:
+
+* `date` (LocalDate, обязательное) — дата бронирования.
+* `time` (LocalTime, обязательное) — время.
+* `tableNumber` (Integer, обязательное) — номер стола.
+* `guestName` (String, обязательное) — имя гостя.
+* `guestEmail` (String, обязательное, e-mail).
+* `guestCount` (Integer, обязательное) — число участников.
+
+=== 8.5 Порядок запуска и безопасность
+
+* Все эндпоинты доступны только пользователям с ролью `ADMIN`.
+* Для запуска панели администратора необходимо авторизоваться через базовую аутентификацию.
+* Подробнее о настройке безопасности см. xref:06-security.adoc[Безопасность].

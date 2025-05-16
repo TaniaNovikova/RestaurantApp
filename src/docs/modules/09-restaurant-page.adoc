@@ -1,0 +1,61 @@
+:toc:
+:toclevels: 3
+
+= 9. Публичный интерфейс клиента
+
+В этом разделе описаны эндпоинты `RestaurantPageController`, отвечающие за отображение главной страницы, формы бронирования, формы отмены и скачивание меню. Все запросы начинаются с префикса `/restaurant`.
+
+== 9.1 Общие сведения
+
+Контроллер `RestaurantPageController` аннотирован следующим образом:
+
+[source,java]
+
+@Controller
+@RequestMapping("/restaurant")
+public class RestaurantPageController { … }
+-------------------------------------------
+
+Он использует сервисы `ReservationService` и `FileService` для работы с бронированиями и файлами меню. Модельные атрибуты добавляются непосредственно в методах.
+
+== 9.2 Методы контроллера
+
+Ниже сводная таблица по всем методам `RestaurantPageController`:
+
+[cols="1,2,2,2", options="header"]
+|===
+| HTTP-метод | Путь | Модельные атрибуты | Шаблоны Thymeleaf / Ответ
+
+| **GET**  | `/restaurant`                      | —                                | `homepage.html`
+
+| **GET**  | `/restaurant/reserve`             | `reservationForm`                | `reservation-form.html`
+
+| **POST** | `/restaurant/reserve`             | `message`, `reservationForm`     | `reservation-form.html`
+
+| **GET**  | `/restaurant/cancel`              | `reservationCode`                | `cancel-form.html`
+
+| **POST** | `/restaurant/cancel`              | `message`, `reservationCode`     | `cancel-form.html`
+
+| **GET**  | `/restaurant/menu`                | —                                | `ResponseEntity<byte[]>` — скачивание PDF меню
+|===
+
+**Пояснения:**
+
+* `reservationForm` — DTO для формы бронирования (см. `ReservationFormDto`).
+* `message` — сообщение об успехе или ошибке операции.
+* `reservationCode` — строковый код брони для отмены.
+* Для скачивания меню контроллер возвращает `ResponseEntity<byte[]>` с заголовком `Content-Disposition`.
+
+== 9.3 Шаблоны Thymeleaf
+
+Используемые шаблоны:
+
+* `homepage.html` — главная страница приложения, вся разметка содержится в одном файле, без `th:insert`/`th:replace`.
+* `reservation-form.html` — форма создания брони (отдельный файл).
+* `cancel-form.html` — форма отмены брони (отдельный файл).
+
+
+
+== 9.4 Доступ и безопасность
+
+Все публичные страницы доступны без аутентификации. Для подробностей о безопасности и роутинге админ-панели см. xref:08-admin-page.adoc[Административная панель].

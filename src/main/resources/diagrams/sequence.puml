@@ -2,130 +2,1347 @@
 autonumber
 skinparam sequenceArrowThickness 2
 
-Client -> RestaurantPageController: showHomePage()
-Client <-- RestaurantPageController: return
+Client -> CrudRepository: count()
+CrudRepository --> Client: return
 
-Client -> AdminPageController: getReservationFormDto()
-Client <-- AdminPageController: return
+@enduml
+ ListCrudRepository: saveAll()
+ListCrudRepository --> Client: return
 
-Client -> AdminPageController: showAdminPanel()
-Client <-- AdminPageController: return
+Client -> CrudRepository: deleteAll()
+CrudRepository --> Client: return
 
-Client -> AdminPageController: getReservationFormDto()
-Client <-- AdminPageController: return
+Client -> FileService: saveFile()
+FileService -> CrudRepository: save()
+CrudRepository --> FileService: return
 
-Client -> AdminPageController: uploadMenu()
-Client -> FileService: saveMenuInProjectDir()
-Client <-- FileService: return
+FileService --> Client: return
 
-Client <-- AdminPageController: return
+Client -> FileService: saveFile()
+FileService -> CrudRepository: save()
+CrudRepository --> FileService: return
 
-Client -> AdminPageController: getReservationFormDto()
-Client <-- AdminPageController: return
+FileService --> Client: return
 
-Client -> AdminPageController: createdReservationFromAdmin()
+Client -> FileService: getFile()
+FileService -> CrudRepository: findById()
+CrudRepository --> FileService: return
+
+FileService --> Client: return
+
+Client -> CrudRepository: deleteAll()
+CrudRepository --> Client: return
+
+Client -> FileService: saveFile()
+FileService -> CrudRepository: save()
+CrudRepository --> FileService: return
+
+FileService --> Client: return
+
+Client -> FileService: saveFile()
+FileService -> CrudRepository: save()
+CrudRepository --> FileService: return
+
+FileService --> Client: return
+
+Client -> ListCrudRepository: findAll()
+ListCrudRepository --> Client: return
+
+Client -> FileService: deleteById()
+FileService -> CrudRepository: existsById()
+CrudRepository --> FileService: return
+
+FileService -> CrudRepository: deleteById()
+CrudRepository --> FileService: return
+
+FileService --> Client: return
+
+Client -> ListCrudRepository: findAll()
+ListCrudRepository --> Client: return
+
+Client -> ListCrudRepository: findAll()
+ListCrudRepository --> Client: return
+
+Client -> CrudRepository: deleteAll()
+CrudRepository --> Client: return
+
+Client -> FileService: saveFile()
+FileService -> CrudRepository: save()
+CrudRepository --> FileService: return
+
+FileService --> Client: return
+
+Client -> FileService: saveFile()
+FileService -> CrudRepository: save()
+CrudRepository --> FileService: return
+
+FileService --> Client: return
+
+Client -> FileService: getFile()
+FileService -> CrudRepository: findById()
+CrudRepository --> FileService: return
+
+FileService --> Client: return
+
+Client -> CrudRepository: deleteAll()
+CrudRepository --> Client: return
+
+Client -> FileService: saveFile()
+FileService -> CrudRepository: save()
+CrudRepository --> FileService: return
+
+FileService --> Client: return
+
+Client -> FileService: saveFile()
+FileService -> CrudRepository: save()
+CrudRepository --> FileService: return
+
+FileService --> Client: return
+
+Client -> FileService: deleteById()
+FileService -> CrudRepository: existsById()
+CrudRepository --> FileService: return
+
+FileService --> Client: return
+
+Client -> ListCrudRepository: findAll()
+ListCrudRepository --> Client: return
+
+Client -> CrudRepository: findById()
+CrudRepository --> Client: return
+
+Client -> CrudRepository: findById()
+CrudRepository --> Client: return
+
+Client -> CrudRepository: deleteAll()
+CrudRepository --> Client: return
+
+Client -> FileService: saveFile()
+FileService -> CrudRepository: save()
+CrudRepository --> FileService: return
+
+FileService --> Client: return
+
+Client -> FileService: saveFile()
+FileService -> CrudRepository: save()
+CrudRepository --> FileService: return
+
+FileService --> Client: return
+
+Client -> ListCrudRepository: findAll()
+ListCrudRepository --> Client: return
+
+Client -> CrudRepository: findById()
+CrudRepository --> Client: return
+
+Client -> CrudRepository: findById()
+CrudRepository --> Client: return
+
+Client -> CrudRepository: deleteAll()
+CrudRepository --> Client: return
+
+Client -> FileService: saveFile()
+FileService -> CrudRepository: save()
+CrudRepository --> FileService: return
+
+FileService --> Client: return
+
+Client -> FileService: saveFile()
+FileService -> CrudRepository: save()
+CrudRepository --> FileService: return
+
+FileService --> Client: return
+
+Client -> FileService: getAllFiles()
+FileService -> ListCrudRepository: findAll()
+ListCrudRepository --> FileService: return
+
+FileService --> Client: return
+
+Client -> ListCrudRepository: findAll()
+ListCrudRepository --> Client: return
+
+Client -> CrudRepository: save()
+CrudRepository --> Client: return
+
+Client -> CrudRepository: save()
+CrudRepository --> Client: return
+
+Client -> CrudRepository: save()
+CrudRepository --> Client: return
+
+Client -> CrudRepository: save()
+CrudRepository --> Client: return
+
+Client -> CrudRepository: save()
+CrudRepository --> Client: return
+
+Client -> CrudRepository: save()
+CrudRepository --> Client: return
+
+Client -> CrudRepository: save()
+CrudRepository --> Client: return
+
+Client -> CrudRepository: save()
+CrudRepository --> Client: return
+
+Client -> CrudRepository: save()
+CrudRepository --> Client: return
+
+Client -> CrudRepository: save()
+CrudRepository --> Client: return
+
 Client -> ReservationServiceImpl: createReservation()
-Client -> EmailService: sendHTMLEmail()
-Client <-- EmailService: return
+ReservationServiceImpl -> ReservationRepo: findByCustomerEmailIgnoreCaseAndReservationStatusAndStartDateTimeBetween()
+ReservationRepo --> ReservationServiceImpl: return
 
-Client <-- ReservationServiceImpl: return
+ReservationServiceImpl -> ListCrudRepository: findAll()
+ListCrudRepository --> ReservationServiceImpl: return
 
-Client <-- AdminPageController: return
+ReservationServiceImpl -> ReservationRepo: findByRestaurantTable_IdAndReservationStatusAndStartDateTimeLessThanAndEndDateTimeGreaterThan()
+ReservationRepo --> ReservationServiceImpl: return
 
-Client -> AdminPageController: getReservationFormDto()
-Client <-- AdminPageController: return
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
 
-Client -> AdminPageController: cancelReservationFromAdmin()
-Client -> ReservationServiceImpl: cancelReservation()
-Client -> EmailService: sendHTMLEmail()
-Client <-- EmailService: return
+ReservationServiceImpl -> EmailService: sendHTMLEmail()
+EmailService --> ReservationServiceImpl: return
 
-Client <-- ReservationServiceImpl: return
+ReservationServiceImpl --> Client: return
 
-Client <-- AdminPageController: return
+Client -> CrudRepository: deleteAll()
+CrudRepository --> Client: return
 
-Client -> AdminPageController: getReservationFormDto()
-Client <-- AdminPageController: return
+Client -> CrudRepository: deleteAll()
+CrudRepository --> Client: return
 
-Client -> AdminPageController: getReservationsConfirmedByDate()
-Client -> ReservationServiceImpl: getAllReservationByDay()
-Client <-- ReservationServiceImpl: return
+Client -> CrudRepository: save()
+CrudRepository --> Client: return
 
-Client <-- AdminPageController: return
+Client -> CrudRepository: save()
+CrudRepository --> Client: return
 
-Client -> AdminPageController: getReservationFormDto()
-Client <-- AdminPageController: return
+Client -> CrudRepository: save()
+CrudRepository --> Client: return
 
-Client -> AdminPageController: getReservationsToday()
-Client -> ReservationServiceImpl: getReservationsForTableToday()
-Client <-- ReservationServiceImpl: return
+Client -> CrudRepository: save()
+CrudRepository --> Client: return
 
-Client <-- AdminPageController: return
+Client -> CrudRepository: save()
+CrudRepository --> Client: return
 
-Client -> AdminPageController: getReservationFormDto()
-Client <-- AdminPageController: return
+Client -> CrudRepository: save()
+CrudRepository --> Client: return
 
-Client -> AdminPageController: showAdminPanel()
-Client <-- AdminPageController: return
+Client -> CrudRepository: save()
+CrudRepository --> Client: return
 
-Client -> RestaurantPageController: showHomePage()
-Client <-- RestaurantPageController: return
+Client -> CrudRepository: save()
+CrudRepository --> Client: return
 
-Client -> AdminPageController: getReservationFormDto()
-Client <-- AdminPageController: return
+Client -> CrudRepository: save()
+CrudRepository --> Client: return
 
-Client -> AdminPageController: showAdminPanel()
-Client <-- AdminPageController: return
+Client -> CrudRepository: save()
+CrudRepository --> Client: return
 
-Client -> AdminPageController: getReservationFormDto()
-Client <-- AdminPageController: return
+Client -> ReservationServiceImpl: getAllReservations()
+ReservationServiceImpl -> ListCrudRepository: findAll()
+ListCrudRepository --> ReservationServiceImpl: return
 
-Client -> AdminPageController: uploadMenu()
-Client -> FileService: saveMenuInProjectDir()
-Client <-- FileService: return
+ReservationServiceImpl --> Client: return
 
-Client <-- AdminPageController: return
-
-Client -> RestaurantPageController: showHomePage()
-Client <-- RestaurantPageController: return
-
-Client -> RestaurantPageController: showHomePage()
-Client <-- RestaurantPageController: return
-
-Client -> RestaurantPageController: showReservationPage()
-Client <-- RestaurantPageController: return
-
-Client -> RestaurantPageController: createReservation()
 Client -> ReservationServiceImpl: createReservation()
-Client -> EmailService: sendHTMLEmail()
-Client <-- EmailService: return
+ReservationServiceImpl -> ReservationRepo: findByCustomerEmailIgnoreCaseAndReservationStatusAndStartDateTimeBetween()
+ReservationRepo --> ReservationServiceImpl: return
 
-Client <-- ReservationServiceImpl: return
+ReservationServiceImpl -> ListCrudRepository: findAll()
+ListCrudRepository --> ReservationServiceImpl: return
 
-Client <-- RestaurantPageController: return
+ReservationServiceImpl -> ReservationRepo: findByRestaurantTable_IdAndReservationStatusAndStartDateTimeLessThanAndEndDateTimeGreaterThan()
+ReservationRepo --> ReservationServiceImpl: return
 
-Client -> RestaurantPageController: showHomePage()
-Client <-- RestaurantPageController: return
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
 
-Client -> RestaurantPageController: showCancelPage()
-Client <-- RestaurantPageController: return
+ReservationServiceImpl -> EmailService: sendHTMLEmail()
+EmailService --> ReservationServiceImpl: return
 
-Client -> RestaurantPageController: cancelReservation()
-Client -> ReservationServiceImpl: cancelReservation()
-Client -> EmailService: sendHTMLEmail()
-Client <-- EmailService: return
+ReservationServiceImpl --> Client: return
 
-Client <-- ReservationServiceImpl: return
+Client -> ReservationServiceImpl: createReservation()
+ReservationServiceImpl -> ReservationRepo: findByCustomerEmailIgnoreCaseAndReservationStatusAndStartDateTimeBetween()
+ReservationRepo --> ReservationServiceImpl: return
 
-Client <-- RestaurantPageController: return
+ReservationServiceImpl -> ListCrudRepository: findAll()
+ListCrudRepository --> ReservationServiceImpl: return
 
-Client -> RestaurantPageController: showHomePage()
-Client <-- RestaurantPageController: return
+ReservationServiceImpl -> ReservationRepo: findByRestaurantTable_IdAndReservationStatusAndStartDateTimeLessThanAndEndDateTimeGreaterThan()
+ReservationRepo --> ReservationServiceImpl: return
 
-Client -> RestaurantPageController: downloadMenu()
-Client -> FileService: getMenu()
-Client <-- FileService: return
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
 
-Client <-- RestaurantPageController: return
+ReservationServiceImpl -> EmailService: sendHTMLEmail()
+EmailService --> ReservationServiceImpl: return
+
+ReservationServiceImpl --> Client: return
+
+Client -> ReservationServiceImpl: createReservation()
+ReservationServiceImpl -> ReservationRepo: findByCustomerEmailIgnoreCaseAndReservationStatusAndStartDateTimeBetween()
+ReservationRepo --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ListCrudRepository: findAll()
+ListCrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ReservationRepo: findByRestaurantTable_IdAndReservationStatusAndStartDateTimeLessThanAndEndDateTimeGreaterThan()
+ReservationRepo --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> EmailService: sendHTMLEmail()
+EmailService --> ReservationServiceImpl: return
+
+ReservationServiceImpl --> Client: return
+
+Client -> ReservationServiceImpl: getAllReservations()
+ReservationServiceImpl -> ListCrudRepository: findAll()
+ListCrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl --> Client: return
+
+Client -> ReservationServiceImpl: getAllReservations()
+ReservationServiceImpl -> ListCrudRepository: findAll()
+ListCrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl --> Client: return
+
+Client -> CrudRepository: deleteAll()
+CrudRepository --> Client: return
+
+Client -> CrudRepository: deleteAll()
+CrudRepository --> Client: return
+
+Client -> CrudRepository: save()
+CrudRepository --> Client: return
+
+Client -> CrudRepository: save()
+CrudRepository --> Client: return
+
+Client -> CrudRepository: save()
+CrudRepository --> Client: return
+
+Client -> CrudRepository: save()
+CrudRepository --> Client: return
+
+Client -> CrudRepository: save()
+CrudRepository --> Client: return
+
+Client -> CrudRepository: save()
+CrudRepository --> Client: return
+
+Client -> CrudRepository: save()
+CrudRepository --> Client: return
+
+Client -> CrudRepository: save()
+CrudRepository --> Client: return
+
+Client -> CrudRepository: save()
+CrudRepository --> Client: return
+
+Client -> CrudRepository: save()
+CrudRepository --> Client: return
+
+Client -> ReservationServiceImpl: createReservation()
+ReservationServiceImpl -> CrudRepository: deleteAll()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: deleteAll()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ReservationServiceImpl: createReservation()
+ReservationServiceImpl -> ReservationRepo: findByCustomerEmailIgnoreCaseAndReservationStatusAndStartDateTimeBetween()
+ReservationRepo --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ListCrudRepository: findAll()
+ListCrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ReservationRepo: findByRestaurantTable_IdAndReservationStatusAndStartDateTimeLessThanAndEndDateTimeGreaterThan()
+ReservationRepo --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> EmailService: sendHTMLEmail()
+EmailService --> ReservationServiceImpl: return
+
+ReservationServiceImpl --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ReservationServiceImpl: createReservation()
+ReservationServiceImpl -> ReservationRepo: findByCustomerEmailIgnoreCaseAndReservationStatusAndStartDateTimeBetween()
+ReservationRepo --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ListCrudRepository: findAll()
+ListCrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ReservationRepo: findByRestaurantTable_IdAndReservationStatusAndStartDateTimeLessThanAndEndDateTimeGreaterThan()
+ReservationRepo --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> EmailService: sendHTMLEmail()
+EmailService --> ReservationServiceImpl: return
+
+ReservationServiceImpl --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ReservationServiceImpl: createReservation()
+ReservationServiceImpl -> ReservationRepo: findByCustomerEmailIgnoreCaseAndReservationStatusAndStartDateTimeBetween()
+ReservationRepo --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ListCrudRepository: findAll()
+ListCrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ReservationRepo: findByRestaurantTable_IdAndReservationStatusAndStartDateTimeLessThanAndEndDateTimeGreaterThan()
+ReservationRepo --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> EmailService: sendHTMLEmail()
+EmailService --> ReservationServiceImpl: return
+
+ReservationServiceImpl --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ReservationServiceImpl: getAllReservationByDay()
+ReservationServiceImpl -> ListCrudRepository: findAll()
+ListCrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ListCrudRepository: findAll()
+ListCrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ListCrudRepository: findAll()
+ListCrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ListCrudRepository: findAll()
+ListCrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: deleteAll()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: deleteAll()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ReservationServiceImpl: createReservation()
+ReservationServiceImpl -> ReservationRepo: findByCustomerEmailIgnoreCaseAndReservationStatusAndStartDateTimeBetween()
+ReservationRepo --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ListCrudRepository: findAll()
+ListCrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ReservationRepo: findByRestaurantTable_IdAndReservationStatusAndStartDateTimeLessThanAndEndDateTimeGreaterThan()
+ReservationRepo --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> EmailService: sendHTMLEmail()
+EmailService --> ReservationServiceImpl: return
+
+ReservationServiceImpl --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ReservationServiceImpl: createReservation()
+ReservationServiceImpl -> ReservationRepo: findByCustomerEmailIgnoreCaseAndReservationStatusAndStartDateTimeBetween()
+ReservationRepo --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ListCrudRepository: findAll()
+ListCrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ReservationRepo: findByRestaurantTable_IdAndReservationStatusAndStartDateTimeLessThanAndEndDateTimeGreaterThan()
+ReservationRepo --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> EmailService: sendHTMLEmail()
+EmailService --> ReservationServiceImpl: return
+
+ReservationServiceImpl --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ListCrudRepository: findAll()
+ListCrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ListCrudRepository: findAll()
+ListCrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: deleteAll()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: deleteAll()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ReservationServiceImpl: createReservation()
+ReservationServiceImpl -> ReservationRepo: findByCustomerEmailIgnoreCaseAndReservationStatusAndStartDateTimeBetween()
+ReservationRepo --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ListCrudRepository: findAll()
+ListCrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ReservationRepo: findByRestaurantTable_IdAndReservationStatusAndStartDateTimeLessThanAndEndDateTimeGreaterThan()
+ReservationRepo --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> EmailService: sendHTMLEmail()
+EmailService --> ReservationServiceImpl: return
+
+ReservationServiceImpl --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ReservationServiceImpl: createReservation()
+ReservationServiceImpl -> ReservationRepo: findByCustomerEmailIgnoreCaseAndReservationStatusAndStartDateTimeBetween()
+ReservationRepo --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ListCrudRepository: findAll()
+ListCrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ReservationRepo: findByRestaurantTable_IdAndReservationStatusAndStartDateTimeLessThanAndEndDateTimeGreaterThan()
+ReservationRepo --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> EmailService: sendHTMLEmail()
+EmailService --> ReservationServiceImpl: return
+
+ReservationServiceImpl --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ListCrudRepository: findAll()
+ListCrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ReservationServiceImpl: cancelReservation()
+ReservationServiceImpl -> ReservationRepo: findByReservationCode()
+ReservationRepo --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> EmailService: sendHTMLEmail()
+EmailService --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ListCrudRepository: findAll()
+ListCrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ListCrudRepository: findAll()
+ListCrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: deleteAll()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: deleteAll()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ReservationServiceImpl: createReservation()
+ReservationServiceImpl -> ReservationRepo: findByCustomerEmailIgnoreCaseAndReservationStatusAndStartDateTimeBetween()
+ReservationRepo --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ListCrudRepository: findAll()
+ListCrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: deleteAll()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: deleteAll()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ReservationServiceImpl: createReservation()
+ReservationServiceImpl -> ReservationRepo: findByCustomerEmailIgnoreCaseAndReservationStatusAndStartDateTimeBetween()
+ReservationRepo --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ReservationServiceImpl: createReservation()
+ReservationServiceImpl -> ReservationRepo: findByCustomerEmailIgnoreCaseAndReservationStatusAndStartDateTimeBetween()
+ReservationRepo --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: deleteAll()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: deleteAll()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ReservationServiceImpl: createReservation()
+ReservationServiceImpl -> CrudRepository: deleteAll()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: deleteAll()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ReservationServiceImpl: createReservation()
+ReservationServiceImpl -> ReservationRepo: findByCustomerEmailIgnoreCaseAndReservationStatusAndStartDateTimeBetween()
+ReservationRepo --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ListCrudRepository: findAll()
+ListCrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ReservationRepo: findByRestaurantTable_IdAndReservationStatusAndStartDateTimeLessThanAndEndDateTimeGreaterThan()
+ReservationRepo --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> EmailService: sendHTMLEmail()
+EmailService --> ReservationServiceImpl: return
+
+ReservationServiceImpl --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: deleteAll()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: deleteAll()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ReservationServiceImpl: createReservation()
+ReservationServiceImpl -> ReservationRepo: findByCustomerEmailIgnoreCaseAndReservationStatusAndStartDateTimeBetween()
+ReservationRepo --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ListCrudRepository: findAll()
+ListCrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ReservationRepo: findByRestaurantTable_IdAndReservationStatusAndStartDateTimeLessThanAndEndDateTimeGreaterThan()
+ReservationRepo --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> EmailService: sendHTMLEmail()
+EmailService --> ReservationServiceImpl: return
+
+ReservationServiceImpl --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ReservationServiceImpl: createReservation()
+ReservationServiceImpl -> ReservationRepo: findByCustomerEmailIgnoreCaseAndReservationStatusAndStartDateTimeBetween()
+ReservationRepo --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ListCrudRepository: findAll()
+ListCrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ReservationRepo: findByRestaurantTable_IdAndReservationStatusAndStartDateTimeLessThanAndEndDateTimeGreaterThan()
+ReservationRepo --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> EmailService: sendHTMLEmail()
+EmailService --> ReservationServiceImpl: return
+
+ReservationServiceImpl --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ListCrudRepository: findAll()
+ListCrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ListCrudRepository: findAll()
+ListCrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: deleteAll()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: deleteAll()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ReservationServiceImpl: createReservation()
+ReservationServiceImpl -> ReservationRepo: findByCustomerEmailIgnoreCaseAndReservationStatusAndStartDateTimeBetween()
+ReservationRepo --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ListCrudRepository: findAll()
+ListCrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ReservationRepo: findByRestaurantTable_IdAndReservationStatusAndStartDateTimeLessThanAndEndDateTimeGreaterThan()
+ReservationRepo --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> EmailService: sendHTMLEmail()
+EmailService --> ReservationServiceImpl: return
+
+ReservationServiceImpl --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ReservationServiceImpl: createReservation()
+ReservationServiceImpl -> ReservationRepo: findByCustomerEmailIgnoreCaseAndReservationStatusAndStartDateTimeBetween()
+ReservationRepo --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ListCrudRepository: findAll()
+ListCrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: deleteAll()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: deleteAll()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ReservationServiceImpl: createReservation()
+ReservationServiceImpl -> ReservationRepo: findByCustomerEmailIgnoreCaseAndReservationStatusAndStartDateTimeBetween()
+ReservationRepo --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ListCrudRepository: findAll()
+ListCrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ReservationRepo: findByRestaurantTable_IdAndReservationStatusAndStartDateTimeLessThanAndEndDateTimeGreaterThan()
+ReservationRepo --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> EmailService: sendHTMLEmail()
+EmailService --> ReservationServiceImpl: return
+
+ReservationServiceImpl --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ReservationServiceImpl: createReservation()
+ReservationServiceImpl -> ReservationRepo: findByCustomerEmailIgnoreCaseAndReservationStatusAndStartDateTimeBetween()
+ReservationRepo --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ListCrudRepository: findAll()
+ListCrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ReservationRepo: findByRestaurantTable_IdAndReservationStatusAndStartDateTimeLessThanAndEndDateTimeGreaterThan()
+ReservationRepo --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ReservationRepo: findByRestaurantTable_IdAndReservationStatusAndStartDateTimeLessThanAndEndDateTimeGreaterThan()
+ReservationRepo --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> EmailService: sendHTMLEmail()
+EmailService --> ReservationServiceImpl: return
+
+ReservationServiceImpl --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ReservationServiceImpl: createReservation()
+ReservationServiceImpl -> ReservationRepo: findByCustomerEmailIgnoreCaseAndReservationStatusAndStartDateTimeBetween()
+ReservationRepo --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ListCrudRepository: findAll()
+ListCrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ReservationRepo: findByRestaurantTable_IdAndReservationStatusAndStartDateTimeLessThanAndEndDateTimeGreaterThan()
+ReservationRepo --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ListCrudRepository: findAll()
+ListCrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ListCrudRepository: findAll()
+ListCrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: deleteAll()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: deleteAll()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ReservationServiceImpl: createReservation()
+ReservationServiceImpl -> ReservationRepo: findByCustomerEmailIgnoreCaseAndReservationStatusAndStartDateTimeBetween()
+ReservationRepo --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ListCrudRepository: findAll()
+ListCrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ReservationRepo: findByRestaurantTable_IdAndReservationStatusAndStartDateTimeLessThanAndEndDateTimeGreaterThan()
+ReservationRepo --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> EmailService: sendHTMLEmail()
+EmailService --> ReservationServiceImpl: return
+
+ReservationServiceImpl --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ReservationServiceImpl: createReservation()
+ReservationServiceImpl -> ReservationRepo: findByCustomerEmailIgnoreCaseAndReservationStatusAndStartDateTimeBetween()
+ReservationRepo --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ListCrudRepository: findAll()
+ListCrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ReservationRepo: findByRestaurantTable_IdAndReservationStatusAndStartDateTimeLessThanAndEndDateTimeGreaterThan()
+ReservationRepo --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> EmailService: sendHTMLEmail()
+EmailService --> ReservationServiceImpl: return
+
+ReservationServiceImpl --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ListCrudRepository: findAll()
+ListCrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ReservationServiceImpl: cancelReservation()
+ReservationServiceImpl -> ReservationRepo: findByReservationCode()
+ReservationRepo --> ReservationServiceImpl: return
+
+ReservationServiceImpl --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ListCrudRepository: findAll()
+ListCrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: deleteAll()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: deleteAll()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ReservationServiceImpl: createReservation()
+ReservationServiceImpl -> ReservationRepo: findByCustomerEmailIgnoreCaseAndReservationStatusAndStartDateTimeBetween()
+ReservationRepo --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ListCrudRepository: findAll()
+ListCrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ReservationRepo: findByRestaurantTable_IdAndReservationStatusAndStartDateTimeLessThanAndEndDateTimeGreaterThan()
+ReservationRepo --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> EmailService: sendHTMLEmail()
+EmailService --> ReservationServiceImpl: return
+
+ReservationServiceImpl --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ReservationServiceImpl: createReservation()
+ReservationServiceImpl -> ReservationRepo: findByCustomerEmailIgnoreCaseAndReservationStatusAndStartDateTimeBetween()
+ReservationRepo --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ListCrudRepository: findAll()
+ListCrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ReservationRepo: findByRestaurantTable_IdAndReservationStatusAndStartDateTimeLessThanAndEndDateTimeGreaterThan()
+ReservationRepo --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> EmailService: sendHTMLEmail()
+EmailService --> ReservationServiceImpl: return
+
+ReservationServiceImpl --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ReservationServiceImpl: createReservation()
+ReservationServiceImpl -> ReservationRepo: findByCustomerEmailIgnoreCaseAndReservationStatusAndStartDateTimeBetween()
+ReservationRepo --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ListCrudRepository: findAll()
+ListCrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ReservationRepo: findByRestaurantTable_IdAndReservationStatusAndStartDateTimeLessThanAndEndDateTimeGreaterThan()
+ReservationRepo --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> EmailService: sendHTMLEmail()
+EmailService --> ReservationServiceImpl: return
+
+ReservationServiceImpl --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ReservationServiceImpl: createReservation()
+ReservationServiceImpl -> ReservationRepo: findByCustomerEmailIgnoreCaseAndReservationStatusAndStartDateTimeBetween()
+ReservationRepo --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ListCrudRepository: findAll()
+ListCrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ReservationRepo: findByRestaurantTable_IdAndReservationStatusAndStartDateTimeLessThanAndEndDateTimeGreaterThan()
+ReservationRepo --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> EmailService: sendHTMLEmail()
+EmailService --> ReservationServiceImpl: return
+
+ReservationServiceImpl --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ReservationServiceImpl: createReservation()
+ReservationServiceImpl -> ReservationRepo: findByCustomerEmailIgnoreCaseAndReservationStatusAndStartDateTimeBetween()
+ReservationRepo --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ListCrudRepository: findAll()
+ListCrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ReservationRepo: findByRestaurantTable_IdAndReservationStatusAndStartDateTimeLessThanAndEndDateTimeGreaterThan()
+ReservationRepo --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ReservationRepo: findByRestaurantTable_IdAndReservationStatusAndStartDateTimeLessThanAndEndDateTimeGreaterThan()
+ReservationRepo --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: save()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> EmailService: sendHTMLEmail()
+EmailService --> ReservationServiceImpl: return
+
+ReservationServiceImpl --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ListCrudRepository: findAll()
+ListCrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ListCrudRepository: findAll()
+ListCrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: deleteAll()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: deleteAll()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: deleteAll()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> RestaurantTableServiceImpl: initTables()
+RestaurantTableServiceImpl -> CrudRepository: count()
+CrudRepository --> RestaurantTableServiceImpl: return
+
+RestaurantTableServiceImpl -> ListCrudRepository: saveAll()
+ListCrudRepository --> RestaurantTableServiceImpl: return
+
+RestaurantTableServiceImpl --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> RestaurantTableServiceImpl: getTableById()
+RestaurantTableServiceImpl -> CrudRepository: findById()
+CrudRepository --> RestaurantTableServiceImpl: return
+
+RestaurantTableServiceImpl --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: deleteAll()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> RestaurantTableServiceImpl: initTables()
+RestaurantTableServiceImpl -> CrudRepository: count()
+CrudRepository --> RestaurantTableServiceImpl: return
+
+RestaurantTableServiceImpl -> ListCrudRepository: saveAll()
+ListCrudRepository --> RestaurantTableServiceImpl: return
+
+RestaurantTableServiceImpl --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> RestaurantTableServiceImpl: getAllTables()
+RestaurantTableServiceImpl -> ListCrudRepository: findAll()
+ListCrudRepository --> RestaurantTableServiceImpl: return
+
+RestaurantTableServiceImpl --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: deleteAll()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: count()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> RestaurantTableServiceImpl: initTables()
+RestaurantTableServiceImpl -> CrudRepository: count()
+CrudRepository --> RestaurantTableServiceImpl: return
+
+RestaurantTableServiceImpl -> ListCrudRepository: saveAll()
+ListCrudRepository --> RestaurantTableServiceImpl: return
+
+RestaurantTableServiceImpl --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: count()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> ListCrudRepository: findAll()
+ListCrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: deleteAll()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> RestaurantTableServiceImpl: initTables()
+RestaurantTableServiceImpl -> CrudRepository: count()
+CrudRepository --> RestaurantTableServiceImpl: return
+
+RestaurantTableServiceImpl -> ListCrudRepository: saveAll()
+ListCrudRepository --> RestaurantTableServiceImpl: return
+
+RestaurantTableServiceImpl --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: count()
+CrudRepository --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> RestaurantTableServiceImpl: initTables()
+RestaurantTableServiceImpl -> CrudRepository: count()
+CrudRepository --> RestaurantTableServiceImpl: return
+
+RestaurantTableServiceImpl --> ReservationServiceImpl: return
+
+ReservationServiceImpl -> CrudRepository: count()
+CrudRepository --> ReservationServiceImpl: return
 
 @enduml

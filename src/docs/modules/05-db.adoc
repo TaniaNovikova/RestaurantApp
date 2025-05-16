@@ -1,7 +1,9 @@
-[[database]]
-== Структура базы данных
 
-image::../images/schema_cropped.png[Схема базы данных,600]
+[[er-diagram]]
+
+== ER-диаграмма
+
+image::../images/schema_cropped.png[ER-диаграмма,600]
 
 === Описание таблиц
 

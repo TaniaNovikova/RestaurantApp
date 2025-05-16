@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.23">
-<title>Административная панель {#admin-panel}</title>
+<title>10. Управление файлами (FileController)</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -548,108 +548,131 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
+<div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_10_управление_файлами_filecontroller">10. Управление файлами (FileController)</a>
+<ul class="sectlevel2">
+<li><a href="#_10_1_общие_сведения">10.1 Общие сведения</a></li>
+<li><a href="#_10_2_методы_контроллера">10.2 Методы контроллера</a></li>
+<li><a href="#_10_3_шаблоны_thymeleaf">10.3 Шаблоны Thymeleaf</a></li>
+<li><a href="#_10_4_доступ_и_безопасность">10.4 Доступ и безопасность</a></li>
+</ul>
+</li>
+</ul>
+</div>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_административная_панель_admin_panel">Административная панель {#admin-panel}</h2>
+<h2 id="_10_управление_файлами_filecontroller">10. Управление файлами (FileController)</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Контроллер <code>AdminPageController</code> отвечает за работу административного интерфейса:
-- отображение страницы с формами
-- создание и отмену резерваций
-- просмотр резерваций
-- загрузку PDF-меню</p>
+<p>В этом разделе описан контроллер <code>FileController</code>, отвечающий за загрузку, список, скачивание и удаление файлов. Все эндпоинты начинаются с префикса <code>/file</code>.</p>
+</div>
+<div class="sect2">
+<h3 id="_10_1_общие_сведения">10.1 Общие сведения</h3>
+<div class="paragraph">
+<p>Контроллер <code>FileController</code> аннотирован:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span style="color:#007">@Controller</span>
+<span style="color:#007">@RequestMapping</span>(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">/file</span><span style="color:#710">&quot;</span></span>)
+<span style="color:#088;font-weight:bold">public</span> <span style="color:#339;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">FileController</span> {
+<span style="color:#088;font-weight:bold">private</span> <span style="color:#088;font-weight:bold">final</span> FileService fileService</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Этот контроллер использует <code>FileService</code> для операций с сущностью <code>FileEntity</code>. Модельные атрибуты добавляются в каждом методе.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_10_2_методы_контроллера">10.2 Методы контроллера</h3>
+<div class="paragraph">
+<p>Ниже сводная таблица по всем методам <code>FileController</code>:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 16.6666%;">
-<col style="width: 16.6666%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3335%;">
+<col style="width: 14.2857%;">
+<col style="width: 28.5714%;">
+<col style="width: 28.5714%;">
+<col style="width: 28.5715%;">
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">HTTP-метод</th>
 <th class="tableblock halign-left valign-top">Путь</th>
-<th class="tableblock halign-left valign-top">Параметры</th>
-<th class="tableblock halign-left valign-top">Описание</th>
+<th class="tableblock halign-left valign-top">Модельные атрибуты</th>
+<th class="tableblock halign-left valign-top">Шаблоны Thymeleaf / Ответ</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">GET</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/restaurant/admin</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GET</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/file/upload</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">—</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Отображает главную страницу админ-панели (<code>admin-panel.html</code>).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>upload-form.html</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">POST</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/restaurant/admin/reserve</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>reservationForm</code> (модель <code>ReservationFormDto</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Создаёт новую резервацию и отправляет письмо с кодом.
-При ошибке валидации или отсутствии свободного столика возвращает ту же форму с сообщением.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GET</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/file/list</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>files</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>file-list.html</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">POST</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/restaurant/admin/cancel</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>reservationCode</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Отменяет резервацию по коду.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>POST</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/file/upload</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>message</code>, <code>fileId?</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>upload-form.html</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">GET</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/restaurant/admin/reservations/today?tableNumber=&lt;num&gt;</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>tableNumber</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Показывает список резерваций на сегодня для заданного номера столика.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GET</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/file/{id}</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">—</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ResponseEntity&lt;byte[]&gt;</code> — скачивание файла</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">GET</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/restaurant/admin/reservations/confirmed/by-date?date=&lt;YYYY-MM-DD&gt;</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>date</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Показывает все подтверждённые резервации на указанную дату.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">POST</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/restaurant/admin/upload-menu</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">multipart-file <code>file</code> (PDF)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Загружает новый PDF-файл меню.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>POST</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/file/delete-file/{id}</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>message</code> (redirectAttr)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Redirect → <code>/file/list</code></p></td>
 </tr>
 </tbody>
 </table>
+<div class="paragraph">
+<p><strong>Пояснения:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>files</code> — список <code>FileEntity</code> для отображения в <code>file-list.html</code>.</p>
+</li>
+<li>
+<p><code>message</code> и <code>fileId</code> добавляются в модель после загрузки или удаления и отображаются в <code>upload-form.html</code> или после редиректа в <code>file-list.html</code>.</p>
+</li>
+</ul>
+</div>
+</div>
 <div class="sect2">
-<h3 id="_пример_загрузка_меню">Пример: загрузка меню</h3>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">curl -v -u admin:password \
-  -F &quot;file=@/path/to/menu.pdf&quot; \
-  http://localhost:8080/restaurant/admin/upload-menu</code></pre>
+<h3 id="_10_3_шаблоны_thymeleaf">10.3 Шаблоны Thymeleaf</h3>
+<div class="paragraph">
+<p>Используемые шаблоны:</p>
 </div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>upload-form.html</code> — форма загрузки файла.</p>
+</li>
+<li>
+<p><code>file-list.html</code> — отображение списка загруженных файлов.</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_пример_создание_резервации">Пример: создание резервации</h3>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">curl -X POST -u admin:password \
-  http://localhost:8080/restaurant/admin/reserve \
-  -H &quot;Content-Type: application/x-www-form-urlencoded&quot; \
-  -d &quot;startDateTime=2025-05-05T19:00&quot; \
-  -d &quot;endDateTime=2025-05-05T21:00&quot; \
-  -d &quot;guestCount=4&quot; \
-  -d &quot;customerName=Иван&quot; \
-  -d &quot;customerEmail=ivan@example.com&quot;</code></pre>
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-Авторизация: все методы защищены аннотацией <code>@PreAuthorize("hasRole('ADMIN')")</code>, поэтому доступны только пользователям с ролью <code>ADMIN</code>.
-</td>
-</tr>
-</table>
+<h3 id="_10_4_доступ_и_безопасность">10.4 Доступ и безопасность</h3>
+<div class="paragraph">
+<p>По умолчанию все <code>/file/**</code> эндпоинты требуют аутентификации. Для подробностей по настройкам безопасности см. <a href="06-security.html">Безопасность</a>.</p>
 </div>
 </div>
 </div>
@@ -657,7 +680,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-05-01 00:25:49 +0200
+Last updated 2025-05-15 17:00:57 +0200
 </div>
 </div>
 <script>

@@ -1,0 +1,48 @@
+/* ==== Asciidoctor default link styles ==== */
+/* все ссылки, кроме «якорей» (the little ¶ symbols) */
+a:not(.anchor) {
+    color: #337ab7;           /* default blue */
+    text-decoration: none;    /* без подчёркивания */
+    background-image: none;   /* без фона-изображения */
+}
+
+/* при наведении и фокусе — подчёркивание и чуть более тёмный оттенок */
+a:not(.anchor):hover,
+a:not(.anchor):focus {
+    color: #23527c;
+    text-decoration: underline;
+}
+/* ========================================= */
+
+.back-to-toc {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #f0f0f0;
+    padding: 8px 12px;
+    border-radius: 4px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    font-size: 0.9em;
+    text-decoration: none;
+    color: #333;
+    z-index: 1000;
+}
+.back-to-toc:hover {
+    background: #e0e0e0;
+}
+/* основы таблиц Asciidoctor */
+table.tableblock {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 1em;
+}
+table.tableblock td,
+table.tableblock th {
+    padding: 0.5em 1em;
+    border: 1px solid #ccc;
+}
+table.tableblock th {
+    background-color: #eee;
+    font-weight: bold;
+}
+/* ==== Asciidoctor default link styles ==== */

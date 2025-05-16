@@ -165,6 +165,8 @@
             <version>${datasource-proxy.version}</version>
         </dependency>
 
+
+
     </dependencies>
 
     <build>
@@ -172,9 +174,29 @@
             <plugin>
                 <groupId>org.asciidoctor</groupId>
                 <artifactId>asciidoctor-maven-plugin</artifactId>
-                <version>${asciidoctor.version}</version>
-                <!-- конфигурация outputDir, sources -->
+                <version>2.2.1</version>
+                <executions>
+                    <execution>
+                        <id>generate-html-docs</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>process-asciidoc</goal>
+                        </goals>
+                        <configuration>
+                            <sourceDirectory>${project.basedir}/src/docs/modules</sourceDirectory>
+                            <outputDirectory>${project.basedir}/docs</outputDirectory>
+                            <backend>html5</backend>
+                            <attributes>
+                                <toc>left</toc>
+                                <toclevels>3</toclevels>
+                            </attributes>
+                        </configuration>
+
+                    </execution>
+                </executions>
             </plugin>
+
+
 
             <plugin>
                 <groupId>org.springframework.boot</groupId>
