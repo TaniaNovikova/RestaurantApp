@@ -1,0 +1,9 @@
+:imagesdir: docs/images
+
+= Restaurant Application Documentation
+Tatiana Novikova <tania.novikov@web.de>
+:toc:
+
+== Введение
+
+Это документация к учебному приложению «Restaurant»…

@@ -1,0 +1,63 @@
+﻿Auflistung der Ordnerpfade für Volume SYSTEM
+Volumeseriennummer : 6C05-373E
+C:.
+|   .DS_Store
+|   project-structure.txt
+|   
+\---de
+    |   .DS_Store
+    |   
+    \---ait
+        |   .DS_Store
+        |   
+        \---restaurantapp
+            |   .DS_Store
+            |   RestaurantApp.java
+            |   
+            +---aop
+            |       SequenceLoggingAspect.java
+            |       
+            +---config
+            |       SecurityConfig.java
+            |       
+            +---controller
+            |       AdminPageController.java
+            |       FileController.java
+            |       RestaurantPageController.java
+            |       
+            +---dto
+            |       EmailDto.java
+            |       ReservationFormDto.java
+            |       
+            +---enums
+            |       ReservationStatus.java
+            |       
+            +---exception
+            |       GlobalExceptionHandler.java
+            |       NoAvailableTableException.java
+            |       
+            +---model
+            |       FileEntity.java
+            |       Reservation.java
+            |       RestaurantTable.java
+            |       
+            +---repositories
+            |       FileRepo.java
+            |       ReservationRepo.java
+            |       RestaurantTableRepo.java
+            |       
+            +---resources
+            |   \---menus
+            |           current_menu.pdf
+            |           
+            +---services
+            |       EmailService.java
+            |       FileService.java
+            |       ReservationService.java
+            |       ReservationServiceImpl.java
+            |       RestaurantTableService.java
+            |       RestaurantTableServiceImpl.java
+            |       
+            \---utils
+                    ReservationIDGenerator.java
+                    

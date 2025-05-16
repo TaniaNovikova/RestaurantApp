@@ -1,0 +1,38 @@
+[[installation]]
+
+== Установка и запуск
+
+
+==== 1. Клонировать репозиторий:
+[source,bash]
+----
+git clone https://github.com/yamchytskyi/RestaurantApp
+----
+
+==== 2. Настроить подключение к PostgreSQL в соответствии с
+
+`src/main/resources/application.properties`:
+[source,yaml]
+----
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/restaurant
+    username: postgres
+    password: 1111
+----
+
+==== 3. Запустить миграции Liquibase:
+[source,bash]
+----
+mvn liquibase:update
+----
+
+==== 4. Собрать и запустить приложение:
+[source,bash]
+----
+mvn clean package
+java -jar target/RestaurantApp-0.0.1-SNAPSHOT.jar
+----
+
+Приложение будет доступно по адресу `http://localhost:8080/restaurant`.
+

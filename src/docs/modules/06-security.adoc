@@ -1,0 +1,48 @@
+[[security]]
+== Конфигурация безопасности
+
+=== Зависимости Maven
+Для работы Spring Security в приложении подключены следующие артефакты:
+[source,xml]
+----
+<dependencies>
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-security</artifactId>
+</dependency>
+<dependency>
+  <groupId>org.springframework.security</groupId>
+  <artifactId>spring-security-config</artifactId>
+</dependency>
+<dependency>
+  <groupId>org.springframework.security</groupId>
+  <artifactId>spring-security-test</artifactId>
+  <scope>test</scope>
+</dependency>
+</dependencies>
+----
+
+
+=== Настройки приложения (application.properties)
+В секции `###SECURITY###` можно управлять авто-конфигурацией безопасности:
+[source,properties]
+----
+###SECURITY###
+# Явное включение авто-конфигурации
+spring.autoconfigure.include=org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
+----
+
+=== Java-конфигурация (SecurityConfig.java)
+Используется программная настройка двух цепочек фильтров и in-memory UserDetailsService:
+
+
+=== Описание конфигурации
+* `adminSecurity` (Order 1): защищает все URL `/restaurant/admin/**` — только роль `ADMIN`, Basic-аутентификация.
+* `publicSecurity` (Order 2): общедоступны страницы ресторана, меню и операции с бронью; остальные запросы — только для аутентифицированных.
+* CSRF временно отключён для всех цепочек фильтров (упрощённая REST-конфигурация): проект еще в разработке.
+* В `UserDetailsService` зарегистрирован один пользователь:
+* Логин: `admin`
+* Пароль: `secret` (noop)
+* Роль: `ADMIN`
+
+

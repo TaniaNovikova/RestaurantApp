@@ -1,0 +1,135 @@
+
+[[er-diagram]]
+
+== ER-диаграмма
+
+image::../images/schema_cropped.png[ER-диаграмма,600]
+
+=== Описание таблиц
+
+==== restaurant_tables (INT, PK, AUTO_INCREMENT)
+* `id` (INT, PK, AUTO_INCREMENT, NOT NULL) — уникальный идентификатор столика.
+* `capacity` (INT, NOT NULL) — вместимость столика.
+
+==== reservations (BIGINT, PK, AUTO_INCREMENT)
+* `id` (BIGINT, PK, AUTO_INCREMENT, NOT NULL) — уникальный идентификатор резервации.
+* `reservation_code` (VARCHAR(255), NOT NULL) — уникальный код бронирования.
+* `start_date_time` (TIMESTAMP, NOT NULL) — дата и время начала резервации.
+* `end_date_time` (TIMESTAMP, NOT NULL) — дата и время окончания резервации.
+* `customer_name` (VARCHAR(255), NOT NULL) — имя клиента.
+* `customer_email` (VARCHAR(255), NOT NULL) — email клиента.
+* `guest_count` (INT, NOT NULL) — количество гостей (раньше `guest_number`).
+* `restaurant_table_id` (INT, NOT NULL) — внешний ключ → `restaurant_tables.id`.
+* `reservation_status` (VARCHAR(255), NOT NULL) — статус резервации (CONFIRMED, CANCELLED).
+* `is_admin` (BOOLEAN) — флаг, создана ли резервация администратором (nullable).
+
+== Ограничения целостности (Constraints)
+
+[cols="2,4",options="header"]
+|===
+|Имя ограничения             |Описание
+|`pk_restaurant_tables`      |PRIMARY KEY (`restaurant_tables.id`)
+|`pk_reservations`           |PRIMARY KEY (`reservations.id`)
+|`uq_reservation_code`       |UNIQUE (`reservations.reservation_code`)
+|`fk_reservations_table`     |FOREIGN KEY (`reservations.restaurant_table_id`) → `restaurant_tables.id` (ON DELETE/UPDATE CASCADE)
+|===
+
+
+
+== История версий схемы
+
+* **v1.0** — создание таблиц и FK CASCADE (ChangeSet 1–2).
+* **v1.1** — добавлено `reservation_code` (NOT NULL), переименован `guest_number` → `guest_count`, добавлено `is_admin` (ChangeSet 3).
+
+
+=== Настройки подключения к базе (application.properties)
+
+[source,properties]
+----
+spring.datasource.url=jdbc:postgresql://localhost:5432/restaurantdb
+spring.datasource.username=postgres
+spring.datasource.password=••••••••
+spring.datasource.driver-class-name=org.postgresql.Driver
+spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
+spring.jpa.hibernate.ddl-auto=none
+----
+
+=== Настройки Liquibase
+
+[source,properties]
+----
+spring.liquibase.enabled=true
+spring.liquibase.change-log=/db/changelog/db.changelog-master.xml
+logging.level.liquibase=DEBUG
+----
+
+== Maven Configuration
+=== Properties
+
+[source,xml]
+----
+<properties>
+  <!-- Java -->
+  <java.version>17</java.version>
+
+  <!-- Liquibase -->
+  <liquibase.version>4.31.1</liquibase.version>
+  <liquibase-maven-plugin.version>4.31.1</liquibase-maven-plugin.version>
+
+  <!-- PostgreSQL -->
+  <postgres.version>42.7.5</postgres.version>
+
+</properties>
+----
+=== Dependencies
+
+[source,xml]
+----
+<dependencies>
+  <!-- Spring Data JPA & JDBC -->
+  <dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-data-jpa</artifactId>
+  </dependency>
+  <dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-jdbc</artifactId>
+  </dependency>
+
+  <!-- PostgreSQL JDBC Driver -->
+  <dependency>
+    <groupId>org.postgresql</groupId>
+    <artifactId>postgresql</artifactId>
+    <version>${postgres.version}</version>
+    <scope>runtime</scope>
+  </dependency>
+
+  <!-- Liquibase Core -->
+  <dependency>
+    <groupId>org.liquibase</groupId>
+    <artifactId>liquibase-core</artifactId>
+    <version>${liquibase.version}</version>
+  </dependency>
+</dependencies>
+----
+=== Plugins
+
+[source,xml]
+----
+<build>
+  <plugins>
+<plugin>
+      <groupId>org.liquibase</groupId>
+      <artifactId>liquibase-maven-plugin</artifactId>
+      <version>${liquibase-maven-plugin.version}</version>
+      <configuration>
+        <changeLogFile>src/main/resources/db/changelog/db.changelog-master.xml</changeLogFile>
+        <url>jdbc:postgresql://localhost:5432/restaurantdb</url>
+        <username>postgres</username>
+        <password>....</password>
+        <driver>org.postgresql.Driver</driver>
+      </configuration>
+    </plugin>
+  </plugins>
+</build>
+----

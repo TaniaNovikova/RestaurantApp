@@ -1,0 +1,449 @@
+:linkcss:
+:copycss:
+:stylesheet: styles.css
+
+
+:toc:
+:toclevels: 2
+[[toc_anchor]]
+= Архитектура приложения
+
++++++
+<a class="back-to-toc" href="#toc_anchor" title="Вернуться к оглавлению">⬆ ВЕРНУТЬСЯ К ОГЛАВЛЕНИЮ</a>
++++++
+
+== Общая архитектура
+Приложение следует принципам слоистой архитектуры:
+
+* **Web Layer** – контроллеры обрабатывают HTTP-запросы и возвращают представления (Thymeleaf).
+* **Service Layer** – бизнес-логика, проверка доступности столиков, отправка писем.
+* **Data Access Layer** – репозитории Spring Data JPA для работы с БД.
+* **DTO** – объекты передачи данных между слоями.
+* **Configuration & Utilities** – классы настройки приложения и вспомогательные утилиты.
+
+== Стек и зависимости
+
+[cols="1,1,1",options="header"]
+|===
+|Компонент      |Артефакт                                  |Версия
+
+|Java           |Java 17                                     |—
+|Maven          |Apache Maven 3+                             |—
+|Spring Boot    |spring-boot-starter-web, data-jpa, security |3.4.4
+|Thymeleaf      |spring-boot-starter-thymeleaf               |3.4.4
+|PostgreSQL     |org.postgresql\:postgresql                   |42.7.5
+|Liquibase      |org.liquibase\:liquibase-core                |4.31.1
+|Logback        |ch.qos.logback\:logback-classic              |1.5.17
+|Тестирование   |spring-boot-starter-test, mockito-inline    |3.4.4, 4.11.0
+|===
+
+== Структура проекта
+----
+== Файловая (директорная) структура
+
+.Структура каталогов
+[source,console,linenums]
+
+
+C:.
+|   .DS_Store
+|   .gitattributes
+|   .gitignore
+|   HELP.md
+|   mvnw
+|   mvnw.cmd
+|   pom.xml
+|   project-structure.txt
+|
++---.idea
+|   |   .gitignore
+|   |   compiler.xml
+|   |   dataSources.local.xml
+|   |   dataSources.xml
+|   |   encodings.xml
+|   |   jarRepositories.xml
+|   |   misc.xml
+|   |   vcs.xml
+|   |   workspace.xml
+|   |
+|   \---dataSources
++---.mvn
+|   \---wrapper
+|           maven-wrapper.properties
+|
++---docs
+|       01-introduction.html
+|       02-architecture.html
+|       03-installation.html
+|       04-configuration.html
+|       05-db.html
+|       06-security.html
+|       07-usage.html
+|       08-admin-page.html
+|       09-restaurant-page.html
+|       10-file-controller.html
+|       styles.css
+|
++---logs
+|   |   app.log
+|   |
+|   \---archived # содержит сжатые (ZIP) файлы логов по датам
+
+|
+|
++---src
+|   |   .DS_Store
+|   |
+|   +---docs
+|   |   |   README.adoc
+|   |   |
+|   |   +---diagrams
+|   |   |       admin_cancell_reservation_sequence.png
+|   |   |       admin_create_reservation_sequence.png
+|   |   |       admin_menu_upload_sequence.png
+|   |   |       cancellation_reservation_diagram.png
+|   |   |       create_reservation_sequence.png
+|   |   |       downloadMenu_sequence.png
+|   |   |       liste_of_reservation_by_table_number_sequence.png
+|   |   |       reservation_by_date_sequence.png
+|   |   |
+|   |   +---images
+|   |   |   |   schema_cropped.png
+|   |   |   |
+|   |   |   \---html-bilder
+|   |   |           admin_cancell_reservation_form.png
+|   |   |           admin_create_reservation.png
+|   |   |           admin_menu_upload_form.png
+|   |   |           admin_panel.png
+|   |   |           authentication.png
+|   |   |           bestaetigung-info.png
+|   |   |           cancellation_double_reservation.png
+|   |   |           cancellation_not_allowed_time.png
+|   |   |           cancellation_resevation.png
+|   |   |           cancell_cancellation.png
+|   |   |           cancell_reservation_form.png
+|   |   |           cansellation-bestaetigung.png
+|   |   |           current_menu.png
+|   |   |           download_menu_taste.png
+|   |   |           email-confirmation.png
+|   |   |           email_cansell_reservation.png
+|   |   |           homepage.png
+|   |   |           liste_of_reservations_by_table_number.png
+|   |   |           no_avaiable_tables.png
+|   |   |           reservation-form.png
+|   |   |           reservation_by_date.png
+|   |   |           reservation_by_table_number.png
+|   |   |           time_in_the_past.png
+|   |   |
+|   |   \---modules
+|   |           01-introduction.adoc
+|   |           02-architecture.adoc
+|   |           03-installation.adoc
+|   |           03-installation.html
+|   |           04-configuration.adoc
+|   |           04-configuration.html
+|   |           05-db.adoc
+|   |           05-db.html
+|   |           06-security.adoc
+|   |           06-security.html
+|   |           07-usage.adoc
+|   |           07-usage.html
+|   |           08-admin-page.adoc
+|   |           08-admin-page.html
+|   |           09-restaurant-page.adoc
+|   |           10-file-controller.adoc
+|   |           10-file-controller.html
+|   |           styles.css
+|   |
+|   +---main
+|   |   |   .DS_Store
+|   |   |
+|   |   +---java
+|   |   |   |   .DS_Store
+|   |   |   |   project-structure.txt
+|   |   |   |
+|   |   |   \---de
+|   |   |       |   .DS_Store
+|   |   |       |
+|   |   |       \---ait
+|   |   |           |   .DS_Store
+|   |   |           |
+|   |   |           \---restaurantapp
+|   |   |               |   .DS_Store
+|   |   |               |   RestaurantApp.java
+|   |   |               |
+|   |   |               +---aop
+|   |   |               |       SequenceLoggingAspect.java
+|   |   |               |
+|   |   |               +---config
+|   |   |               |       SecurityConfig.java
+|   |   |               |
+|   |   |               +---controller
+|   |   |               |       AdminPageController.java
+|   |   |               |       FileController.java
+|   |   |               |       RestaurantPageController.java
+|   |   |               |
+|   |   |               +---dto
+|   |   |               |       EmailDto.java
+|   |   |               |       ReservationFormDto.java
+|   |   |               |
+|   |   |               +---enums
+|   |   |               |       ReservationStatus.java
+|   |   |               |
+|   |   |               +---exception
+|   |   |               |       GlobalExceptionHandler.java
+|   |   |               |       NoAvailableTableException.java
+|   |   |               |
+|   |   |               +---model
+|   |   |               |       FileEntity.java
+|   |   |               |       Reservation.java
+|   |   |               |       RestaurantTable.java
+|   |   |               |
+|   |   |               +---repositories
+|   |   |               |       FileRepo.java
+|   |   |               |       ReservationRepo.java
+|   |   |               |       RestaurantTableRepo.java
+|   |   |               |
+|   |   |               +---resources
+|   |   |               |   \---menus
+|   |   |               |           current_menu.pdf
+|   |   |               |
+|   |   |               +---services
+|   |   |               |       EmailService.java
+|   |   |               |       FileService.java
+|   |   |               |       ReservationService.java
+|   |   |               |       ReservationServiceImpl.java
+|   |   |               |       RestaurantTableService.java
+|   |   |               |       RestaurantTableServiceImpl.java
+|   |   |               |
+|   |   |               \---utils
+|   |   |                       ReservationIDGenerator.java
+|   |   |
+|   |   \---resources
+|   |       |   application.properties
+|   |       |   logback.xml
+|   |       |
+|   |       +---db
+|   |       |   \---changelog
+|   |       |           db.changelog-1.0.xml
+|   |       |           db.changelog-1.1.xml
+|   |       |           db.changelog-master.xml
+|   |       |
+|   |       +---diagrams
+|   |       |       sequence.puml
+|   |       |
+|   |       +---menus
+|   |       |       current_menu.pdf
+|   |       |
+|   |       +---static
+|   |       |   \---menu
+|   |       |           menu.pdf
+|   |       |
+|   |       \---templates
+|   |               admin-panel.html
+|   |               cancel-form.html
+|   |               download-menu-form.html
+|   |               email-cancel.html
+|   |               email-template.html
+|   |               file-list.html
+|   |               homepage.html
+|   |               reservation-form.html
+|   |               upload-form.html
+|   |
+|   \---test
+|       +---java
+|       |   \---de
+|       |       \---ait
+|       |           \---restaurantapp
+|       |               |   RestaurantAppApplicationTests.java
+|       |               |
+|       |               +---controller
+|       |               |       FileControllerIT.java
+|       |               |       RestaurantPageControllerIT.java
+|       |               |
+|       |               \---services
+|       |                       FileServiceTests.java
+|       |                       ReservationServiceImplTest.java
+|       |                       RestaurantTableServiceImplTests.java
+|       |
+|       \---resources
+|               application-test.properties
+|
++---target
+|   |   RestaurantApp-0.0.1-SNAPSHOT.jar
+|   |   RestaurantApp-0.0.1-SNAPSHOT.jar.original
+|   |
+|   +---classes
+|   |   |   application.properties
+|   |   |   logback.xml
+|   |   |
+|   |   +---db
+|   |   |   \---changelog
+|   |   |           db.changelog-1.0.xml
+|   |   |           db.changelog-1.1.xml
+|   |   |           db.changelog-master.xml
+|   |   |
+|   |   +---de
+|   |   |   \---ait
+|   |   |       \---restaurantapp
+|   |   |           |   RestaurantApp.class
+|   |   |           |
+|   |   |           +---aop
+|   |   |           |       SequenceLoggingAspect.class
+|   |   |           |
+|   |   |           +---config
+|   |   |           |       SecurityConfig.class
+|   |   |           |
+|   |   |           +---controller
+|   |   |           |       AdminPageController.class
+|   |   |           |       FileController.class
+|   |   |           |       RestaurantPageController.class
+|   |   |           |
+|   |   |           +---dto
+|   |   |           |       EmailDto.class
+|   |   |           |       ReservationFormDto.class
+|   |   |           |
+|   |   |           +---enums
+|   |   |           |       ReservationStatus.class
+|   |   |           |
+|   |   |           +---exception
+|   |   |           |       GlobalExceptionHandler.class
+|   |   |           |       NoAvailableTableException.class
+|   |   |           |
+|   |   |           +---model
+|   |   |           |       FileEntity.class
+|   |   |           |       Reservation$ReservationBuilder.class
+|   |   |           |       Reservation.class
+|   |   |           |       RestaurantTable$RestaurantTableBuilder.class
+|   |   |           |       RestaurantTable.class
+|   |   |           |
+|   |   |           +---repositories
+|   |   |           |       FileRepo.class
+|   |   |           |       ReservationRepo.class
+|   |   |           |       RestaurantTableRepo.class
+|   |   |           |
+|   |   |           +---services
+|   |   |           |       EmailService.class
+|   |   |           |       FileService.class
+|   |   |           |       ReservationService.class
+|   |   |           |       ReservationServiceImpl.class
+|   |   |           |       RestaurantTableService.class
+|   |   |           |       RestaurantTableServiceImpl.class
+|   |   |           |
+|   |   |           \---utils
+|   |   |                   ReservationIDGenerator.class
+|   |   |
+|   |   +---diagrams
+|   |   |       sequence.puml
+|   |   |
+|   |   +---menus
+|   |   |       current_menu.pdf
+|   |   |
+|   |   +---static
+|   |   |   \---menu
+|   |   |           menu.pdf
+|   |   |
+|   |   \---templates
+|   |           admin-panel.html
+|   |           cancel-form.html
+|   |           download-menu-form.html
+|   |           email-cancel.html
+|   |           email-template.html
+|   |           file-list.html
+|   |           homepage.html
+|   |           reservation-form.html
+|   |           upload-form.html
+|   |
+|   +---generated-sources
+|   |   \---annotations
+|   +---generated-test-sources
+|   |   \---test-annotations
+|   +---maven-archiver
+|   |       pom.properties
+|   |
+|   +---maven-status
+|   |   \---maven-compiler-plugin
+|   |       +---compile
+|   |       |   \---default-compile
+|   |       |           createdFiles.lst
+|   |       |           inputFiles.lst
+|   |       |
+|   |       \---testCompile
+|   |           \---default-testCompile
+|   |                   createdFiles.lst
+|   |                   inputFiles.lst
+|   |
+|   +---surefire-reports
+|   |       de.ait.restaurantapp.RestaurantAppApplicationTests.txt
+|   |       de.ait.restaurantapp.services.FileServiceTests.txt
+|   |       de.ait.restaurantapp.services.ReservationServiceImplTest.txt
+|   |       de.ait.restaurantapp.services.RestaurantTableServiceImplTests.txt
+|   |       TEST-de.ait.restaurantapp.RestaurantAppApplicationTests.xml
+|   |       TEST-de.ait.restaurantapp.services.FileServiceTests.xml
+|   |       TEST-de.ait.restaurantapp.services.ReservationServiceImplTest.xml
+|   |       TEST-de.ait.restaurantapp.services.RestaurantTableServiceImplTests.xml
+|   |
+|   \---test-classes
+|       |   application-test.properties
+|       |
+|       \---de
+|           \---ait
+|               \---restaurantapp
+|                   |   RestaurantAppApplicationTests.class
+|                   |
+|                   +---controller
+|                   |       FileControllerIT.class
+|                   |       RestaurantPageControllerIT.class
+|                   |
+|                   \---services
+|                           FileServiceTests.class
+|                           ReservationServiceImplTest.class
+|                           RestaurantTableServiceImplTests.class
+|
+\---tools
+    \---plantuml
+            plantuml-1.2025.2.jar
+
+
+
+
+
+----
+
+
+== Диаграммы
+
+* ER-диаграмма: xref:05-db.adoc#er-diagram[Перейти к ER-диаграмме]
+* Sequence-диаграммы: xref:07-usage.adoc#usage[Перейти к файлу с Sequence-диаграммами]
+
+
+== Основные модули документации
+
+* xref:02-architecture.adoc[Архитектура приложения]
+* xref:03-installation.adoc[Установка]
+* xref:04-configuration.adoc[Конфигурация]
+* xref:05-db.adoc[Схема и описание базы данных]
+* xref:06-security.adoc[Безопасность]
+* xref:07-usage.adoc[Использование]
+* xref:08-admin-page.adoc[Контроллер панели админа]
+* xref:09-restaurant-page.adoc[Контроллер домашней страницы]
+* xref:10-file-controller.adoc[Контроллер управления файлами]
+
+== Ключевые компоненты
+
+* **Модели и репозитории** (`de.ait.restaurantapp.model`, `...repositories`) на Spring Data JPA.
+* **Сервисы** (`...services`) с аннотациями `@Service`, `@Transactional`.
+* **Контроллеры** (`...controller`) для публичного и админского API.
+* **Конфигурация безопасности** в `SecurityConfig`.
+* **Утилиты** (`ReservationIDGenerator`) и **DTO** (`EmailDto`, `ReservationFormDto`).
+
+== Конфигурации
+Конфигурация приложения хранится в `src/main/resources/application.properties` и классах `...config`:
+
+* **База данных**: Spring Data JPA + PostgreSQL + Liquibase.
+* **Безопасность**: HTTP Basic + InMemoryUserDetailsManager.
+* **Email**: JavaMailSender + Thymeleaf templates.
+* **Логирование**: Logback (консоль + файл, ротация логов).
+
+== Тестирование
+Проект покрыт unit- и integration-тестами (JUnit5, Spring Boot Test, MockMvc).

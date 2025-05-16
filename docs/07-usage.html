@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.15">
+<title>Использование</title>
+<link rel="stylesheet" href="./styles.css">
+</head>
+<body id="toc_anchor" class="article toc2 toc-left">
+<div id="header">
+<h1>Использование</h1>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_1_функциональные_возможности_общедоступной_страницы">1. Функциональные возможности общедоступной страницы</a>
+<ul class="sectlevel2">
+<li><a href="#_1_1_резервирование_столика">1.1 Резервирование столика</a>
+<ul class="sectlevel3">
+<li><a href="#_1_1_1_последовательность_действий">1.1.1 Последовательность действий</a></li>
+<li><a href="#_1_1_2_диаграмма_последовательности">1.1.2 Диаграмма последовательности</a></li>
+<li><a href="#_1_1_3_описание_процесса_резервирования">1.1.3 Описание процесса резервирования</a></li>
+</ul>
+</li>
+<li><a href="#_1_2_отмена_резервации">1.2 Отмена резервации</a>
+<ul class="sectlevel3">
+<li><a href="#_1_2_1_последовательность_действий">1.2.1 Последовательность действий</a></li>
+<li><a href="#_1_2_2_диаграмма_последовательности">1.2.2 Диаграмма последовательности</a></li>
+<li><a href="#_1_2_3_описание_процесса_отмены_резервирования">1.2.3 Описание процесса отмены резервирования</a></li>
+</ul>
+</li>
+<li><a href="#_1_3_скачивание_меню">1.3 Скачивание меню</a>
+<ul class="sectlevel3">
+<li><a href="#_1_3_1_последовательность_действий">1.3.1 Последовательность действий</a></li>
+<li><a href="#_1_3_2_диаграмма_последовательности_взаимодействия_компонентов">1.3.2  Диаграмма последовательности взаимодействия компонентов</a></li>
+<li><a href="#_1_3_3_описание_процесса_скачивания_меню">1.3.3 Описание процесса скачивания меню</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_2_функциональные_возможности_панели_админа">2. Функциональные возможности панели админа</a>
+<ul class="sectlevel2">
+<li><a href="#_2_1_показ_списка_всех_резерваций_по_дате">2.1 Показ списка всех резерваций по дате</a>
+<ul class="sectlevel3">
+<li><a href="#_2_1_1_последовательность_действий">2.1.1 Последовательность действий</a></li>
+<li><a href="#_2_1_2_диаграмма_последовательности_взаимодействия_компонентов">2.1.2 Диаграмма последовательности взаимодействия компонентов</a></li>
+<li><a href="#_2_1_3_описание_процесса_показа_списка_резерваций_по_дате">2.1.3 Описание процесса показа списка резерваций по дате</a></li>
+</ul>
+</li>
+<li><a href="#_2_2_показ_списка_всех_резерваций_для_конкретного_столика_на_текущий_день">2.2 Показ списка всех резерваций для конкретного столика на текущий день</a>
+<ul class="sectlevel3">
+<li><a href="#_2_2_1_последовательность_действий">2.2.1 Последовательность действий</a></li>
+<li><a href="#_2_2_2_диаграмма_последовательности_взаимодействия_компонентов">2.2.2 Диаграмма последовательности взаимодействия компонентов</a></li>
+<li><a href="#_2_2_3_описание_процесса_показа_списка_резерваций_по_номеру_столика_на_текущий_день">2.2.3 Описание процесса показа списка резерваций по номеру столика на текущий день</a></li>
+</ul>
+</li>
+<li><a href="#_2_3_создание_резервации_с_панели_админа">2.3 Создание резервации с панели админа</a>
+<ul class="sectlevel3">
+<li><a href="#_2_3_1_последовательность_действий">2.3.1 Последовательность действий</a></li>
+<li><a href="#_2_3_2_диаграмма_последовательности_взаимодействия_компонентов">2.3.2 Диаграмма последовательности взаимодействия компонентов</a></li>
+<li><a href="#_2_3_3_описание_процесса_создания_резервации_с_панели_админа">2.3.3 Описание процесса создания резервации с панели админа</a></li>
+</ul>
+</li>
+<li><a href="#_2_4_отмена_резервации_с_панели_админа">2.4 Отмена резервации с панели админа</a>
+<ul class="sectlevel3">
+<li><a href="#_2_4_1_последовательность_действий">2.4.1 Последовательность действий</a></li>
+<li><a href="#_2_4_2_диаграмма_последовательности_взаимодействия_компонентов">2.4.2 Диаграмма последовательности взаимодействия компонентов</a></li>
+<li><a href="#_2_4_3_описание_процесса_отмены_резервирования">2.4.3 Описание процесса отмены резервирования</a></li>
+</ul>
+</li>
+<li><a href="#_2_5_загрузка_актуального_меню_в_приложение_с_панели_админа">2.5 Загрузка актуального меню в приложение с панели админа</a>
+<ul class="sectlevel3">
+<li><a href="#_2_5_1_последовательность_действий">2.5.1 Последовательность действий</a></li>
+<li><a href="#_2_5_2_диаграмма_последовательности_взаимодействия_компонентов">2.5.2 Диаграмма последовательности взаимодействия компонентов</a></li>
+<li><a href="#_2_5_3_описание_процесса_загрузки_меню_с_панели_админа">2.5.3 Описание процесса загрузки меню с панели админа</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<a class="back-to-toc" href="#toc_anchor" title="Вернуться к оглавлению">⬆ ВЕРНУТЬСЯ К ОГЛАВЛЕНИЮ </a>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_1_функциональные_возможности_общедоступной_страницы">1. Функциональные возможности общедоступной страницы</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="http://localhost:8080/restaurant" class="bare">http://localhost:8080/restaurant</a></p>
+</div>
+<div class="sect2">
+<h3 id="_1_1_резервирование_столика">1.1 Резервирование столика</h3>
+<div class="sect3">
+<h4 id="_1_1_1_последовательность_действий">1.1.1 Последовательность действий</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>На общедоступной домашней странице нажать ссылку "Забронировать столик"</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/html-bilder/homepage.png" alt="Домашняя страница" width="600">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Заполнить форму бронирования столика и нажать кнопку "Забронировать"</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/html-bilder/reservation-form.png" alt="Форма бронирования" width="300">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>В случае успешного бронирования открывается окно подтверждения с кодом резервации</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/html-bilder/bestaetigung-info.png" alt="Подтверждение бронирования" width="300">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Данные сохраняются в базе данных, и клиент получает подтверждение на электронную почту</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/html-bilder/email-confirmation.png" alt="Email-подтверждение бронирования" width="300">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Если на выбранную дату и количество гостей нет свободных столиков, бронирование отклоняется с соответствующим сообщением</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/html-bilder/no_avaiable_tables.png" alt="Отклонение бронирования" width="300">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Если указана дата или время в прошлом, бронирование отклоняется с сообщением об ошибке</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/html-bilder/time_in_the_past.png" alt="Отклонение из-за даты/времени в прошлом" width="300">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Если указано время вне часов работы ресторана, бронирование отклоняется с сообщением об ошибке</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/html-bilder/cancellation_not_allowed_time.png" alt="Отклонение бронирования из-за неподходящего времени" width="300">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>При попытке повторного бронирования на тот же email в тот же день бронирование отклоняется</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/html-bilder/cancellation_double_reservation.png" alt="Отклонение повторного бронирования" width="300">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_1_1_2_диаграмма_последовательности">1.1.2 Диаграмма последовательности</h4>
+<div class="paragraph">
+<p>Ниже представлена диаграмма последовательности взаимодействия компонентов при успешном создании бронирования:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../diagrams/create_reservation_sequence.png" alt="Диаграмма создания бронирования" width="1000">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_1_1_3_описание_процесса_резервирования">1.1.3 Описание процесса резервирования</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Клиент заполняет форму бронирования и отправляет POST-запрос на <code>/reservations</code>, вызывая метод <code>RestaurantPageController.createReservation()</code>.</p>
+</li>
+<li>
+<p>Контроллер передаёт данные в сервис <code>ReservationServiceImpl.createReservation()</code>.</p>
+</li>
+<li>
+<p>Сервис проверяет существующие бронирования данного клиента на выбранную дату через метод
+<code>ReservationRepo.findByCustomerEmailIgnoreCaseAndReservationStatusAndStartDateTimeBetween()</code>.</p>
+</li>
+<li>
+<p>Затем сервис запрашивает список всех столиков через <code>ListCrudRepository.findAll()</code> и проверяет их занятость,
+вызывая <code>ReservationRepo.findByRestaurantTableAndReservationStatusAndStartDateTimeLessThanAndEndDateTimeGreaterThan()</code>.</p>
+</li>
+<li>
+<p>Если свободный столик с достаточной для количества гостей вместимостью  найден, сервис создаёт объект <code>Reservation</code> и сохраняет его в базу данных методом
+<code>ReservationRepository.save()</code>.</p>
+</li>
+<li>
+<p>После сохранения сервис инициирует отправку письма с подтверждением бронирования и уникальным кодом, вызывая
+<code>EmailService.sendHTMLEmail()</code>.</p>
+</li>
+<li>
+<p>Получив подтверждение отправки письма, <code>ReservationServiceImpl</code> возвращает результат в контроллер
+<code>RestaurantPageController</code>.</p>
+</li>
+<li>
+<p>Контроллер формирует и возвращает клиенту страницу подтверждения бронирования или сообщение об ошибке.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_1_2_отмена_резервации">1.2 Отмена резервации</h3>
+<div class="sect3">
+<h4 id="_1_2_1_последовательность_действий">1.2.1 Последовательность действий</h4>
+<div class="sect4">
+<h5 id="_a_точка_входа_через_email">a) Точка входа через email</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>В письме с подтверждением бронирования нажать ссылку "Отменить резервацию"</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/html-bilder/email-confirmation.png" alt="Email-подтверждение" width="300">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Открывается форма отмены бронирования, куда нужно ввести код резервации</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/html-bilder/cancell_reservation_form.png" alt="Форма отмены бронирования" width="300">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>При успешной отмене (код найден со статусом CONFIRMED) статус меняется на CANCELLED и отображается окно подтверждения</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/html-bilder/cancellation_resevation.png" alt="Подтверждение отмены бронирования" width="300">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Клиент получает уведомление об отмене на электронную почту</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/html-bilder/email_cansell_reservation.png" alt="Email-уведомление об отмене" width="300">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Если код не найден или уже отменён, отображается сообщение об ошибке</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/html-bilder/cancell_cancellation.png" alt="Код бронирования не найден" width="300">
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_б_точка_входа_через_домашнюю_страницу">б) Точка входа через домашнюю страницу</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>На домашней странице (<a href="http://localhost:8080/restaurant" class="bare">http://localhost:8080/restaurant</a>) нажать ссылку "Отменить бронирование"</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/html-bilder/homepage.png" alt="Домашняя страница" width="600">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Далее процесс аналогичен отмене через email:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Открытие формы для ввода кода</p>
+</li>
+<li>
+<p>Проверка и обновление статуса бронирования</p>
+</li>
+<li>
+<p>Появление окна подтверждения или сообщения об ошибке</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_1_2_2_диаграмма_последовательности">1.2.2 Диаграмма последовательности</h4>
+<div class="paragraph">
+<p>Ниже представлена диаграмма последовательности взаимодействия компонентов при успешной отмене бронирования:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../diagrams/cancellation_reservation_diagram.png" alt="Диаграмма отмены бронирования" width="1000">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_1_2_3_описание_процесса_отмены_резервирования">1.2.3 Описание процесса отмены резервирования</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Клиент заполняет форму отмены и отправляет POST-запрос на <code>/reservations/cancel</code> через контроллер <code>RestaurantPageController.cancelReservation()</code>.</p>
+</li>
+<li>
+<p>Контроллер передаёт код бронирования в сервис <code>ReservationServiceImpl.cancelReservation()</code>.</p>
+</li>
+<li>
+<p>Сервис находит бронь по коду методом <code>ReservationRepository.findByReservationCodeAndReservationStatus(&#8230;&#8203;)</code>.</p>
+</li>
+<li>
+<p>Если бронь существует и имеет статус <code>CONFIRMED</code>, сервис меняет её статус на <code>CANCELLED</code> и сохраняет изменения через <code>ReservationRepository.save()</code>.</p>
+</li>
+<li>
+<p>После сохранения сервис инициирует отправку уведомления об отмене через <code>EmailService.sendHTMLEmail()</code>.</p>
+</li>
+<li>
+<p>По завершении сервис возвращает результат контроллеру.</p>
+</li>
+<li>
+<p>Контроллер формирует и отображает пользователю страницу подтверждения отмены или сообщение об ошибке.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_1_3_скачивание_меню">1.3 Скачивание меню</h3>
+<div class="sect3">
+<h4 id="_1_3_1_последовательность_действий">1.3.1 Последовательность действий</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>На общедоступной домашней странице (<a href="http://localhost:8080/restaurant" class="bare">http://localhost:8080/restaurant</a>) нажать кнопку "Скачать меню":</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/html-bilder/homepage.png" alt="Домашняя страница" width="600">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>кнопка "Скачать меню":</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/html-bilder/download_menu_taste.png" alt="Скачать меню" width="100">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Актуальное меню в формате pdf скачивается на локальный диск компьютера пользователя</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/html-bilder/current_menu.png" alt="Актуальное меню" width="300">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_1_3_2_диаграмма_последовательности_взаимодействия_компонентов">1.3.2  Диаграмма последовательности взаимодействия компонентов</h4>
+<div class="imageblock">
+<div class="content">
+<img src="../diagrams/downloadMenu_sequence.png" alt="Диаграмма скачивания меню" width="800">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_1_3_3_описание_процесса_скачивания_меню">1.3.3 Описание процесса скачивания меню</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Пользователь на общедоступной странице нажимает кнопку "Скачать меню".</p>
+</li>
+<li>
+<p>MenuController обрабатывает GET-запрос /menu.pdf и передаёт его в MenuService.</p>
+</li>
+<li>
+<p>MenuService загружает PDF-файл меню из хранилища (локальной файловой системы).</p>
+</li>
+<li>
+<p>Контроллер формирует ответ с заголовками Content-Type: application/pdf и Content-Disposition: attachment; filename="menu.pdf".</p>
+</li>
+<li>
+<p>Браузер клиента получает ответ и автоматически начинает загрузку файла меню на локальный диск пользователя.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_2_функциональные_возможности_панели_админа">2. Функциональные возможности панели админа</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="http://localhost:8080/restaurant/admin" class="bare">http://localhost:8080/restaurant/admin</a></p>
+</div>
+<div class="paragraph">
+<p>(логин: admin; пароль: secret)</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/html-bilder/admin_panel.png" alt="Панель администратора" width="600">
+</div>
+</div>
+<div class="sect2">
+<h3 id="_2_1_показ_списка_всех_резерваций_по_дате">2.1 Показ списка всех резерваций по дате</h3>
+<div class="sect3">
+<h4 id="_2_1_1_последовательность_действий">2.1.1 Последовательность действий</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>На панели администратора заполнить форму "Найти резервации по дате"</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/html-bilder/reservation_by_date.png" alt="Резервации по дате" width="400">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Нажать кнопку "Показать"</p>
+</li>
+<li>
+<p>В окне покажется список всех существующих в базе данных резерваций на указанную дату со статусом COFIRMED</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_2_1_2_диаграмма_последовательности_взаимодействия_компонентов">2.1.2 Диаграмма последовательности взаимодействия компонентов</h4>
+<div class="imageblock">
+<div class="content">
+<img src="../diagrams/reservation_by_date_sequence.png" alt="Диаграмма показа списка резерваций по дате" width="1000">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_2_1_3_описание_процесса_показа_списка_резерваций_по_дате">2.1.3 Описание процесса показа списка резерваций по дате</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Админ выбирает дату и отправляет запрос <code>AdminPageController.getReservationsConfirmedByDate(date)</code>.</p>
+</li>
+<li>
+<p><code>AdminPageController</code> передаёт вызов в <code>ReservationServiceImpl.getAllReservationByDay(date)</code>.</p>
+</li>
+<li>
+<p><code>ReservationServiceImpl</code> обращается к <code>ListCrudRepository.findAll()</code> для получения списка активных резерваций за указанную дату.</p>
+</li>
+<li>
+<p><code>ListCrudRepository</code> возвращает найденные объекты <code>Reservation</code> в <code>ReservationServiceImpl</code>.</p>
+</li>
+<li>
+<p><code>ReservationServiceImpl</code> преобразует компоненты в DTO и возвращает список в <code>AdminPageController</code>.</p>
+</li>
+<li>
+<p><code>AdminPageController</code> формирует и возвращает клиенту HTTP-ответ со списком резерваций</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_2_2_показ_списка_всех_резерваций_для_конкретного_столика_на_текущий_день">2.2 Показ списка всех резерваций для конкретного столика на текущий день</h3>
+<div class="sect3">
+<h4 id="_2_2_1_последовательность_действий">2.2.1 Последовательность действий</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>На панели администратора заполнить форму "Найти резервации по столику"</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/html-bilder/reservation_by_table_number.png" alt="Резервации по номеру столика" width="400">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Нажать кнопку "Показать"</p>
+</li>
+<li>
+<p>В окне покажется список всех существующих в базе данных резерваций на текущий день на конкретный столик</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/html-bilder/liste_of_reservations_by_table_number.png" alt="Список резерваций по номеру столика" width="400">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_2_2_2_диаграмма_последовательности_взаимодействия_компонентов">2.2.2 Диаграмма последовательности взаимодействия компонентов</h4>
+<div class="imageblock">
+<div class="content">
+<img src="../diagrams/liste_of_reservation_by_table_number_sequence.png" alt="Диаграмма показа списка резерваций по номеру столика" width="1000">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_2_2_3_описание_процесса_показа_списка_резерваций_по_номеру_столика_на_текущий_день">2.2.3 Описание процесса показа списка резерваций по номеру столика на текущий день</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Администратор открывает админ-панель.</p>
+</li>
+<li>
+<p>Браузер отправляет GET-запрос к AdminPageController.getReservationFormDto().</p>
+</li>
+<li>
+<p>AdminPageController вызывает CrudRepository.count() для получения статистики (например, общего числа резерваций).</p>
+</li>
+<li>
+<p>AdminPageController формирует ReservationFormDto (с перечнем доступных столиков) и возвращает его клиенту.</p>
+</li>
+<li>
+<p>Браузер отображает форму выбора столика.</p>
+</li>
+<li>
+<p>Администратор вводит номер столика и нажимает «Показать».</p>
+</li>
+<li>
+<p>Браузер отправляет GET-запрос к AdminPageController.getReservationsToday(tableId).</p>
+</li>
+<li>
+<p>AdminPageController вызывает ReservationServiceImpl.getReservationsForTableToday(tableId).</p>
+</li>
+<li>
+<p>ReservationServiceImpl обращается к ReservationRepo.findByRestaurantTableAndStartDateTimeGreaterThanEqualAndEndDateTimeLessThanAndReservationStatus() с параметрами: выбранный tableId, начало и конец текущего дня, статус CONFIRMED.</p>
+</li>
+<li>
+<p>ReservationRepo возвращает список резерваций, удовлетворяющих условиям.</p>
+</li>
+<li>
+<p>ReservationServiceImpl передаёт полученный список обратно AdminPageController.</p>
+</li>
+<li>
+<p>AdminPageController формирует HTTP-ответ и возвращает его клиенту.</p>
+</li>
+<li>
+<p>Браузер получает ответ и отображает администратору список резерваций на текущий день для выбранного столика.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_2_3_создание_резервации_с_панели_админа">2.3 Создание резервации с панели админа</h3>
+<div class="sect3">
+<h4 id="_2_3_1_последовательность_действий">2.3.1 Последовательность действий</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>На панели администратора нажать ссылку "Создать резервацию", появится форма "Забронировать столик"</p>
+</li>
+<li>
+<p>Заполнить форму</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/html-bilder/admin_create_reservation.png" alt="Создать резервацию с панели админа" width="400">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Нажать кнопку "Забронировать"</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Успех резервации отразится в строке внизу под формой.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_2_3_2_диаграмма_последовательности_взаимодействия_компонентов">2.3.2 Диаграмма последовательности взаимодействия компонентов</h4>
+<div class="imageblock">
+<div class="content">
+<img src="../diagrams/admin_create_reservation_sequence.png" alt="Диаграмма создания резервации с панели админа" width="1000">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_2_3_3_описание_процесса_создания_резервации_с_панели_админа">2.3.3 Описание процесса создания резервации с панели админа</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Администратор открывает админ-панель.</p>
+</li>
+<li>
+<p>Браузер отправляет GET-запрос к AdminPageController.showAdminPanel().</p>
+</li>
+<li>
+<p>AdminPageController вызывает getReservationFormDto() и возвращает DTO формы резервации.</p>
+</li>
+<li>
+<p>Контроллер отрисовывает страницу админ-панели и отдает клиенту ReservationFormDto.</p>
+</li>
+<li>
+<p>Администратор заполняет форму (количество гостей,  дата, время, данные клиента) и нажимает «Забронировать».</p>
+</li>
+<li>
+<p>Браузер отправляет POST-запрос к AdminPageController.createReservation() с данными формы.</p>
+</li>
+<li>
+<p>AdminPageController передаёт DTO в ReservationServiceImpl.</p>
+</li>
+<li>
+<p>ReservationServiceImpl проверяет доступность столика, вызывая
+ReservationRepo.findByRestaurantTableAndReservationStatusAndStartDateTimeLessThanAndEndDateTimeGreaterThan()
+для указанного интервала времени.</p>
+</li>
+<li>
+<p>ReservationRepo возвращает список пересекающихся резерваций (или пустой список).</p>
+</li>
+<li>
+<p>Если столик свободен, ReservationServiceImpl сохраняет новую резервацию через CrudRepository.save(). При этом в базе данных тот факт, что резервация создавалась с панели админа, отражается в виде значения true в столбце is_admin.</p>
+</li>
+<li>
+<p>После сохранения ReservationServiceImpl вызывает EmailService.sendHTMLEmail() для отправки клиенту письма-подтверждения.</p>
+</li>
+<li>
+<p>EmailService возвращает результат отправки, после чего ReservationServiceImpl возвращает контроллеру DTO созданной резервации.</p>
+</li>
+<li>
+<p>AdminPageController формирует HTTP-ответ  и отдает его клиенту.</p>
+</li>
+<li>
+<p>Браузер получает ответ и отображает администратору уведомление об успешном создании резервации.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_2_4_отмена_резервации_с_панели_админа">2.4 Отмена резервации с панели админа</h3>
+<div class="sect3">
+<h4 id="_2_4_1_последовательность_действий">2.4.1 Последовательность действий</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>На панели администратора нажать ссылку "Отменить резервацию", появится форма "Отменить резервацию"</p>
+</li>
+<li>
+<p>Заполнить форму</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/html-bilder/admin_cancell_reservation_form.png" alt="Создать резервацию с панели админа" width="400">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Нажать кнопку "Отменить"</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_2_4_2_диаграмма_последовательности_взаимодействия_компонентов">2.4.2 Диаграмма последовательности взаимодействия компонентов</h4>
+<div class="imageblock">
+<div class="content">
+<img src="../diagrams/admin_cancell_reservation_sequence.png" alt="Диаграмма отмены резервации с панели админа" width="1000">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_2_4_3_описание_процесса_отмены_резервирования">2.4.3 Описание процесса отмены резервирования</h4>
+<div class="paragraph">
+<p>Ниже описаны шаги взаимодействия компонентов при отмене бронирования по коду (см. diagram/sequence.puml), а также ключевые действия сервиса для обеспечения корректного выполнения операции.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 10%;">
+<col style="width: 20%;">
+<col style="width: 70%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Шаг</th>
+<th class="tableblock halign-left valign-top">Участники</th>
+<th class="tableblock halign-left valign-top">Описание</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Client → AdminPageController</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Клиент (администратор) инициирует отмену, отправляя запрос <code>cancelReservationFromAdmin(reservationCode)</code> с уникальным кодом бронирования.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AdminPageController → ReservationServiceImpl</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Контроллер вызывает метод сервиса:</p>
+<p class="tableblock"><code>`
+boolean result = reservationService.cancelReservation(reservationCode);
+</code>`</p>
+<p class="tableblock">Логирование:</p>
+<p class="tableblock"><code>`
+log.debug("Attempting to cancel a reservation by code: {}", reservationCode);
+</code>`</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ReservationServiceImpl → ReservationRepo</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Сервис выполняет поиск бронирования в БД:</p>
+<p class="tableblock"><code>`
+reservationRepo.findByReservationCode(reservationCode)
+</code>`</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ReservationRepo → ReservationServiceImpl</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Репозиторий возвращает <code>Optional&lt;Reservation&gt;</code> (с найденным бронированием или пустой).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ReservationServiceImpl</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Сервис проверяет результат поиска:</p>
+<p class="tableblock">* <strong>Если бронирование не найдено</strong>:</p>
+<p class="tableblock">* <code>log.warn("Cancel failed - reservation {} not found", reservationCode);</code>
+* Возвращает <code>false</code>, завершает процесс.
+* <strong>Если статус уже <code>CANCELED</code></strong>:</p>
+<p class="tableblock">* <code>log.warn("Cancel failed - reservation {} is already canceled", reservationCode);</code>
+* Возвращает <code>false</code>, завершает процесс.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">6</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ReservationServiceImpl</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Для действительного и ещё не отменённого бронирования формируется объект <code>EmailDto</code>:</p>
+<p class="tableblock"><code>`
+emailClientDto.setTo(reservation.getCustomerEmail());
+emailClientDto.setName(reservation.getCustomerName());
+emailClientDto.setStartTime(reservation.getStartDateTime());
+emailClientDto.setEndTime(reservation.getEndDateTime());
+emailClientDto.setGuestCount(reservation.getGuestCount());
+emailClientDto.setSubject("Подтверждение отмены бронирования столика");
+emailClientDto.setCancel(true);
+</code>`</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">7</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ReservationServiceImpl → EmailService</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Сервис отправляет HTML-письмо клиенту:</p>
+<p class="tableblock"><code>`
+emailService.sendHTMLEmail(emailClientDto);
+</code>`</p>
+<p class="tableblock">Обработка ошибок:</p>
+<p class="tableblock"><code>`
+catch (MessagingException e) {
+    log.error("Failed to send HTMLEmail {}", e);
+    throw new RuntimeException(e);
+}
+</code>`</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">EmailService → ReservationServiceImpl</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Сервис почты возвращает управление (или выбрасывает исключение при ошибке).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ReservationServiceImpl → ReservationRepo</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Сервис меняет статус бронирования на <code>CANCELED</code> и сохраняет обновлённую сущность:</p>
+<p class="tableblock"><code>`
+reservation.setReservationStatus(ReservationStatus.CANCELED);
+reservationRepo.save(reservation);
+log.info("Reservation {} canceled successfully", reservationCode);
+</code>`</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ReservationServiceImpl → AdminPageController</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Сервис возвращает <code>true</code> (успешная отмена) или <code>false</code> (отмена не выполнена).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">11</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AdminPageController → Client</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Контроллер перенаправляет или отображает сообщение об результате операции на стороне клиента.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_2_5_загрузка_актуального_меню_в_приложение_с_панели_админа">2.5 Загрузка актуального меню в приложение с панели админа</h3>
+<div class="sect3">
+<h4 id="_2_5_1_последовательность_действий">2.5.1 Последовательность действий</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>На панели админа (<a href="http://localhost:8080/restaurant/admin" class="bare">http://localhost:8080/restaurant/admin</a>) нажать ссылку "Загрузить меню":</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/html-bilder/admin_menu_upload_form.png" alt="Скачать меню" width="400">
+</div>
+</div>
+<div class="paragraph">
+<p>Кликнуть по "Выбрать файл", выбрать файл с меню из соответствующего хранилища файлов</p>
+</div>
+<div class="paragraph">
+<p>Нажать кнопку "Загрузить меню"</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Актуальное меню в формате pdf скачивается в каталог RestaurantApp/src/main/resources/menus</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/html-bilder/current_menu.png" alt="Актуальное меню" width="300">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_2_5_2_диаграмма_последовательности_взаимодействия_компонентов">2.5.2 Диаграмма последовательности взаимодействия компонентов</h4>
+<div class="imageblock">
+<div class="content">
+<img src="../diagrams/admin_menu_upload_sequence.png" alt="Диаграмма загрузки меню с панели админа" width="1000">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_2_5_3_описание_процесса_загрузки_меню_с_панели_админа">2.5.3 Описание процесса загрузки меню с панели админа</h4>
+<div class="paragraph">
+<p>Ниже описаны шаги загрузки PDF-файла меню с админ-панели (sequence.puml), а также ключевые действия FileService для сохранения нового меню.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 10%;">
+<col style="width: 20%;">
+<col style="width: 70%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Шаг</th>
+<th class="tableblock halign-left valign-top">Участники</th>
+<th class="tableblock halign-left valign-top">Описание</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Client → AdminPageController</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Администратор отправляет POST-запрос <code>uploadMenu()</code>, передавая PDF-файл меню в параметре <code>MultipartFile file</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AdminPageController → FileService</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Контроллер вызывает метод сервиса:</p>
+<p class="tableblock"><code>`
+fileService.saveMenuInProjectDir(file);
+</code>`</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FileService</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Проверяет MIME‑тип файла:</p>
+<p class="tableblock"><code>`
+if(!"application/pdf".equals(file.getContentType())) {
+    log.error("Only PDF files are allowed");
+    throw new IllegalArgumentException("Only PDF files are allowed");
+}
+</code>`</p>
+<p class="tableblock">При несоответствии — логируется ошибка и исключение возвращается контроллеру.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FileService</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Определяет пути для сохранения:</p>
+<p class="tableblock"><code>`
+Path uploadPath = Paths.get(uploadDirectory);
+Path destination = uploadPath.resolve(MENU_FILENAME);
+</code>`</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FileService</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Создаёт директорию <code>uploadDirectory</code>, если она отсутствует:</p>
+<p class="tableblock"><code>`
+if(!Files.exists(uploadPath)) {
+    Files.createDirectories(uploadPath);
+    log.info("Created menu directory: {}", uploadPath);
+}
+</code>`</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">6</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FileService</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Удаляет старую версию меню, если <code>current_menu.pdf</code> уже существует:</p>
+<p class="tableblock"><code>`
+Path oldMenu = uploadPath.resolve(MENU_FILENAME);
+if(Files.exists(oldMenu)) {
+    Files.delete(oldMenu);
+    log.debug("Deleted old menu file");
+}
+</code>`</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">7</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FileService</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Копирует новый файл в <code>uploadDirectory</code>:</p>
+<p class="tableblock"><code>`
+try(InputStream inputStream = file.getInputStream()) {
+    Files.copy(inputStream, destination, StandardCopyOption.REPLACE_EXISTING);
+    log.info("New menu was successfully saved.");
+}
+</code>`</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FileService → AdminPageController</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Метод <code>saveMenuInProjectDir</code> завершается (void) — либо контроль возвращается для формирования успешного ответа, либо исключение обрабатывается внешним обработчиком.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AdminPageController → Client</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Контроллер отправляет HTTP-ответ:</p>
+<p class="tableblock">* при успехе — перенаправление на админ-панель,
+* при ошибке — сообщение об ошибке загрузки меню.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2025-05-16 21:31:52 +0200
+</div>
+</div>
+</body>
+</html>

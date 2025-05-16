@@ -1,0 +1,163 @@
+[[configuration]]
+= 4. Конфигурация
+:revdate: 2025-05-15
+:doctype: book
+:toc: macro
+:toclevels: 2
+
+В этом разделе описаны все настройки приложения RestaurantApp. Подробности по установке окружения см. xref:03-installation.adoc[Установка], по схеме базы данных — xref:05-db.adoc[Схема и описание базы данных], по безопасности — xref:06-security.adoc[Безопасность].
+
+== 4.1 Файлы конфигурации
+
+* `src/main/resources/application.properties` — базовые настройки приложения
+
+== 4.2 Настройка базы данных
+
+Конфигурация подключения к PostgreSQL и общие JPA-параметры:
+
+[source,properties]
+----
+# PostgreSQL
+spring.datasource.url=jdbc:postgresql://localhost:5432/restaurantdb
+spring.datasource.username=postgres
+spring.datasource.password=1111
+spring.datasource.driver-class-name=org.postgresql.Driver
+
+# Hibernate / JPA
+spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
+spring.jpa.hibernate.ddl-auto=none
+----
+
+== 4.3 Миграции Liquibase
+
+Включение и настройка Liquibase:
+
+[source,properties]
+----
+spring.liquibase.enabled=true
+spring.liquibase.change-log=classpath:db/changelog/db.changelog-master.xml
+
+# Логирование (для отладки)
+logging.level.liquibase=DEBUG
+----
+
+Полное описание changelog-файлов и стратегий отката — в xref:05-db.adoc[Схема и описание базы данных].
+
+== 4.4 Безопасность
+
+В `application.properties` явно включается автоконфигурация Spring Security:
+
+[source,properties]
+----
+spring.autoconfigure.include=org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
+----
+
+
+Класс `SecurityConfig` задаёт два фильтра безопасности:
+
+[source,java]
+----
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+    @Bean @Order(1)
+    public SecurityFilterChain adminSecurity(HttpSecurity http) throws Exception {
+        http
+            .securityMatcher("/restaurant/admin", "/restaurant/admin/**")
+            .authorizeHttpRequests(auth -> auth.anyRequest().hasRole("ADMIN"))
+            .httpBasic(Customizer.withDefaults())
+            .csrf(csrf -> csrf.disable());
+        return http.build();
+    }
+
+    @Bean @Order(2)
+    public SecurityFilterChain publicSecurity(HttpSecurity http) throws Exception {
+        http
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers(
+                    "/restaurant", "/restaurant/",
+                    "/restaurant/reservations/**",
+                    "/restaurant/reserve/**",
+                    "/restaurant/cancel/**",
+                    "/restaurant/menu", "/restaurant/menu/**"
+                ).permitAll()
+                .anyRequest().authenticated()
+            )
+            .httpBasic(Customizer.withDefaults())
+            .csrf(csrf -> csrf.disable());
+        return http.build();
+    }
+
+    @Bean
+    public UserDetailsService userDetailsService() {
+        UserDetails admin = User.withUsername("admin")
+            .password("{noop}secret")
+            .roles("ADMIN").build();
+        return new InMemoryUserDetailsManager(admin);
+    }
+}
+----
+
+Более подробные возможности (JWT, OAuth2) см. в xref:06-security.adoc[Безопасность].
+
+== 4.5 Почтовая рассылка
+
+SMTP-настройки для отправки писем через Gmail:
+
+[source,properties]
+----
+spring.mail.host=smtp.gmail.com
+spring.mail.port=587
+spring.mail.username=${MAIL_USERNAME}
+spring.mail.password=${MAIL_PASSWORD}
+spring.mail.properties.mail.smtp.auth=true
+spring.mail.properties.mail.smtp.starttls.enable=true
+spring.mail.properties.mail.debug=true
+----
+
+== 4.6 Загрузка файлов
+
+Конфигурация multipart и путь сохранения файлов меню:
+
+[source,properties]
+----
+spring.servlet.multipart.max-file-size=10MB
+spring.servlet.multipart.max-request-size=10MB
+file.upload.path=uploads/menus
+----
+
+
+== 4.7 Обработка ошибок и логирование
+
+Включение стектрейсов и сообщений ошибок в HTTP-ответах:
+
+[source,properties]
+----
+server.error.include-stacktrace=always
+server.error.include-message=always
+----
+
+
+== 4.8 Специфичные параметры приложения
+
+Дополнительные свойства:
+
+[source,properties]
+----
+# Количество столов
+restaurant.table-count=10
+
+# Время работы ресторана
+restaurant.opening-time=08:00
+restaurant.closing-time=20:00
+----
+
+== 4.9 Запуск приложения
+
+Запуск через Maven:
+
+[source,bash]
+----
+mvn spring-boot:run
+----
+ Подробности — xref:03-installation.adoc[Установка].
