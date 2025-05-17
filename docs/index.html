@@ -5,7 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.15">
-<title>4. Конфигурация</title>
+<meta name="author" content="Техническая документация учебного приложения RestaurantApp">
+<title>Введение к RestaurantApp</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -435,24 +436,22 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 @media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
 </style>
 </head>
-<body id="configuration" class="book toc2 toc-left">
+<body class="book toc2 toc-left">
 <div id="header">
-<h1>4. Конфигурация</h1>
+<h1>Введение к RestaurantApp</h1>
 <div class="details">
-<span id="revdate">2025-05-15</span>
+<span id="author" class="author">Техническая документация учебного приложения RestaurantApp</span><br>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_4_1_файлы_конфигурации">4.1 Файлы конфигурации</a></li>
-<li><a href="#_4_2_настройка_базы_данных">4.2 Настройка базы данных</a></li>
-<li><a href="#_4_3_миграции_liquibase">4.3 Миграции Liquibase</a></li>
-<li><a href="#_4_4_безопасность">4.4 Безопасность</a></li>
-<li><a href="#_4_5_почтовая_рассылка">4.5 Почтовая рассылка</a></li>
-<li><a href="#_4_6_загрузка_файлов">4.6 Загрузка файлов</a></li>
-<li><a href="#_4_7_обработка_ошибок_и_логирование">4.7 Обработка ошибок и логирование</a></li>
-<li><a href="#_4_8_специфичные_параметры_приложения">4.8 Специфичные параметры приложения</a></li>
-<li><a href="#_4_9_запуск_приложения">4.9 Запуск приложения</a></li>
+<li><a href="#_структура_документации">Структура документации</a>
+<ul class="sectlevel2">
+<li><a href="#_цель_проекта">Цель проекта</a></li>
+<li><a href="#_основные_возможности">Основные возможности</a></li>
+<li><a href="#_технологический_стек">Технологический стек</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -460,205 +459,129 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>В этом разделе описаны все настройки приложения RestaurantApp. Подробности по установке окружения см. <a href="03-installation.html">Установка</a>, по схеме базы данных — <a href="05-db.html">Схема и описание базы данных</a>, по безопасности — <a href="06-security.html">Безопасность</a>.</p>
+<p>RestaurantApp — это учебное приложение, написанное на <strong>Java 17</strong> с использованием <strong>SpringBoot</strong>, <strong>Maven</strong>, <strong>PostgreSQL</strong>, <strong>Liquibase</strong>, <strong>In‑Memory Security</strong> и <strong>Thymeleaf</strong>. Приложение позволяет резервировать столики в ресторане, отслеживать пересечение интервалов бронирования и выполнять отмену резерваций.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_4_1_файлы_конфигурации">4.1 Файлы конфигурации</h2>
+<h2 id="_структура_документации">Структура документации</h2>
 <div class="sectionbody">
 <div class="ulist">
 <ul>
 <li>
-<p><code>src/main/resources/application.properties</code> — базовые настройки приложения</p>
+<p><a href="02-architecture.html">Архитектура приложения</a></p>
+</li>
+<li>
+<p><a href="03-installation.html">Установка</a></p>
+</li>
+<li>
+<p><a href="04-configuration.html">Конфигурация</a></p>
+</li>
+<li>
+<p><a href="05-db.html">Схема и описание базы данных</a></p>
+</li>
+<li>
+<p><a href="06-security.html">Безопасность</a></p>
+</li>
+<li>
+<p><a href="07-usage.html">Использование</a></p>
+</li>
+<li>
+<p><a href="08-admin-page.html">Контроллер панели админа</a></p>
+</li>
+<li>
+<p><a href="09-restaurant-page.html">Контроллер домашней страницы</a></p>
+</li>
+<li>
+<p><a href="10-file-controller.html">Контроллер управления файлами</a></p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="_цель_проекта">Цель проекта</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Демонстрация принципов построения RESTful-приложения на Java 17 и Spring Boot.</p>
+</li>
+<li>
+<p>Практика работы с реляционной базой данных PostgreSQL и управления схемой с помощью Liquibase.</p>
+</li>
+<li>
+<p>Настройка простой безопасности с использованием In-Memory Authentication (Spring Security).</p>
+</li>
+<li>
+<p>Шаблонизация серверного рендеринга с помощью Thymeleaf.</p>
 </li>
 </ul>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_4_2_настройка_базы_данных">4.2 Настройка базы данных</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Конфигурация подключения к PostgreSQL и общие JPA-параметры:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-properties" data-lang="properties"># PostgreSQL
-spring.datasource.url=jdbc:postgresql://localhost:5432/restaurantdb
-spring.datasource.username=postgres
-spring.datasource.password=1111
-spring.datasource.driver-class-name=org.postgresql.Driver
-
-# Hibernate / JPA
-spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
-spring.jpa.hibernate.ddl-auto=none</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_4_3_миграции_liquibase">4.3 Миграции Liquibase</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Включение и настройка Liquibase:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-properties" data-lang="properties">spring.liquibase.enabled=true
-spring.liquibase.change-log=classpath:db/changelog/db.changelog-master.xml
-
-# Логирование (для отладки)
-logging.level.liquibase=DEBUG</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Полное описание changelog-файлов и стратегий отката — в <a href="05-db.html">Схема и описание базы данных</a>.</p>
-</div>
+<div class="sect2">
+<h3 id="_основные_возможности">Основные возможности</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Просмотр списка доступных столиков на текущий день и их вместимости с панели администратора.</p>
+</li>
+<li>
+<p>Создание новой резервации: указание даты и времени, количества гостей, ввод контактных данных.</p>
+</li>
+<li>
+<p>Приложение само находит столик подходящей вместимости для заданного количества гостей.</p>
+</li>
+<li>
+<p>Если на заданный промежуток времени и заданное количество гостей не существует свободного столика, приложение дает ответ о том, что резервация на это время невозможна.</p>
+</li>
+<li>
+<p>Если количество гостей меньше или равно вместимости хотя бы одного свободного в это время столика, резервация создается на этот тот столик, у которого вместимость ближе всего к заданному количеству гостей</p>
+</li>
+<li>
+<p>Отображение статуса резервации (CONFIRMED, CANCELLED).</p>
+</li>
+<li>
+<p>Пользователь получает email с подтверждением резервации и кодом резервации, который можно применить для отмены резервации</p>
+</li>
+<li>
+<p>В базе данных создается флаг is_admin = true в случае, если резеравция была создана с панели администратора.</p>
+</li>
+<li>
+<p>Возможна отмена резервации и управление ролями пользователя (администратор может просматривать и создавать резервации от имени клиентов).</p>
+</li>
+<li>
+<p>Администратор может загрузить pdf файл меню с панели администратора</p>
+</li>
+<li>
+<p>Пользователь может скачать файл меню с общедоступной страницы</p>
+</li>
+</ul>
 </div>
 </div>
-<div class="sect1">
-<h2 id="_4_4_безопасность">4.4 Безопасность</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>В <code>application.properties</code> явно включается автоконфигурация Spring Security:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-properties" data-lang="properties">spring.autoconfigure.include=org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Класс <code>SecurityConfig</code> задаёт два фильтра безопасности:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">@Configuration
-@EnableWebSecurity
-public class SecurityConfig {
-    @Bean @Order(1)
-    public SecurityFilterChain adminSecurity(HttpSecurity http) throws Exception {
-        http
-            .securityMatcher("/restaurant/admin", "/restaurant/admin/**")
-            .authorizeHttpRequests(auth -&gt; auth.anyRequest().hasRole("ADMIN"))
-            .httpBasic(Customizer.withDefaults())
-            .csrf(csrf -&gt; csrf.disable());
-        return http.build();
-    }
-
-    @Bean @Order(2)
-    public SecurityFilterChain publicSecurity(HttpSecurity http) throws Exception {
-        http
-            .authorizeHttpRequests(auth -&gt; auth
-                .requestMatchers(
-                    "/restaurant", "/restaurant/",
-                    "/restaurant/reservations/**",
-                    "/restaurant/reserve/**",
-                    "/restaurant/cancel/**",
-                    "/restaurant/menu", "/restaurant/menu/**"
-                ).permitAll()
-                .anyRequest().authenticated()
-            )
-            .httpBasic(Customizer.withDefaults())
-            .csrf(csrf -&gt; csrf.disable());
-        return http.build();
-    }
-
-    @Bean
-    public UserDetailsService userDetailsService() {
-        UserDetails admin = User.withUsername("admin")
-            .password("{noop}secret")
-            .roles("ADMIN").build();
-        return new InMemoryUserDetailsManager(admin);
-    }
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Более подробные возможности (JWT, OAuth2) см. в <a href="06-security.html">Безопасность</a>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_4_5_почтовая_рассылка">4.5 Почтовая рассылка</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>SMTP-настройки для отправки писем через Gmail:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-properties" data-lang="properties">spring.mail.host=smtp.gmail.com
-spring.mail.port=587
-spring.mail.username=${MAIL_USERNAME}
-spring.mail.password=${MAIL_PASSWORD}
-spring.mail.properties.mail.smtp.auth=true
-spring.mail.properties.mail.smtp.starttls.enable=true
-spring.mail.properties.mail.debug=true</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_4_6_загрузка_файлов">4.6 Загрузка файлов</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Конфигурация multipart и путь сохранения файлов меню:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-properties" data-lang="properties">spring.servlet.multipart.max-file-size=10MB
-spring.servlet.multipart.max-request-size=10MB
-file.upload.path=uploads/menus</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_4_7_обработка_ошибок_и_логирование">4.7 Обработка ошибок и логирование</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Включение стектрейсов и сообщений ошибок в HTTP-ответах:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-properties" data-lang="properties">server.error.include-stacktrace=always
-server.error.include-message=always</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_4_8_специфичные_параметры_приложения">4.8 Специфичные параметры приложения</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Дополнительные свойства:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-properties" data-lang="properties"># Количество столов
-restaurant.table-count=10
-
-# Время работы ресторана
-restaurant.opening-time=08:00
-restaurant.closing-time=20:00</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_4_9_запуск_приложения">4.9 Запуск приложения</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Запуск через Maven:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">mvn spring-boot:run</code></pre>
-</div>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>Подробности — xref:03-installation.adoc[Установка].</pre>
+<div class="sect2">
+<h3 id="_технологический_стек">Технологический стек</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Язык:</strong> Java 17</p>
+</li>
+<li>
+<p><strong>Фреймворк:</strong> Spring Boot (Web, Data JPA, Security, Mail)</p>
+</li>
+<li>
+<p><strong>СУБД:</strong> PostgreSQL</p>
+</li>
+<li>
+<p><strong>Миграции:</strong> Liquibase</p>
+</li>
+<li>
+<p><strong>Шаблонизатор:</strong> Thymeleaf</p>
+</li>
+<li>
+<p><strong>Сборка:</strong> Maven</p>
+</li>
+<li>
+<p><strong>Безопасность:</strong> In-memory Authentication</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
