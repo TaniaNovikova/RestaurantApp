@@ -445,7 +445,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_зависимости_maven">Зависимости Maven</a></li>
 <li><a href="#_настройки_приложения_application_properties">Настройки приложения (application.properties)</a></li>
 <li><a href="#_java_конфигурация_securityconfig_java">Java-конфигурация (SecurityConfig.java)</a></li>
-<li><a href="#_описание_конфигурации">Описание конфигурации</a></li>
 </ul>
 </li>
 </ul>
@@ -489,15 +488,20 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="sect2">
 <h3 id="_настройки_приложения_application_properties">Настройки приложения (application.properties)</h3>
-<div class="paragraph">
-<p>В секции <code><mark><mark>SECURITY</mark></mark></code> можно управлять авто-конфигурацией безопасности:</p>
-</div>
-<div class="listingblock">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Включена стандартная Spring Security</strong>
+Явно подключена автоконфигурация безопасности:</p>
+<div class="literalblock">
 <div class="content">
-<pre class="highlight"><code class="language-properties" data-lang="properties">###SECURITY###
-# Явное включение авто-конфигурации
-spring.autoconfigure.include=org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration</code></pre>
+<pre>```properties
+spring.autoconfigure.include=org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
+```</pre>
 </div>
+</div>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">
@@ -505,31 +509,74 @@ spring.autoconfigure.include=org.springframework.boot.autoconfigure.security.ser
 <div class="paragraph">
 <p>Используется программная настройка двух цепочек фильтров и in-memory UserDetailsService:</p>
 </div>
+<div class="literalblock">
+<div class="content">
+<pre>→ Все механизмы Spring Security активны «из коробки».</pre>
 </div>
-<div class="sect2">
-<h3 id="_описание_конфигурации">Описание конфигурации</h3>
+</div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>adminSecurity</code> (Order 1): защищает все URL <code>/restaurant/admin/**</code> — только роль <code>ADMIN</code>, Basic-аутентификация.</p>
+<p><strong>Две цепочки фильтров (<code>SecurityFilterChain</code>)</strong></p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Админская</strong> (<code>@Order(1)</code>)</p>
+</li>
+</ol>
+</div>
 </li>
 <li>
-<p><code>publicSecurity</code> (Order 2): общедоступны страницы ресторана, меню и операции с бронью; остальные запросы — только для аутентифицированных.</p>
+<p>Матчит запросы по <code>/restaurant/admin</code> и <code>/restaurant/admin/**</code></p>
 </li>
 <li>
-<p>CSRF временно отключён для всех цепочек фильтров (упрощённая REST-конфигурация): проект еще в разработке.</p>
+<p>Доступ только для пользователей с ролью <code>ADMIN</code></p>
 </li>
 <li>
-<p>В <code>UserDetailsService</code> зарегистрирован один пользователь:</p>
+<p>Аутентификация через HTTP Basic</p>
 </li>
 <li>
-<p>Логин: <code>admin</code></p>
+<p>CSRF-защита отключена</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Общедоступная</strong> (<code>@Order(2)</code>)</p>
+</li>
+</ol>
+</div>
 </li>
 <li>
-<p>Пароль: <code>secret</code> (noop)</p>
+<p>Разрешён (permitAll) неаутентифицированный доступ к:</p>
+<div class="literalblock">
+<div class="content">
+<pre>```
+/restaurant, /restaurant/,
+/restaurant/reservations/**,
+/restaurant/reserve/**,
+/restaurant/cancel/**,
+/restaurant/menu, /restaurant/menu/**
+```</pre>
+</div>
+</div>
 </li>
 <li>
-<p>Роль: <code>ADMIN</code></p>
+<p>Аутентификация через HTTP Basic</p>
+</li>
+<li>
+<p>CSRF-защита отключена</p>
+</li>
+<li>
+<p><strong>Пользовательская база в памяти</strong>
+Через <code>InMemoryUserDetailsManager</code> определён один пользователь:</p>
+<div class="literalblock">
+<div class="content">
+<pre>```java
+username: admin
+password: secret  (noop)
+roles: ADMIN
+```</pre>
+</div>
+</div>
 </li>
 </ul>
 </div>
@@ -539,7 +586,7 @@ spring.autoconfigure.include=org.springframework.boot.autoconfigure.security.ser
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-05-18 12:27:45 +0200
+Last updated 2025-05-18 16:47:06 +0200
 </div>
 </div>
 </body>

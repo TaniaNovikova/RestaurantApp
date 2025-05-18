@@ -98,7 +98,7 @@ public class SecurityConfig {
 }
 ----
 
-Более подробные возможности (JWT, OAuth2) см. в xref:06-security.adoc[Безопасность].
+Более подробные возможности см. в xref:06-security.adoc[Безопасность].
 
 === 4.5 Почтовая рассылка
 

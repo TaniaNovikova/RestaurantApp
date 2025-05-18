@@ -28,25 +28,56 @@
 
 
 === Настройки приложения (application.properties)
-В секции `###SECURITY###` можно управлять авто-конфигурацией безопасности:
-[source,properties]
-----
-###SECURITY###
-# Явное включение авто-конфигурации
-spring.autoconfigure.include=org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
-----
+
+* **Включена стандартная Spring Security**
+Явно подключена автоконфигурация безопасности:
+
+  ```properties
+  spring.autoconfigure.include=org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
+  ```
 
 === Java-конфигурация (SecurityConfig.java)
+
 Используется программная настройка двух цепочек фильтров и in-memory UserDetailsService:
 
 
-=== Описание конфигурации
-* `adminSecurity` (Order 1): защищает все URL `/restaurant/admin/**` — только роль `ADMIN`, Basic-аутентификация.
-* `publicSecurity` (Order 2): общедоступны страницы ресторана, меню и операции с бронью; остальные запросы — только для аутентифицированных.
-* CSRF временно отключён для всех цепочек фильтров (упрощённая REST-конфигурация): проект еще в разработке.
-* В `UserDetailsService` зарегистрирован один пользователь:
-* Логин: `admin`
-* Пароль: `secret` (noop)
-* Роль: `ADMIN`
+  → Все механизмы Spring Security активны «из коробки».
+
+* **Две цепочки фильтров (`SecurityFilterChain`)**
+
+1. **Админская** (`@Order(1)`)
+
+* Матчит запросы по `/restaurant/admin` и `/restaurant/admin/**`
+* Доступ только для пользователей с ролью `ADMIN`
+* Аутентификация через HTTP Basic
+* CSRF-защита отключена
+2. **Общедоступная** (`@Order(2)`)
+
+* Разрешён (permitAll) неаутентифицированный доступ к:
+
+       ```
+       /restaurant, /restaurant/,
+       /restaurant/reservations/**,
+       /restaurant/reserve/**,
+       /restaurant/cancel/**,
+       /restaurant/menu, /restaurant/menu/**
+       ```
+
+* Аутентификация через HTTP Basic
+* CSRF-защита отключена
+
+* **Пользовательская база в памяти**
+Через `InMemoryUserDetailsManager` определён один пользователь:
+
+  ```java
+  username: admin
+  password: secret  (noop)
+  roles: ADMIN
+  ```
+
+
+
+
+
 
 
