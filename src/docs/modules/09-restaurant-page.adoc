@@ -1,61 +1,81 @@
 :toc:
 :toclevels: 3
 
-= 9. Публичный интерфейс клиента
+← НАЗАД: xref:index.adoc#main-toc[ВЕРНУТЬСЯ К ОГЛАВЛЕНИЮ ДОКУМЕНТАЦИИ]
 
-В этом разделе описаны эндпоинты `RestaurantPageController`, отвечающие за отображение главной страницы, формы бронирования, формы отмены и скачивание меню. Все запросы начинаются с префикса `/restaurant`.
+== 9. RestaurantPageController - публичный интерфейс клиента
 
-== 9.1 Общие сведения
+В этом разделе описаны эндпоинты RestaurantPageController, отвечающие за отображение главной страницы, формы бронирования, формы отмены и скачивание меню. Все запросы начинаются с префикса /restaurant.
 
-Контроллер `RestaurantPageController` аннотирован следующим образом:
+=== 9.1 Общие сведения
+
+Контроллер RestaurantPageController аннотирован следующим образом:
 
 [source,java]
+@Controller @RequestMapping("/restaurant") public class RestaurantPageController { private final ReservationService reservationService; private final FileService fileService;
 
-@Controller
-@RequestMapping("/restaurant")
-public class RestaurantPageController { … }
--------------------------------------------
+public RestaurantPageController(ReservationService reservationService, FileService fileService) {
+this.reservationService = reservationService;
+this.fileService = fileService;
+}
+}
+@Controller — помечает класс как Spring MVC контроллер.
 
-Он использует сервисы `ReservationService` и `FileService` для работы с бронированиями и файлами меню. Модельные атрибуты добавляются непосредственно в методах.
+@RequestMapping("/restaurant") — задаёт префикс для всех эндпоинтов.
 
-== 9.2 Методы контроллера
+Через конструктор внедряются сервисы ReservationService (управление резервациями) и FileService (обработка файлов меню).
 
-Ниже сводная таблица по всем методам `RestaurantPageController`:
+=== 9.2 Методы контроллера
+
+Ниже сводная таблица по всем методам RestaurantPageController:
 
 [cols="1,2,2,2", options="header"]
+
 |===
 | HTTP-метод | Путь | Модельные атрибуты | Шаблоны Thymeleaf / Ответ
 
-| **GET**  | `/restaurant`                      | —                                | `homepage.html`
+| GET | /restaurant | — | homepage.html
 
-| **GET**  | `/restaurant/reserve`             | `reservationForm`                | `reservation-form.html`
+| GET | /restaurant/reserve | reservationForm | reservation-form.html
 
-| **POST** | `/restaurant/reserve`             | `message`, `reservationForm`     | `reservation-form.html`
+| POST | /restaurant/reserve | message, reservationForm | reservation-form.html
 
-| **GET**  | `/restaurant/cancel`              | `reservationCode`                | `cancel-form.html`
+| GET | /restaurant/cancel | reservationCode | cancel-form.html
 
-| **POST** | `/restaurant/cancel`              | `message`, `reservationCode`     | `cancel-form.html`
+| POST | /restaurant/cancel | message, reservationCode | cancel-form.html
 
-| **GET**  | `/restaurant/menu`                | —                                | `ResponseEntity<byte[]>` — скачивание PDF меню
+| GET | /restaurant/menu | — | ResponseEntity<byte[]> — скачивание PDF меню
 |===
 
-**Пояснения:**
+Пояснения:
 
-* `reservationForm` — DTO для формы бронирования (см. `ReservationFormDto`).
-* `message` — сообщение об успехе или ошибке операции.
-* `reservationCode` — строковый код брони для отмены.
-* Для скачивания меню контроллер возвращает `ResponseEntity<byte[]>` с заголовком `Content-Disposition`.
+Для метода GET /restaurant/reserve в модель добавляется атрибут reservationForm через new ReservationFormDto().
 
-== 9.3 Шаблоны Thymeleaf
+В POST /restaurant/reserve после создания или обработки исключений форма сбрасывается в модель: model.addAttribute("reservationForm", new ReservationFormDto()).
+
+В POST /restaurant/cancel параметр reservationCode сбрасывается в модель пустой строкой после обработки (модельный атрибут reservationCode).
+
+Для скачивания меню контроллер возвращает ResponseEntity<byte[]>:
+
+При наличии файла устанавливает заголовок Content-Disposition: attachment; filename="<имя файла>" и передаёт содержимое.
+
+В случае отсутствия меню возвращает HTTP 404 Not Found.
+
+=== 9.3 Шаблоны Thymeleaf
 
 Используемые шаблоны:
 
-* `homepage.html` — главная страница приложения, вся разметка содержится в одном файле, без `th:insert`/`th:replace`.
-* `reservation-form.html` — форма создания брони (отдельный файл).
-* `cancel-form.html` — форма отмены брони (отдельный файл).
+homepage.html — главная страница приложения, вся разметка в одном файле.
 
+reservation-form.html — форма создания брони.
 
+cancel-form.html — форма отмены брони.
 
-== 9.4 Доступ и безопасность
+=== 9.4 Доступ и безопасность
 
 Все публичные страницы доступны без аутентификации. Для подробностей о безопасности и роутинге админ-панели см. xref:08-admin-page.adoc[Административная панель].
+
+
+
+
+

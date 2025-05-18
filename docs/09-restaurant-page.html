@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.15">
-<title>9. Публичный интерфейс клиента</title>
+<title>9. RestaurantPageController - публичный интерфейс клиента</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,49 +437,59 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>9. Публичный интерфейс клиента</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
+<li><a href="#_9_restaurantpagecontroller_публичный_интерфейс_клиента">9. RestaurantPageController - публичный интерфейс клиента</a>
+<ul class="sectlevel2">
 <li><a href="#_9_1_общие_сведения">9.1 Общие сведения</a></li>
 <li><a href="#_9_2_методы_контроллера">9.2 Методы контроллера</a></li>
 <li><a href="#_9_3_шаблоны_thymeleaf">9.3 Шаблоны Thymeleaf</a></li>
 <li><a href="#_9_4_доступ_и_безопасность">9.4 Доступ и безопасность</a></li>
 </ul>
+</li>
+</ul>
 </div>
 </div>
 <div id="content">
-<div id="preamble">
-<div class="sectionbody">
 <div class="paragraph">
-<p>В этом разделе описаны эндпоинты <code>RestaurantPageController</code>, отвечающие за отображение главной страницы, формы бронирования, формы отмены и скачивание меню. Все запросы начинаются с префикса <code>/restaurant</code>.</p>
-</div>
-</div>
+<p>← НАЗАД: <a href="index.html#main-toc">ВЕРНУТЬСЯ К ОГЛАВЛЕНИЮ ДОКУМЕНТАЦИИ</a></p>
 </div>
 <div class="sect1">
-<h2 id="_9_1_общие_сведения">9.1 Общие сведения</h2>
+<h2 id="_9_restaurantpagecontroller_публичный_интерфейс_клиента">9. RestaurantPageController - публичный интерфейс клиента</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Контроллер <code>RestaurantPageController</code> аннотирован следующим образом:</p>
+<p>В этом разделе описаны эндпоинты RestaurantPageController, отвечающие за отображение главной страницы, формы бронирования, формы отмены и скачивание меню. Все запросы начинаются с префикса /restaurant.</p>
+</div>
+<div class="sect2">
+<h3 id="_9_1_общие_сведения">9.1 Общие сведения</h3>
+<div class="paragraph">
+<p>Контроллер RestaurantPageController аннотирован следующим образом:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">@Controller
-@RequestMapping("/restaurant")
-public class RestaurantPageController { … }
--------------------------------------------</code></pre>
+<pre class="highlight"><code class="language-java" data-lang="java">@Controller @RequestMapping("/restaurant") public class RestaurantPageController { private final ReservationService reservationService; private final FileService fileService;</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Он использует сервисы <code>ReservationService</code> и <code>FileService</code> для работы с бронированиями и файлами меню. Модельные атрибуты добавляются непосредственно в методах.</p>
+<p>public RestaurantPageController(ReservationService reservationService, FileService fileService) {
+this.reservationService = reservationService;
+this.fileService = fileService;
+}
+}
+@Controller — помечает класс как Spring MVC контроллер.</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_9_2_методы_контроллера">9.2 Методы контроллера</h2>
-<div class="sectionbody">
 <div class="paragraph">
-<p>Ниже сводная таблица по всем методам <code>RestaurantPageController</code>:</p>
+<p>@RequestMapping("/restaurant") — задаёт префикс для всех эндпоинтов.</p>
+</div>
+<div class="paragraph">
+<p>Через конструктор внедряются сервисы ReservationService (управление резервациями) и FileService (обработка файлов меню).</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_9_2_методы_контроллера">9.2 Методы контроллера</h3>
+<div class="paragraph">
+<p>Ниже сводная таблица по всем методам RestaurantPageController:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -498,97 +508,92 @@ public class RestaurantPageController { … }
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GET</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/restaurant</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GET</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/restaurant</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">—</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>homepage.html</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">homepage.html</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GET</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/restaurant/reserve</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>reservationForm</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>reservation-form.html</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GET</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/restaurant/reserve</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">reservationForm</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">reservation-form.html</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>POST</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/restaurant/reserve</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>message</code>, <code>reservationForm</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>reservation-form.html</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">POST</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/restaurant/reserve</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">message, reservationForm</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">reservation-form.html</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GET</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/restaurant/cancel</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>reservationCode</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cancel-form.html</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GET</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/restaurant/cancel</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">reservationCode</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">cancel-form.html</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>POST</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/restaurant/cancel</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>message</code>, <code>reservationCode</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cancel-form.html</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">POST</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/restaurant/cancel</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">message, reservationCode</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">cancel-form.html</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GET</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/restaurant/menu</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GET</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/restaurant/menu</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">—</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ResponseEntity&lt;byte[]&gt;</code> — скачивание PDF меню</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ResponseEntity&lt;byte[]&gt; — скачивание PDF меню</p></td>
 </tr>
 </tbody>
 </table>
 <div class="paragraph">
-<p><strong>Пояснения:</strong></p>
+<p>Пояснения:</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>reservationForm</code> — DTO для формы бронирования (см. <code>ReservationFormDto</code>).</p>
-</li>
-<li>
-<p><code>message</code> — сообщение об успехе или ошибке операции.</p>
-</li>
-<li>
-<p><code>reservationCode</code> — строковый код брони для отмены.</p>
-</li>
-<li>
-<p>Для скачивания меню контроллер возвращает <code>ResponseEntity&lt;byte[]&gt;</code> с заголовком <code>Content-Disposition</code>.</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>Для метода GET /restaurant/reserve в модель добавляется атрибут reservationForm через new ReservationFormDto().</p>
+</div>
+<div class="paragraph">
+<p>В POST /restaurant/reserve после создания или обработки исключений форма сбрасывается в модель: model.addAttribute("reservationForm", new ReservationFormDto()).</p>
+</div>
+<div class="paragraph">
+<p>В POST /restaurant/cancel параметр reservationCode сбрасывается в модель пустой строкой после обработки (модельный атрибут reservationCode).</p>
+</div>
+<div class="paragraph">
+<p>Для скачивания меню контроллер возвращает ResponseEntity&lt;byte[]&gt;:</p>
+</div>
+<div class="paragraph">
+<p>При наличии файла устанавливает заголовок Content-Disposition: attachment; filename="&lt;имя файла&gt;" и передаёт содержимое.</p>
+</div>
+<div class="paragraph">
+<p>В случае отсутствия меню возвращает HTTP 404 Not Found.</p>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_9_3_шаблоны_thymeleaf">9.3 Шаблоны Thymeleaf</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_9_3_шаблоны_thymeleaf">9.3 Шаблоны Thymeleaf</h3>
 <div class="paragraph">
 <p>Используемые шаблоны:</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>homepage.html</code> — главная страница приложения, вся разметка содержится в одном файле, без <code>th:insert</code>/<code>th:replace</code>.</p>
-</li>
-<li>
-<p><code>reservation-form.html</code> — форма создания брони (отдельный файл).</p>
-</li>
-<li>
-<p><code>cancel-form.html</code> — форма отмены брони (отдельный файл).</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>homepage.html — главная страница приложения, вся разметка в одном файле.</p>
+</div>
+<div class="paragraph">
+<p>reservation-form.html — форма создания брони.</p>
+</div>
+<div class="paragraph">
+<p>cancel-form.html — форма отмены брони.</p>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_9_4_доступ_и_безопасность">9.4 Доступ и безопасность</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_9_4_доступ_и_безопасность">9.4 Доступ и безопасность</h3>
 <div class="paragraph">
 <p>Все публичные страницы доступны без аутентификации. Для подробностей о безопасности и роутинге админ-панели см. <a href="08-admin-page.html">Административная панель</a>.</p>
 </div>
 </div>
 </div>
 </div>
+</div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-05-16 22:34:56 +0200
+Last updated 2025-05-18 13:32:24 +0200
 </div>
 </div>
 </body>

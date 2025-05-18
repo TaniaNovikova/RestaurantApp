@@ -435,15 +435,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 @media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
 </style>
 </head>
-<body id="configuration" class="book toc2 toc-left">
+<body class="article toc2 toc-left">
 <div id="header">
-<h1>4. Конфигурация</h1>
-<div class="details">
-<span id="revdate">2025-05-15</span>
-</div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
+<li><a href="#_4_конфигурация">4. Конфигурация</a>
+<ul class="sectlevel2">
 <li><a href="#_4_1_файлы_конфигурации">4.1 Файлы конфигурации</a></li>
 <li><a href="#_4_2_настройка_базы_данных">4.2 Настройка базы данных</a></li>
 <li><a href="#_4_3_миграции_liquibase">4.3 Миграции Liquibase</a></li>
@@ -454,19 +452,26 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_4_8_специфичные_параметры_приложения">4.8 Специфичные параметры приложения</a></li>
 <li><a href="#_4_9_запуск_приложения">4.9 Запуск приложения</a></li>
 </ul>
+</li>
+</ul>
 </div>
 </div>
 <div id="content">
-<div id="preamble">
+<div class="ulist">
+<ul>
+<li>
+<p>← НАЗАД: <a href="index.html#main-toc">Перейти к оглавлению документации</a></p>
+</li>
+</ul>
+</div>
+<div class="sect1">
+<h2 id="_4_конфигурация">4. Конфигурация</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>В этом разделе описаны все настройки приложения RestaurantApp. Подробности по установке окружения см. <a href="03-installation.html">Установка</a>, по схеме базы данных — <a href="05-db.html">Схема и описание базы данных</a>, по безопасности — <a href="06-security.html">Безопасность</a>.</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_4_1_файлы_конфигурации">4.1 Файлы конфигурации</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_4_1_файлы_конфигурации">4.1 Файлы конфигурации</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -475,10 +480,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_4_2_настройка_базы_данных">4.2 Настройка базы данных</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_4_2_настройка_базы_данных">4.2 Настройка базы данных</h3>
 <div class="paragraph">
 <p>Конфигурация подключения к PostgreSQL и общие JPA-параметры:</p>
 </div>
@@ -496,10 +499,8 @@ spring.jpa.hibernate.ddl-auto=none</code></pre>
 </div>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_4_3_миграции_liquibase">4.3 Миграции Liquibase</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_4_3_миграции_liquibase">4.3 Миграции Liquibase</h3>
 <div class="paragraph">
 <p>Включение и настройка Liquibase:</p>
 </div>
@@ -516,10 +517,8 @@ logging.level.liquibase=DEBUG</code></pre>
 <p>Полное описание changelog-файлов и стратегий отката — в <a href="05-db.html">Схема и описание базы данных</a>.</p>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_4_4_безопасность">4.4 Безопасность</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_4_4_безопасность">4.4 Безопасность</h3>
 <div class="paragraph">
 <p>В <code>application.properties</code> явно включается автоконфигурация Spring Security:</p>
 </div>
@@ -578,10 +577,8 @@ public class SecurityConfig {
 <p>Более подробные возможности (JWT, OAuth2) см. в <a href="06-security.html">Безопасность</a>.</p>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_4_5_почтовая_рассылка">4.5 Почтовая рассылка</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_4_5_почтовая_рассылка">4.5 Почтовая рассылка</h3>
 <div class="paragraph">
 <p>SMTP-настройки для отправки писем через Gmail:</p>
 </div>
@@ -597,10 +594,8 @@ spring.mail.properties.mail.debug=true</code></pre>
 </div>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_4_6_загрузка_файлов">4.6 Загрузка файлов</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_4_6_загрузка_файлов">4.6 Загрузка файлов</h3>
 <div class="paragraph">
 <p>Конфигурация multipart и путь сохранения файлов меню:</p>
 </div>
@@ -612,10 +607,8 @@ file.upload.path=uploads/menus</code></pre>
 </div>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_4_7_обработка_ошибок_и_логирование">4.7 Обработка ошибок и логирование</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_4_7_обработка_ошибок_и_логирование">4.7 Обработка ошибок и логирование</h3>
 <div class="paragraph">
 <p>Включение стектрейсов и сообщений ошибок в HTTP-ответах:</p>
 </div>
@@ -626,10 +619,8 @@ server.error.include-message=always</code></pre>
 </div>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_4_8_специфичные_параметры_приложения">4.8 Специфичные параметры приложения</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_4_8_специфичные_параметры_приложения">4.8 Специфичные параметры приложения</h3>
 <div class="paragraph">
 <p>Дополнительные свойства:</p>
 </div>
@@ -644,10 +635,8 @@ restaurant.closing-time=20:00</code></pre>
 </div>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_4_9_запуск_приложения">4.9 Запуск приложения</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_4_9_запуск_приложения">4.9 Запуск приложения</h3>
 <div class="paragraph">
 <p>Запуск через Maven:</p>
 </div>
@@ -656,9 +645,8 @@ restaurant.closing-time=20:00</code></pre>
 <pre class="highlight"><code class="language-bash" data-lang="bash">mvn spring-boot:run</code></pre>
 </div>
 </div>
-<div class="literalblock">
-<div class="content">
-<pre>Подробности — xref:03-installation.adoc[Установка].</pre>
+<div class="paragraph">
+<p>Подробности по установке окружения см. <a href="03-installation.html">Установка</a></p>
 </div>
 </div>
 </div>
@@ -666,7 +654,7 @@ restaurant.closing-time=20:00</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-05-16 22:34:56 +0200
+Last updated 2025-05-18 12:32:39 +0200
 </div>
 </div>
 </body>

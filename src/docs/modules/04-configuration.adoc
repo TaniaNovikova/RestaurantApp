@@ -1,17 +1,17 @@
-[[configuration]]
-= 4. Конфигурация
-:revdate: 2025-05-15
-:doctype: book
-:toc: macro
-:toclevels: 2
+:toc:
+:toclevels: 3
+
+* ← НАЗАД: xref:index.adoc#main-toc[Перейти к оглавлению документации]
+
+== 4. Конфигурация
 
 В этом разделе описаны все настройки приложения RestaurantApp. Подробности по установке окружения см. xref:03-installation.adoc[Установка], по схеме базы данных — xref:05-db.adoc[Схема и описание базы данных], по безопасности — xref:06-security.adoc[Безопасность].
 
-== 4.1 Файлы конфигурации
+=== 4.1 Файлы конфигурации
 
 * `src/main/resources/application.properties` — базовые настройки приложения
 
-== 4.2 Настройка базы данных
+=== 4.2 Настройка базы данных
 
 Конфигурация подключения к PostgreSQL и общие JPA-параметры:
 
@@ -28,7 +28,7 @@ spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
 spring.jpa.hibernate.ddl-auto=none
 ----
 
-== 4.3 Миграции Liquibase
+=== 4.3 Миграции Liquibase
 
 Включение и настройка Liquibase:
 
@@ -43,7 +43,7 @@ logging.level.liquibase=DEBUG
 
 Полное описание changelog-файлов и стратегий отката — в xref:05-db.adoc[Схема и описание базы данных].
 
-== 4.4 Безопасность
+=== 4.4 Безопасность
 
 В `application.properties` явно включается автоконфигурация Spring Security:
 
@@ -100,7 +100,7 @@ public class SecurityConfig {
 
 Более подробные возможности (JWT, OAuth2) см. в xref:06-security.adoc[Безопасность].
 
-== 4.5 Почтовая рассылка
+=== 4.5 Почтовая рассылка
 
 SMTP-настройки для отправки писем через Gmail:
 
@@ -115,7 +115,7 @@ spring.mail.properties.mail.smtp.starttls.enable=true
 spring.mail.properties.mail.debug=true
 ----
 
-== 4.6 Загрузка файлов
+=== 4.6 Загрузка файлов
 
 Конфигурация multipart и путь сохранения файлов меню:
 
@@ -127,7 +127,7 @@ file.upload.path=uploads/menus
 ----
 
 
-== 4.7 Обработка ошибок и логирование
+=== 4.7 Обработка ошибок и логирование
 
 Включение стектрейсов и сообщений ошибок в HTTP-ответах:
 
@@ -138,7 +138,7 @@ server.error.include-message=always
 ----
 
 
-== 4.8 Специфичные параметры приложения
+=== 4.8 Специфичные параметры приложения
 
 Дополнительные свойства:
 
@@ -152,7 +152,7 @@ restaurant.opening-time=08:00
 restaurant.closing-time=20:00
 ----
 
-== 4.9 Запуск приложения
+=== 4.9 Запуск приложения
 
 Запуск через Maven:
 
@@ -160,4 +160,5 @@ restaurant.closing-time=20:00
 ----
 mvn spring-boot:run
 ----
- Подробности — xref:03-installation.adoc[Установка].
+
+Подробности по установке окружения см. xref:03-installation.adoc[Установка]

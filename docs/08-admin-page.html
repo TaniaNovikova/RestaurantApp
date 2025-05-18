@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.15">
-<title>8. Административная панель</title>
+<title>8. AdminPageController - контроллер панели администратора</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -440,24 +440,32 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_8_административная_панель">8. Административная панель</a>
+<li><a href="#_8_adminpagecontroller_контроллер_панели_администратора">8. <strong>AdminPageController</strong> - контроллер панели администратора</a>
 <ul class="sectlevel2">
 <li><a href="#_8_1_общие_сведения">8.1 Общие сведения</a></li>
 <li><a href="#_8_2_методы_контроллера">8.2 Методы контроллера</a></li>
 <li><a href="#_8_3_шаблоны_thymeleaf">8.3 Шаблоны Thymeleaf</a></li>
-</ul>
-</li>
-<li><a href="#_8_4_параметры_формы_бронирования">8.4 Параметры формы бронирования</a>
-<ul class="sectlevel2">
-<li><a href="#_8_5_порядок_запуска_и_безопасность">8.5 Порядок запуска и безопасность</a></li>
+<li><a href="#_8_4_параметры_формы_бронирования">8.4 Параметры формы бронирования</a></li>
+<li><a href="#_8_5_параметры_формы_отмены_бронирования">8.5 Параметры формы отмены бронирования</a></li>
+<li><a href="#_8_6_параметры_запроса_reservationstoday">8.6 Параметры запроса <code>/reservations/today</code></a></li>
+<li><a href="#_8_7_параметры_запроса_reservationsconfirmedby_date">8.7 Параметры запроса <code>/reservations/confirmed/by-date</code></a></li>
+<li><a href="#_8_8_параметры_формы_загрузки_меню">8.8 Параметры формы загрузки меню</a></li>
+<li><a href="#_8_9_порядок_запуска_и_безопасность">8.9 Порядок запуска и безопасность</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 <div id="content">
+<div class="ulist">
+<ul>
+<li>
+<p>← НАЗАД: <a href="index.html#main-toc">ВЕРНУТЬСЯ К ОГЛАВЛЕНИЮ ДОКУМЕНТАЦИИ</a></p>
+</li>
+</ul>
+</div>
 <div class="sect1">
-<h2 id="_8_административная_панель">8. Административная панель</h2>
+<h2 id="_8_adminpagecontroller_контроллер_панели_администратора">8. <strong>AdminPageController</strong> - контроллер панели администратора</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>В разделе приводится документация по <strong>AdminPageController</strong>, который отвечает за функционал панели администратора: создание и отмену бронирований, просмотр списка резерваций и загрузку меню. Все запросы защищены ролью <code>ADMIN</code> и начинаются с префикса <code>/restaurant/admin</code>.</p>
@@ -473,21 +481,37 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 @RequestMapping("/restaurant/admin")
 @PreAuthorize("hasRole('ADMIN')")
 @Slf4j
-public class AdminPageController { … }
---------------------------------------</code></pre>
+public class AdminPageController {
+private final ReservationService reservationService;
+private final FileService fileService;</code></pre>
 </div>
-</div>
-<div class="paragraph">
-<p>Он предоставляет методы для работы с бронированиями и файлами меню. В модель автоматически добавляется атрибут <code>reservationForm</code>:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">@ModelAttribute("reservationForm")
-public ReservationFormDto getReservationFormDto() {
-return new ReservationFormDto();
-}
--</code></pre>
+<pre class="highlight"><code>public AdminPageController(ReservationService reservationService, FileService fileService) {
+    this.reservationService = reservationService;
+    this.fileService = fileService;
+}</code></pre>
 </div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>@Controller</code> — помечает класс как Spring MVC контроллер.</p>
+</li>
+<li>
+<p><code>@RequestMapping("/restaurant/admin")</code> — задаёт префикс для всех эндпоинтов.</p>
+</li>
+<li>
+<p><code>@PreAuthorize("hasRole('ADMIN')")</code> — обеспечивает доступ только пользователям с ролью <code>ADMIN</code>.</p>
+</li>
+<li>
+<p><code>@Slf4j</code> — генерирует логгер <code>log</code> для логирования операций.</p>
+</li>
+<li>
+<p>В конструкторе внедряются сервисы <code>ReservationService</code> (управление резервациями) и <code>FileService</code> (обработка файлов меню).</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">
@@ -513,39 +537,39 @@ return new ReservationFormDto();
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GET</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/restaurant/admin</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>reservationForm</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>admin-panel.html</code>, <code>reservation-form.html</code>, <code>cancel-form.html</code>, <code>upload-form.html</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/restaurant/admin</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">reservationForm</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">admin-panel.html, reservation-form.html, cancel-form.html, upload-form.html</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>POST</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/restaurant/admin/reserve</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>message</code>, <code>reservationForm</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>admin-panel.html</code>, <code>reservation-form.html</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/restaurant/admin/reserve</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">message, reservationForm</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">admin-panel.html, reservation-form.html</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>POST</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/restaurant/admin/cancel</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>message</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>admin-panel.html</code>, <code>cancel-form.html</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/restaurant/admin/cancel</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">message</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">admin-panel.html, cancel-form.html</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GET</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/restaurant/admin/reservations/today</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>tableReservations</code>, <code>message?</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>admin-panel.html</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/restaurant/admin/reservations/today</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">tableReservations, message?</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">admin-panel.html</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GET</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/restaurant/admin/reservations/confirmed/by-date</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>allReservations</code>, <code>message?</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>admin-panel.html</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/restaurant/admin/reservations/confirmed/by-date</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">allReservations, message?</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">admin-panel.html</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>POST</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/restaurant/admin/upload-menu</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>message</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>admin-panel.html</code>, <code>upload-form.html</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/restaurant/admin/upload-menu</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">message</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">admin-panel.html, upload-form.html</p></td>
 </tr>
 </tbody>
 </table>
@@ -572,13 +596,10 @@ return new ReservationFormDto();
 <p>В <code>admin-panel.html</code> вся разметка этих форм скопирована непосредственно внутрь одного HTML-файла.</p>
 </div>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_8_4_параметры_формы_бронирования">8.4 Параметры формы бронирования</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_8_4_параметры_формы_бронирования">8.4 Параметры формы бронирования</h3>
 <div class="paragraph">
-<p>Форма отправляется методом POST на <code>/reserve</code> и содержит поля:</p>
+<p>Форма отправляется методом POST на <code>/restaurant/admin/reserve</code> и содержит поля:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -595,25 +616,78 @@ return new ReservationFormDto();
 <p><code>guestName</code> (String, обязательное) — имя гостя.</p>
 </li>
 <li>
-<p><code>guestEmail</code> (String, обязательное, e-mail).</p>
+<p><code>guestEmail</code> (String, обязательное) — электронная почта гостя.</p>
 </li>
 <li>
 <p><code>guestCount</code> (Integer, обязательное) — число участников.</p>
 </li>
 </ul>
 </div>
+</div>
 <div class="sect2">
-<h3 id="_8_5_порядок_запуска_и_безопасность">8.5 Порядок запуска и безопасность</h3>
+<h3 id="_8_5_параметры_формы_отмены_бронирования">8.5 Параметры формы отмены бронирования</h3>
+<div class="paragraph">
+<p>Форма отправляется методом POST на <code>/restaurant/admin/cancel</code> и содержит поле:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>reservationCode</code> (String, обязательное) — уникальный код бронирования.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_8_6_параметры_запроса_reservationstoday">8.6 Параметры запроса <code>/reservations/today</code></h3>
+<div class="paragraph">
+<p>GET <code>/restaurant/admin/reservations/today</code> и содержит параметр:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>tableNumber</code> (Integer, обязательный) — номер стола.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_8_7_параметры_запроса_reservationsconfirmedby_date">8.7 Параметры запроса <code>/reservations/confirmed/by-date</code></h3>
+<div class="paragraph">
+<p>GET <code>/restaurant/admin/reservations/confirmed/by-date</code> и содержит параметр:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>date</code> (LocalDate, обязательный, формат <code>yyyy-MM-dd</code>) — дата для получения подтверждённых бронирований.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_8_8_параметры_формы_загрузки_меню">8.8 Параметры формы загрузки меню</h3>
+<div class="paragraph">
+<p>Форма отправляется методом POST на <code>/restaurant/admin/upload-menu</code> и содержит поле:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>file</code> (MultipartFile, обязательный, только PDF) — файл меню.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_8_9_порядок_запуска_и_безопасность">8.9 Порядок запуска и безопасность</h3>
 <div class="ulist">
 <ul>
 <li>
 <p>Все эндпоинты доступны только пользователям с ролью <code>ADMIN</code>.</p>
 </li>
 <li>
-<p>Для запуска панели администратора необходимо авторизоваться через базовую аутентификацию.</p>
+<p>Для запуска панели администратора необходимо авторизоваться через базовой аутентификацией.</p>
 </li>
 <li>
-<p>Подробнее о настройке безопасности см. <a href="06-security.html">Безопасность</a>.</p>
+<p>Подробнее о настройке безопасности см. <a href="06-security.adoc\">Безопасность</a>.</p>
 </li>
 </ul>
 </div>
@@ -623,7 +697,7 @@ return new ReservationFormDto();
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-05-16 22:34:56 +0200
+Last updated 2025-05-18 13:16:37 +0200
 </div>
 </div>
 </body>

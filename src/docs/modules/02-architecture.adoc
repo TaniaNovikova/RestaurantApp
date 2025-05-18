@@ -6,11 +6,17 @@
 :toc:
 :toclevels: 2
 [[toc_anchor]]
+
+:icons: font
+:iconfont: FontAwesome
+
 = Архитектура приложения
 
 +++++
-<a class="back-to-toc" href="#toc_anchor" title="Вернуться к оглавлению">⬆ ВЕРНУТЬСЯ К ОГЛАВЛЕНИЮ</a>
+<a class="back-to-toc" href="#toc_anchor" title="Вернуться к оглавлению">⬆ ВЕРНУТЬСЯ К ОГЛАВЛЕНИЮ ФАЙЛА</a>
 +++++
+
+* ← НАЗАД: xref:index.adoc#main-toc[Перейти к оглавлению документации]
 
 == Общая архитектура
 Приложение следует принципам слоистой архитектуры:
