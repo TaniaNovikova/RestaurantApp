@@ -1,11 +1,9 @@
 :stylesheet: styles.css
 :linkcss:
 
-[[usage]]
-
 :toc:
-
 :toclevels: 3
+
 [[toc_anchor]]
 = Использование
 
